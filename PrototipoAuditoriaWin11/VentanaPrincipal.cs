@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -21,12 +22,15 @@ namespace PrototipoAuditoriaWin11
         public FormVentanaPrincipal()
         {
             InitializeComponent();
+
             ventanaAnalisis = new VentanaAnalisis();
             logica = new Logica(ventanaAnalisis.PanelDinamicoResultados, ventanaAnalisis.DgvResultados);
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
 
             // Agregar VentanaAnalisis al formulario principal
             this.Controls.Add(ventanaAnalisis);
+
+
         }
 
 
@@ -81,55 +85,70 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- FUNCIONALIDADES DE MOVER LA VENTANA CON EL PANEL TOP
 
 
-
-        
-
-        
         private void BtnAnalizar_Click(object sender, EventArgs e)
         {
-            ventanaAnalisis.BringToFront();
-            ventanaAnalisis.Visible = true;
-
-            string[] metodos =
-                {
-                "Enforce_Password_History",
-                "Maximum_Password_Age",
-                "MinimumPasswordAge",
-                "MinimumPasswordLength",
-                "Password_must_meet_complexity_requirements",
-                "Relax_minimum_password_length_limits",
-                "Clear_Text_Password",
-            };
-
-            foreach (string metodo in metodos) 
+            // Verificar si la ventana de análisis está visible
+            if (!ventanaAnalisis.Visible)
             {
-                // Utilizar reflexión para obtener el método por su nombre
-                var methodInfo = typeof(Logica).GetMethod(metodo);
-                if (methodInfo != null)
+                // Mostrar la ventana de análisis si no está visible
+                ventanaAnalisis.BringToFront();
+                ventanaAnalisis.Visible = true;
+
+                // Realizar el análisis...
+                Program.VerificarArchivoCFG();
+
+                string[] metodos =
                 {
-                    // Invocar el método dinámicamente
-                    methodInfo.Invoke(logica, null);
-                    // Agregar el comentario y valor pendiente
-                    logica.EjecutarYAgregarComentario(() => { }, logica.Comentario, logica.Valor);
-                }
-                else
+                    "Enforce_Password_History",
+                    "Maximum_Password_Age",
+                    "MinimumPasswordAge",
+                    "MinimumPasswordLength",
+                    "Password_must_meet_complexity_requirements",
+                    "Relax_minimum_password_length_limits",
+                    "Clear_Text_Password",
+                    "Account_lockout_duration",
+                    "Account_lockout_threshold",
+                    "Allow_Administrator_account_lockout",
+                    "Reset_account_lockout_counter_after",
+                    "Access_Credential_Manager_as_a_trusted_caller",
+                    "Access_this_computer_from_the_network",
+                    "Act_as_part_of_the_operating_system",
+                    "Adjust_memory_quotas_for_a_process",
+                    "Allow_log_on_locally",
+                    "Allow_log_on_through_Remote_Desktop_Services",
+                    "Back_up_files_and_directories",
+                    "Change_the_system_time",
+                    "Change_the_time_zone",
+                    "Create_a_pagefile",
+                    "Create_a_token_object_is_set_to_No_One",
+                    "Create_global_objects",
+                    "Create_permanent_shared_objects",
+                    "Create_symbolic_links",
+                    "Debug_programs",
+                };
+
+                foreach (string metodo in metodos)
                 {
-                    Console.WriteLine($"El método {metodo} no fue encontrado en la clase Logica.");
+                    // Utilizar reflexión para obtener el método por su nombre
+                    var methodInfo = typeof(Logica).GetMethod(metodo);
+                    if (methodInfo != null)
+                    {
+                        // Invocar el método dinámicamente
+                        methodInfo.Invoke(logica, null);
+                        // Agregar el comentario y valor pendiente
+                        logica.EjecutarYAgregarComentario(() => { }, logica.Comentario, logica.Valor);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"El método {metodo} no fue encontrado en la clase Logica.");
+                    }
                 }
+
+                logica.AgregarComentariosPendientes();
+                logica.ColorFilas();
             }
-
-            /*logica.EjecutarYAgregarComentario(logica.Enforce_Password_History, logica.Comentario, logica.Valor);
-            logica.EjecutarYAgregarComentario(logica.Maximum_Password_Age, logica.Comentario, logica.Valor);
-            logica.EjecutarYAgregarComentario(logica.MinimumPasswordAge, logica.Comentario, logica.Valor);
-            logica.EjecutarYAgregarComentario(logica.MinimumPasswordLength, logica.Comentario, logica.Valor);
-            logica.EjecutarYAgregarComentario(logica.Password_must_meet_complexity_requirements, logica.Comentario, logica.Valor);
-            logica.EjecutarYAgregarComentario(logica.Relax_minimum_password_length_limits, logica.Comentario, logica.Valor);
-            logica.EjecutarYAgregarComentario(logica.Clear_Text_Password, logica.Comentario, logica.Valor);
-            */
-            
-
-            logica.AgregarComentariosPendientes();
-            logica.ColorFilas();
         }
+
+
     }
 }

@@ -10,7 +10,7 @@ namespace PrototipoAuditoriaWin11
 {
     internal static class Program
     {
-
+        // GENERAR EL ARCHIVO SECURITY.CFG -------------------------
         private static void GenerarArchivoCFG()
         {
             Console.WriteLine("El archivo no existe. Continúa con tu proceso.");
@@ -34,17 +34,10 @@ namespace PrototipoAuditoriaWin11
             }
         }
 
-        /// <summary>
-        /// Punto de entrada principal para la aplicación.
-        /// </summary>
-        [STAThread]
+        // ------------------------- GENERAR EL ARCHIVO SECURITY.CFG
 
-        
-        static void Main()
+        public static void VerificarArchivoCFG() 
         {
-
-            // GENERAR EL ARCHIVO SECURITY.CFG -------------------------
-
             try
             {
                 string filePath = @"C:\Windows\Temp\security.cfg";
@@ -63,14 +56,25 @@ namespace PrototipoAuditoriaWin11
             {
                 Console.WriteLine($"Error al manejar el archivo: {ex.Message}");
             }
+        }
+       
 
-            // ------------------------- GENERAR EL ARCHIVO SECURITY.CFG
+
+
+
+        /// <summary>
+        /// Punto de entrada principal para la aplicación.
+        /// </summary>
+        [STAThread]
+
+        
+        static void Main()
+        {
+            VerificarArchivoCFG();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormVentanaPrincipal());
-
-            
         }
     }
 }

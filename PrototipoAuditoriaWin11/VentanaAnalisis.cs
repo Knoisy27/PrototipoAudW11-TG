@@ -36,12 +36,9 @@ namespace PrototipoAuditoriaWin11
             dgvRec.CellMouseEnter += dgvRec_CellMouseEnter;
         }
 
-        
-
-
-
         private void btnCerrarVentanaAnalisis_Click(object sender, EventArgs e)
         {
+
             dgvRec.Rows.Clear();
             // Obtener el formulario contenedor (FormVentanaPrincipal)
             FormVentanaPrincipal formPrincipal = this.Parent as FormVentanaPrincipal;
@@ -55,40 +52,14 @@ namespace PrototipoAuditoriaWin11
 
             //logica.condicionMetodos.Clear();
         }
-
         private void dgvRec_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 DataGridViewCell cell = dgvRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-                // Obtener el texto del tooltip según la celda actual
-                string tooltipText = ObtenerTextoTooltipSegunCelda(e.RowIndex, e.ColumnIndex);
-
-                // Configurar el nuevo tooltip
-                MostrarToolTip(cell, tooltipText);
             }
         }
-
-
-
-
-        private string ObtenerTextoTooltipSegunCelda(int rowIndex, int columnIndex)
-        {
-            // Lógica para obtener el texto del tooltip según la celda actual
-            // Puedes basarte en los datos de tu DataGridView o en otros criterios
-            // En este ejemplo, simplemente estoy devolviendo un texto fijo
-            return "Tooltip personalizado para la celda en la fila " + rowIndex + ", columna " + columnIndex;
-        }
-
-
-        private void MostrarToolTip(DataGridViewCell cell, string comentario)
-        {
-            // Mostrar el comentario en un ToolTip
-            System.Windows.Forms.ToolTip tooltip = new System.Windows.Forms.ToolTip();
-            tooltip.SetToolTip(dgvRec, comentario);
-        }
-
 
     }
 }

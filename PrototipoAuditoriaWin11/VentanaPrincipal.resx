@@ -228,6 +228,9 @@
   <data name="&gt;&gt;panelTop.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="btnAnalizar.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Lucida Sans Unicode, 8pt</value>
+  </data>
   <data name="btnAnalizar.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 249</value>
   </data>
