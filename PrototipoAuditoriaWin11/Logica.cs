@@ -1013,7 +1013,481 @@ namespace PrototipoAuditoriaWin11
         }
         // ------------------------- 2.2.15 DEBUG PROGRAMS
 
-        
+
+        // 2.2.16 DENY ACCESS TO THIS COMPUTER FROM NETWORK -------------------------
+        public void Deny_access_to_this_computer_from_the_network()
+        {
+            string clave = "SeDenyNetworkLogonRight";
+            EstablecerComentario("SeDenyNetworkLogonRight");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-546";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.16 DENY ACCESS TO THIS COMPUTER FROM NETWORK
+
+
+        // 2.2.17 DENY LOG ON AS A BATCH JOB -------------------------
+        public void Deny_log_on_as_a_batch_job()
+        {
+            string clave = "SeDenyBatchLogonRight";
+            EstablecerComentario("SeDenyBatchLogonRight");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-546";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.17 DENY LOG ON AS A BATCH JOB
+
+
+        // 2.2.18 DENY LOG ON AS A SERVICE -------------------------
+        public void Deny_log_on_as_a_service()
+        {
+            string clave = "SeDenyServiceLogonRight";
+            EstablecerComentario("SeDenyServiceLogonRight");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-546";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.18 DENY LOG ON AS A SERVICE
+
+
+        // 2.2.19 DENY LOG ON LOCALLY -------------------------
+        public void Deny_log_on_locally()
+        {
+            string clave = "SeDenyInteractiveLogonRight";
+            EstablecerComentario("SeDenyInteractiveLogonRight");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-546";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.19 DENY LOG ON LOCALLY
+
+
+        // 2.2.20 DENY LOG ON THROUGH REMOTE DESKTOP SERVICES -------------------------
+        public void Deny_log_on_through_Remote_Desktop_Services()
+        {
+            string clave = "SeDenyRemoteInteractiveLogonRight";
+            EstablecerComentario("SeDenyRemoteInteractiveLogonRight");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-546";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.20 DENY LOG ON THROUGH REMOTE DESKTOP SERVICES
+
+
+        // 2.2.21 ENABLE COMPUTER AND USER ACCOUNTS TO BE TRUSTED FOR DELEGATION -------------------------
+        public void Enable_computer_and_user_accounts_to_betrusted_for_delegation()
+        {
+            string clave = "SeEnableDelegationPrivilege";
+            EstablecerComentario("SeEnableDelegationPrivilege");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                EstablecerValor(valor);
+                condicionMetodos.Add(false);
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(true);
+            }
+        }
+        // ------------------------- 2.2.21 ENABLE COMPUTER AND USER ACCOUNTS TO BE TRUSTED FOR DELEGATION
+
+
+        // 2.2.22 FORCE SHUTDOWN FROM A REMOTE SYSTEM -------------------------
+        public void Force_shutdown_from_a_remote_system()
+        {
+            string clave = "SeRemoteShutdownPrivilege";
+            EstablecerComentario("SeRemoteShutdownPrivilege");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.22 FORCE SHUTDOWN FROM A REMOTE SYSTEM
+
+
+        // 2.2.23 GENERATE SECURITY AUDITS -------------------------
+        public void Generate_security_audits()
+        {
+            string clave = "SeAuditPrivilege";
+            EstablecerComentario("SeAuditPrivilege");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-19,*S-1-5-20";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.23 GENERATE SECURITY AUDITS
+
+
+        // 2.2.24 IMPERSONATE A CLIENT AFTER AUTHENTICATION -------------------------
+        public void Impersonate_a_client_after_authentication()
+        {
+            string clave = "SeImpersonatePrivilege";
+            EstablecerComentario("SeImpersonatePrivilege");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544,*S-1-5-19,*S-1-5-20,*S-1-5-6";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.24 IMPERSONATE A CLIENT AFTER AUTHENTICATION
+
+
+        // 2.2.25 INCREASE SCHEDULING PRIORITY -------------------------
+        public void Increase_scheduling_priority()
+        {
+            string clave = "SeIncreaseBasePriorityPrivilege";
+            EstablecerComentario("SeIncreaseBasePriorityPrivilege");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544,*S-1-5-90-0";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.25 INCREASE SCHEDULING PRIORITY
+
+
+        // 2.2.26 LOAD AND UNLOAD DEVICE DRIVERS -------------------------
+        public void Load_and_unload_device_drivers()
+        {
+            string clave = "SeLoadDriverPrivilege";
+            EstablecerComentario("SeLoadDriverPrivilege");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.26 LOAD AND UNLOAD DEVICE DRIVERS
+
+
+        // 2.2.27 LOCK PAGES IN MEMORY -------------------------
+        public void Lock_pages_in_memory()
+        {
+            string clave = "SeLockMemoryPrivilege";
+            EstablecerComentario("SeLockMemoryPrivilege");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                EstablecerValor(valor);
+                condicionMetodos.Add(false);
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(true);
+            }
+        }
+        // ------------------------- 2.2.27 LOCK PAGES IN MEMORY
+
+
+        // 2.2.28 LOG ON AS A BATCH JOB -------------------------
+        public void Log_on_as_a_batch_job()
+        {
+            string clave = "SeBatchLogonRight";
+            EstablecerComentario("SeBatchLogonRight");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.28 LOG ON AS A BATCH JOB
+
+
+        // 2.2.29 LOG ON AS A SERVICE -------------------------
+        public void Log_on_as_a_service()
+        {
+            string clave = "SeBatchLogonRight";
+            EstablecerComentario("SeBatchLogonRight");
+
+            if (!configuraciones.ContainsKey(clave))
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(true);
+            }
+            else if (configuraciones.ContainsKey(clave)) 
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-83-0";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+
+            }
+        }
+        // ------------------------- 2.2.29 LOG ON AS A SERVICE
+
+
+        // 2.2.30 MANAGE AUDITING AND SECURITY LOG -------------------------
+        public void Manage_auditing_and_security_log()
+        {
+            string clave = "SeSecurityPrivilege";
+            EstablecerComentario("SeSecurityPrivilege");
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstablecerValor(valoresRequeridos);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstablecerValor(valor);
+                }
+            }
+            else
+            {
+                EstablecerValor("Ninguno");
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.30 MANAGE AUDITING AND SECURITY LOG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -125,6 +125,21 @@ namespace PrototipoAuditoriaWin11
                     "Create_permanent_shared_objects",
                     "Create_symbolic_links",
                     "Debug_programs",
+                    "Deny_access_to_this_computer_from_the_network",
+                    "Deny_log_on_as_a_batch_job",
+                    "Deny_log_on_as_a_service",
+                    "Deny_log_on_locally",
+                    "Deny_log_on_through_Remote_Desktop_Services",
+                    "Enable_computer_and_user_accounts_to_betrusted_for_delegation",
+                    "Force_shutdown_from_a_remote_system",
+                    "Generate_security_audits",
+                    "Impersonate_a_client_after_authentication",
+                    "Increase_scheduling_priority",
+                    "Load_and_unload_device_drivers",
+                    "Lock_pages_in_memory",
+                    "Log_on_as_a_batch_job",
+                    "Log_on_as_a_service",
+                    "Manage_auditing_and_security_log",
                 };
 
                 foreach (string metodo in metodos)
