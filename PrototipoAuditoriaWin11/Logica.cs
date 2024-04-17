@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using System.Reflection;
 using System.Security.Principal;
 using System.Net;
+using System.Drawing.Printing;
 
 namespace PrototipoAuditoriaWin11
 {
@@ -15,12 +16,8 @@ namespace PrototipoAuditoriaWin11
         private Panel panelDinamicoResultados;
         private DataGridView dgvRec;
         private Dictionary<string, string> configuraciones;
-        private List<string> comentariosPendientes = new List<string>();
-        private List<string> valoresPendientes = new List<string>();
         public List<bool> condicionMetodos = new List<bool>();
-
-
-
+        private List<Configuracion> configuracionesPendientes = new List<Configuracion>();
 
         public Logica(Panel panel, DataGridView dataGridView)
         {
@@ -59,7 +56,7 @@ namespace PrototipoAuditoriaWin11
                     {
                         string clave = partes[0].Trim();
                         string valor = partes[1].Trim();
-                        //Console.WriteLine($"{clave} {valor}");
+                        Console.WriteLine($"{clave} {valor}");
 
                         // Almacena la configuración en el diccionario
                         configuraciones[clave] = valor;
@@ -80,97 +77,45 @@ namespace PrototipoAuditoriaWin11
 
 
 
-        // LOGICA PARA ESTABLECER EL COMENTARIO DE CADA METODO -------------------------
-        public string Comentario;
-
-        public void EstablecerComentario(string comentario)
-        {
-            Comentario = comentario;
-            //Console.WriteLine($"Estableciendo comentario: {comentario}");
-        }
-        // ------------------------- LOGICA PARA ESTABLECER EL COMENTARIO DE CADA METODO
-
-
-
-
-
-        // LOGICA PARA ESTABLECER EL VALOR DE CADA METODO -------------------------
-        public string Valor;
-
-        public void EstablecerValor(string valor)
-        {
-            Valor = valor;
-            //Console.WriteLine($"Estableciendo comentario: {comentario}");
-        }
-
-        public void EstablecerValor(int valor)
-        {
-            Valor = valor.ToString();
-            //Console.WriteLine($"Estableciendo comentario: {comentario}");
-        }
-
-        public void EstablecerValor(object valor)
-        {
-            Valor = valor.ToString();
-            //Console.WriteLine($"Estableciendo comentario: {comentario}");
-        }
-        // ------------------------- LOGICA PARA ESTABLECER EL VALOR DE CADA METODO
-
-
-
-
-
-        private void GenerarFilaDinamica(string comentario, string valor)
-        {
-            DataGridViewRow row = new DataGridViewRow();
-
-            row.CreateCells(dgvRec);
-            row.Cells[0].Value = comentario;
-            row.Cells[1].Value = valor;
-
-            dgvRec.Rows.Add(row);
-
-        }
-
-
-
-
-
-        // Método común para ejecutar otros métodos y agregar etiquetas
-        public void EjecutarYAgregarComentario(Action metodo, String comentario, String valor)
-        {
-            metodo.Invoke(); // Ejecuta el método proporcionado
-            comentariosPendientes.Add(Comentario); // Agrega el comentario a la lista
-            valoresPendientes.Add(Valor); // Agrega el valor a la lista
-        }
-
-
-
-
-
-        // Método para agregar todas las etiquetas pendientes
-        public void AgregarComentariosPendientes()
+        // Método para agregar todas las configuraciones pendientes al DataGridView
+        public void AgregarConfiguracionesPendientes()
         {
             // Suspender las actualizaciones de diseño del DataGridView
             dgvRec.SuspendLayout();
 
-            // Combinar ambas listas usando Zip
-            var combinaciones = comentariosPendientes.Zip(valoresPendientes, (c, v) => (Comentario: c, Valor: v));
-
-            foreach (var (Comentario, Valor) in combinaciones)
+            // Agregar cada configuración pendiente como una fila en el DataGridView
+            foreach (var configuracion in configuracionesPendientes)
             {
-                GenerarFilaDinamica(Comentario, Valor);
-
-                Console.WriteLine("Entra");
+                CrearFila(configuracion);
             }
 
-            // Limpiar las listas después de agregar todas las etiquetas
-            comentariosPendientes.Clear();
-            valoresPendientes.Clear();
+            // Limpiar la lista después de agregar todas las configuraciones
+            configuracionesPendientes.Clear();
 
             // Reanudar las actualizaciones de diseño del DataGridView
             dgvRec.ResumeLayout();
         }
+
+
+
+
+
+        // Método para crear una fila en el DataGridView a partir de una configuración
+        private void CrearFila(Configuracion configuracion)
+        {
+            DataGridViewRow row = new DataGridViewRow();
+
+            row.CreateCells(dgvRec);
+            row.Cells[0].Value = configuracion.Politica;
+            row.Cells[1].Value = configuracion.Clave;
+            row.Cells[2].Value = configuracion.Valor;
+            row.Cells[3].Value = configuracion.Recomendacion;
+
+            dgvRec.Rows.Add(row);
+        }
+
+
+
 
 
         private void EstablecerColor(bool condicion, int rowIndex)
@@ -180,7 +125,6 @@ namespace PrototipoAuditoriaWin11
             estilo.BackColor = condicion ? Color.LightGreen : Color.LightCoral;
 
         }
-
         public void ColorFilas()
         {
 
@@ -197,32 +141,6 @@ namespace PrototipoAuditoriaWin11
 
         }
 
-
-
-
-
-        public void MostrarEspecs()
-        {
-
-        }
-
-
-
-
-
-        public int ObtenerValorConfiguracion(string clave)
-        {
-            if (configuraciones.ContainsKey(clave))
-            {
-                string valorConfiguracion = configuraciones[clave];
-                Console.WriteLine(valorConfiguracion);
-                if (Int32.TryParse(valorConfiguracion, out int valorEntero))
-                {
-                    return valorEntero;
-                }
-            }
-            return -1; // Valor predeterminado o manejo de error
-        }
 
 
 
@@ -262,15 +180,27 @@ namespace PrototipoAuditoriaWin11
 
 
 
-        // 1.1.1 ENFORCE PASSWORD HISTORY -------------------------
-        public void Enforce_Password_History()
+
+        private void EstConfig(string politica, string clave, string valor, string recomendacion) 
         {
-            int valor = ObtenerValorConfiguracion("PasswordHistorySize"); ;
-            EstablecerComentario("PasswordHistorySize");
-            EstablecerValor(valor);
+            Configuracion configuracion = new Configuracion(politica, clave, valor, recomendacion);
+            configuracionesPendientes.Add(configuracion);
+        }
+
+
+
+
+
+        // 1.1.1 ENFORCE PASSWORD HISTORY -------------------------
+        public void Analizar_Enforce_Password_History()
+        {
+            string politica = "Exigir historial de contraseñas";
+            string clave = "PasswordHistorySize";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
             //GuardarDatosCFG();
-            if (configuraciones.ContainsKey("PasswordHistorySize"))
+            if (configuraciones.ContainsKey(clave))
             {
+                int valor = Convert.ToInt32(configuraciones[clave]);
                 if (valor >= 24)
                 {
                     condicionMetodos.Add(true);
@@ -279,6 +209,10 @@ namespace PrototipoAuditoriaWin11
                 {
                     condicionMetodos.Add(false);
                 }
+
+                // Crear instancia de Configuracion y agregarla a la lista
+                EstConfig(politica, clave, valor.ToString(), recomendacion);
+
             }
             else
             {
@@ -292,14 +226,15 @@ namespace PrototipoAuditoriaWin11
 
 
         // 1.1.2 MAXIMUM PASSWORD AGE -------------------------
-        public void Maximum_Password_Age()
+        public void Analizar_Maximum_Password_Age()
         {
-            int valor = ObtenerValorConfiguracion("MaximumPasswordAge"); ;
-            EstablecerComentario("MaximumPasswordAge");
-            EstablecerValor(valor);
+            string clave = "MaximumPasswordAge";
+            string politica = "Exigir historial de contraseñas";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
             //GuardarDatosCFG();
-            if (configuraciones.ContainsKey("MaximumPasswordAge"))
+            if (configuraciones.ContainsKey(clave))
             {
+                int valor = Convert.ToInt32(configuraciones[clave]);
                 if (valor > 0 && valor <= 365)
                 {
                     condicionMetodos.Add(true);
@@ -308,6 +243,8 @@ namespace PrototipoAuditoriaWin11
                 {
                     condicionMetodos.Add(false);
                 }
+
+                EstConfig(politica, clave, valor.ToString(), recomendacion);
             }
             else
             {
@@ -321,14 +258,15 @@ namespace PrototipoAuditoriaWin11
 
 
         // 1.1.3 MINIMUM PASSWORD AGE -------------------------
-        public void MinimumPasswordAge()
+        public void Analizar_MinimumPasswordAge()
         {
-            int valor = ObtenerValorConfiguracion("MinimumPasswordAge"); ;
-            EstablecerComentario("MinimumPasswordAge");
-            EstablecerValor(valor);
+            string politica = "Longitud mínima de la contraseña";
+            string clave = "MinimumPasswordAge";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey("MinimumPasswordAge"))
             {
+                int valor = Convert.ToInt32(configuraciones[clave]);
                 if (valor > 0)
                 {
                     condicionMetodos.Add(true);
@@ -337,6 +275,9 @@ namespace PrototipoAuditoriaWin11
                 {
                     condicionMetodos.Add(false);
                 }
+
+                EstConfig(politica, clave, valor.ToString(), recomendacion);
+
             }
             else
             {
@@ -346,19 +287,15 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 1.1.3 MINIMUM PASSWORD AGE
 
 
-
-
-
-
         // 1.1.4 MINIMUM PASSWORD LENGTH -------------------------
-        public void MinimumPasswordLength()
+        public void Analizar_MinimumPasswordLength()
         {
-            int valor = ObtenerValorConfiguracion("MinimumPasswordLength"); ;
-            EstablecerComentario("MinimumPasswordLength");
-            EstablecerValor(valor);
-            //GuardarDatosCFG();
+            string politica = "Tamaño mínimo de la contraseña";
+            string clave = "MinimumPasswordLength";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
             if (configuraciones.ContainsKey("MinimumPasswordLength"))
             {
+                int valor = Convert.ToInt32(configuraciones[clave]);
                 if (valor > 13)
                 {
                     condicionMetodos.Add(true);
@@ -367,6 +304,8 @@ namespace PrototipoAuditoriaWin11
                 {
                     condicionMetodos.Add(false);
                 }
+
+                EstConfig(politica, clave, valor.ToString(), recomendacion);
             }
             else
             {
@@ -376,29 +315,25 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 1.1.4 MINIMUM PASSWORD LENGTH
 
 
-
-
-
-
-
         // 1.1.5 PASSWORD MUST MEET COMPLEXITY REQUIREMENTS -------------------------
-        public void Password_must_meet_complexity_requirements()
+        public void Analizar_Password_must_meet_complexity_requirements()
         {
-            int valor = ObtenerValorConfiguracion("PasswordComplexity"); ;
-            EstablecerComentario("PasswordComplexity");
-            //GuardarDatosCFG();
-            if (configuraciones.ContainsKey("PasswordComplexity"))
+            string politica = "La contraseña debe cumplir con los requisitos de complegidad";
+            string clave = "PasswordComplexity";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+            if (configuraciones.ContainsKey(clave))
             {
+                int valor = Convert.ToInt32(configuraciones[clave]);
                 if (valor == 1)
                 {
-                    EstablecerValor(valor + " - Enabled");
                     condicionMetodos.Add(true);
                 }
                 else if (valor == 0)
                 {
-                    EstablecerValor(valor + " - Disabled");
                     condicionMetodos.Add(false);
                 }
+
+                EstConfig(politica, clave, valor.ToString(), recomendacion);
             }
             else
             {
@@ -408,245 +343,303 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 1.1.5 PASSWORD MUST MEET COMPLEXITY REQUIREMENTS
 
 
-
-
         // 1.1.6 MINUMUM PASSWORD LENGTH LIMITS -------------------------
-        public void Relax_minimum_password_length_limits()
+        public void Analizar_Relax_minimum_password_length_limits()
         {
+            // Definir los valores de la política y la recomendación
+            string politica = "Reducir los límites de longitud mínima de la contraseña";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\SAM\\RelaxMinimumPasswordLengthLimits";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
-            // Ruta del registro a la que deseas acceder
-            string rutaRegistro = @"HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SAM";
-
-            // Nombre del valor que quieres leer
-            string nombreValor = "RelaxMinimumPasswordLengthLimits";
-
-            // Intenta leer el valor del registro
-            object valor = Registry.GetValue(rutaRegistro, nombreValor, null);
-
-            if (valor != null)
+            if (configuraciones.ContainsKey(clave))
             {
-                EstablecerComentario("RelaxMinimumPasswordLengthLimits");
-                EstablecerValor(valor);
-                condicionMetodos.Add(true);
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    condicionMetodos.Add(true);
+                }
+                else if (valor == "4,0")
+                {
+                    condicionMetodos.Add(false);
+                }
+
+                EstConfig(politica, clave, valor, recomendacion);
             }
             else
             {
-                EstablecerComentario("RelaxMinimumPasswordLengthLimits");
-                EstablecerValor("Undefined");
-                condicionMetodos.Add(false);
+                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
             }
 
         }
         // ------------------------- 1.1.6 MINUMUM PASSWORD LENGTH LIMITS -------------------------
 
 
-        // 1.1.7 STORE PASSWORDS USING REVERSIBLE ENCRYPTION -------------------------
-        public void Clear_Text_Password()
-        {
 
-            int valor = ObtenerValorConfiguracion("ClearTextPassword"); ;
-            EstablecerComentario("ClearTextPassword");
-            //GuardarDatosCFG();
-            if (configuraciones.ContainsKey("ClearTextPassword"))
+        // 1.1.7 STORE PASSWORDS USING REVERSIBLE ENCRYPTION -------------------------
+        public void Analizar_Clear_Text_Password()
+        {
+            
+            // Definir la política y la recomendación
+            string politica = "Almacenar contraseñas con cifrado reversible";
+            string clave = "ClearTextPassword";
+            int valor = Convert.ToInt32(configuraciones[clave]);
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            // Verificar si la configuración está presente en el diccionario
+            if (configuraciones.ContainsKey(clave))
             {
+                // Verificar el valor de la configuración
                 if (valor == 1)
                 {
-                    EstablecerValor(valor + " - Enabled");
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(true);
                 }
                 else if (valor == 0)
                 {
-                    EstablecerValor(valor + " - Disabled");
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(false);
                 }
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                // Imprimir un mensaje de advertencia si la clave no está definida
+                Console.WriteLine("La clave ClearTextPassword no está definida en el archivo de configuración.");
             }
 
+            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.1.7 STORE PASSWORDS USING REVERSIBLE ENCRYPTION
 
 
 
+
         // 1.2.1 ACCOUNT LOCKOUT DURATION -------------------------
-        public void Account_lockout_duration()
+        public void Analizar_Account_lockout_duration()
         {
-            int valor = ObtenerValorConfiguracion("LockoutDuration"); ;
-            EstablecerComentario("LockoutDuration");
+            
+
+            // Definir la política y la recomendación
+            string politica = "Duración del bloqueo de la cuenta";
+            string clave = "LockoutDuration";
+            int valor = Convert.ToInt32(configuraciones[clave]);
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey("LockoutDuration"))
             {
+                // Verificar si el valor cumple con la condición
                 if (valor >= 15)
                 {
-                    EstablecerValor(valor);
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(true);
                 }
                 else
                 {
-                    EstablecerValor(valor);
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(false);
                 }
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                // Imprimir un mensaje de advertencia si la clave no está definida
+                Console.WriteLine("La clave LockoutDuration no está definida en el archivo de configuración.");
             }
 
+            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.2.1 ACCOUNT LOCKOUT DURATION
 
+
         // 1.2.2 ACCOUNT LOCKOUT THRESHOLD -------------------------
-        public void Account_lockout_threshold()
+        public void Analizar_Account_lockout_threshold()
         {
-            int valor = ObtenerValorConfiguracion("LockoutBadCount"); ;
-            EstablecerComentario("LockoutBadCount");
+
+            // Definir la política y la recomendación
+            string politica = "Umbral de bloqueo de cuenta";
+            string clave = "LockoutBadCount";
+            int valor = Convert.ToInt32(configuraciones[clave]);
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey("LockoutBadCount"))
             {
+                // Verificar si el valor cumple con la condición
                 if (valor <= 5 && valor != 0)
                 {
-                    EstablecerValor(valor);
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(true);
                 }
                 else
                 {
-                    EstablecerValor(valor);
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(false);
                 }
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                // Imprimir un mensaje de advertencia si la clave no está definida
+                Console.WriteLine("La clave LockoutBadCount no está definida en el archivo de configuración.");
             }
+
+            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.2.2 ACCOUNT LOCKOUT THRESHOLD
 
+
         // 1.2.3 ALLOW ADMINISTRATOR ACCOUNT LOCKOUT -------------------------
-        public void Allow_Administrator_account_lockout()
+        public void Analizar_Allow_Administrator_account_lockout()
         {
-            int valor = ObtenerValorConfiguracion("AllowAdministratorLockout"); ;
-            EstablecerComentario("AllowAdministratorLockout");
+
+            // Definir la política y la recomendación
+            string politica = "Permitir bloqueo de cuenta de administrador";
+            string clave = "AllowAdministratorLockout";
+            int valor = Convert.ToInt32(configuraciones[clave]);
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey("AllowAdministratorLockout"))
             {
+                // Verificar si el valor cumple con la condición
                 if (valor == 1)
                 {
-                    EstablecerValor(valor + " - Enabled");
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(true);
                 }
                 else if (valor == 0)
                 {
-                    EstablecerValor(valor + " - Disabled");
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(false);
                 }
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                // Imprimir un mensaje de advertencia si la clave no está definida
+                Console.WriteLine("La clave AllowAdministratorLockout no está definida en el archivo de configuración.");
             }
+
+            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.2.3 ALLOW ADMINISTRATOR ACCOUNT LOCKOUT
 
+
         // 1.2.4 RESET ACCOUNT LOCKOUT COUNTER AFTER -------------------------
-        public void Reset_account_lockout_counter_after()
+        public void Analizar_Reset_account_lockout_counter_after()
         {
-            int valor = ObtenerValorConfiguracion("ResetLockoutCount"); ;
-            EstablecerComentario("ResetLockoutCount");
+
+            // Definir la política y la recomendación
+            string politica = "Restablecer el bloqueo de la cuenta después de";
+            string clave = "ResetLockoutCount";
+            int valor = Convert.ToInt32(configuraciones[clave]);
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey("ResetLockoutCount"))
             {
+                // Verificar si el valor cumple con la condición
                 if (valor >= 15)
                 {
-                    EstablecerValor(valor);
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(true);
                 }
                 else
                 {
-                    EstablecerValor(valor);
+                    // Establecer el valor y la condición
                     condicionMetodos.Add(false);
                 }
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                // Imprimir un mensaje de advertencia si la clave no está definida
+                Console.WriteLine("La clave ResetLockoutCount no está definida en el archivo de configuración.");
             }
+
+            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.2.4 RESET ACCOUNT LOCKOUT COUNTER AFTER
 
+
         // 2.2.1 ACCESS CREDENTIAL MANAGER AS A TRUSTED CALLER -------------------------
-        public void Access_Credential_Manager_as_a_trusted_caller()
+        public void Analizar_Access_Credential_Manager_as_a_trusted_caller()
         {
+            string politica = "Acceso al Administrador de credenciales como un llamador de confianza";
             string clave = "SeTrustedCredManAccessPrivilege";
-            EstablecerComentario("SeTrustedCredManAccessPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
                 string valor = configuraciones[clave];
-                EstablecerValor(valor);
+                EstConfig(politica, clave, valor, recomendacion);
                 condicionMetodos.Add(false);
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
         // ------------------------- 2.2.1 ACCESS CREDENTIAL MANAGER AS A TRUSTED CALLER
 
         // 2.2.2 ACCESS THIS COMPUTER FROM THE NETWORK -------------------------
-        public void Access_this_computer_from_the_network()
+        public void Analizar_Access_this_computer_from_the_network()
         {
+            
+            string politica = "Tener acceso a este equipo desde la red";
             string clave = "SeNetworkLogonRight";
-            EstablecerComentario("SeNetworkLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
                 string valor = configuraciones[clave];
 
-                string valoresRequeridos ="*S-1-5-32-544,*S-1-5-14";
+                string valoresRequeridos = "*S-1-5-32-544,*S-1-5-14";
 
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
-                else 
+                else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
         // ------------------------- 2.2.2 ACCESS THIS COMPUTER FROM THE NETWORK
 
         // 2.2.3 ACT AS PART OF THE OPERATING SYSTEM -------------------------
-        public void Act_as_part_of_the_operating_system()
+        public void Analizar_Act_as_part_of_the_operating_system()
         {
+            
+            string politica = "Actuar como parte del sistema operativo";
             string clave = "SeTcbPrivilege";
-            EstablecerComentario("SeTcbPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
                 string valor = configuraciones[clave];
-                EstablecerValor(valor);
+                EstConfig(politica, clave, valor, recomendacion);
                 condicionMetodos.Add(false);
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
         // ------------------------- 2.2.3 ACT AS PART OF THE OPERATING SYSTEM
 
         // 2.2.4 ADJUST MEMORY QUOTAS FOR A PROCESS -------------------------
-        public void Adjust_memory_quotas_for_a_process()
+        public void Analizar_Adjust_memory_quotas_for_a_process()
         {
+            string politica = "Ajustar las cuotas de la memoria para un proceso";
             string clave = "SeIncreaseQuotaPrivilege";
-            EstablecerComentario("SeIncreaseQuotaPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -657,27 +650,28 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
         // ------------------------- 2.2.4 ADJUST MEMORY QUOTAS FOR A PROCESS
 
         // 2.2.5 ALLOW LOG ON LOCALLY -------------------------
-        public void Allow_log_on_locally()
+        public void Analizar_Allow_log_on_locally()
         {
+            string politica = "Permitir inicio de sesión local";
             string clave = "SeInteractiveLogonRight";
-            EstablecerComentario("SeInteractiveLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -688,17 +682,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -706,10 +700,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.6 ALLOW LOG ON THROUGH REMOTE DESKTOP SERVICES -------------------------
-        public void Allow_log_on_through_Remote_Desktop_Services()
+        public void Analizar_Allow_log_on_through_Remote_Desktop_Services()
         {
+            string politica = "Permitir inicio de sesión a través de Servicios de Escritorio remoto";
             string clave = "SeRemoteInteractiveLogonRight";
-            EstablecerComentario("SeRemoteInteractiveLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -720,17 +715,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -738,10 +733,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.7 BACK UP FILES AND DIRECTORIES -------------------------
-        public void Back_up_files_and_directories()
+        public void Analizar_Back_up_files_and_directories()
         {
+            string politica = "Hacer copias de seguridad de archivos y directorios";
             string clave = "SeRestorePrivilege";
-            EstablecerComentario("SeRestorePrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -752,17 +748,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -770,10 +766,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.8 CHANGE THE SYSTEM TIME -------------------------
-        public void Change_the_system_time()
+        public void Analizar_Change_the_system_time()
         {
+            string politica = "Cambiar la hora del sistema";
             string clave = "SeSystemtimePrivilege";
-            EstablecerComentario("SeSystemtimePrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -784,17 +781,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -802,10 +799,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.9 CHANGE THE TIME ZONE -------------------------
-        public void Change_the_time_zone()
+        public void Analizar_Change_the_time_zone()
         {
+            string politica = "Cambiar la zona horaria";
             string clave = "SeTimeZonePrivilege";
-            EstablecerComentario("SeTimeZonePrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -816,17 +814,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -834,10 +832,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.10 CREATE A PAGEFILE -------------------------
-        public void Create_a_pagefile()
+        public void Analizar_Create_a_pagefile()
         {
+            string politica = "Crear un archivo de paginación\r\n";
             string clave = "SeCreatePagefilePrivilege";
-            EstablecerComentario("SeCreatePagefilePrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -848,37 +847,38 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
         // ------------------------- 2.2.10 CREATE A PAGEFILE
 
         // 2.2.11 CREATE A TOKEN OBJECT' IS SET TO 'NO ONE' -------------------------
-        public void Create_a_token_object_is_set_to_No_One()
+        public void Analizar_Create_a_token_object_is_set_to_No_One()
         {
+            string politica = "Crear un objeto token\r\n";
             string clave = "SeCreateTokenPrivilege";
-            EstablecerComentario("SeCreateTokenPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
                 string valor = configuraciones[clave];
-                EstablecerValor(valor);
+                EstConfig(politica, clave, valor, recomendacion);
                 condicionMetodos.Add(false);
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -886,10 +886,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.12 CREATE GLOBAL OBJECTS -------------------------
-        public void Create_global_objects()
+        public void Analizar_Create_global_objects()
         {
+            string politica = "Crear objetos globales";
             string clave = "SeCreateGlobalPrivilege";
-            EstablecerComentario("SeCreateGlobalPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -900,17 +901,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -918,20 +919,21 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.13 CREATE PERMANENT SHARED OBJECTS -------------------------
-        public void Create_permanent_shared_objects()
+        public void Analizar_Create_permanent_shared_objects()
         {
+            string politica = "Crear objetos compartidos permanentes";
             string clave = "SeCreatePermanentPrivilege";
-            EstablecerComentario("SeCreatePermanentPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
                 string valor = configuraciones[clave];
-                EstablecerValor(valor);
+                EstConfig(politica, clave, valor, recomendacion);
                 condicionMetodos.Add(false);
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -939,10 +941,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.14 CREATE SYMBOLIC LINKS -------------------------
-        public void Create_symbolic_links()
+        public void Analizar_Create_symbolic_links()
         {
+            string politica = "Crear vínculos simbólicos";
             string clave = "SeCreateSymbolicLinkPrivilege";
-            EstablecerComentario("SeCreateSymbolicLinkPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -955,27 +958,27 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else if (VerificarValores(valor, valoresRequeridos2))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos2);
+                    EstConfig(politica, clave, valoresRequeridos2, recomendacion);
                 }
                 else if (VerificarValores(valor, valoresRequeridos3))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos3);
+                    EstConfig(politica, clave, valoresRequeridos3, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -983,10 +986,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.15 DEBUG PROGRAMS -------------------------
-        public void Debug_programs()
+        public void Analizar_Debug_programs()
         {
+            string politica = "Depurar programas";
             string clave = "SeDebugPrivilege";
-            EstablecerComentario("SeDebugPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -997,17 +1001,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1015,10 +1019,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.16 DENY ACCESS TO THIS COMPUTER FROM NETWORK -------------------------
-        public void Deny_access_to_this_computer_from_the_network()
+        public void Analizar_Deny_access_to_this_computer_from_the_network()
         {
+            string politica = "Denegar el acceso desde la red a este equipo\r\n";
             string clave = "SeDenyNetworkLogonRight";
-            EstablecerComentario("SeDenyNetworkLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1029,17 +1034,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1047,10 +1052,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.17 DENY LOG ON AS A BATCH JOB -------------------------
-        public void Deny_log_on_as_a_batch_job()
+        public void Analizar_Deny_log_on_as_a_batch_job()
         {
+            string politica = "Denegar el inicio de sesión como trabajo por lotes";
             string clave = "SeDenyBatchLogonRight";
-            EstablecerComentario("SeDenyBatchLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1061,17 +1067,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1079,10 +1085,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.18 DENY LOG ON AS A SERVICE -------------------------
-        public void Deny_log_on_as_a_service()
+        public void Analizar_Deny_log_on_as_a_service()
         {
+            string politica = "Denegar el inicio de sesión como servicio";
             string clave = "SeDenyServiceLogonRight";
-            EstablecerComentario("SeDenyServiceLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1093,17 +1100,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1111,10 +1118,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.19 DENY LOG ON LOCALLY -------------------------
-        public void Deny_log_on_locally()
+        public void Analizar_Deny_log_on_locally()
         {
+            string politica = "Denegar el inicio de sesión localmente";
             string clave = "SeDenyInteractiveLogonRight";
-            EstablecerComentario("SeDenyInteractiveLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1125,17 +1133,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1143,10 +1151,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.20 DENY LOG ON THROUGH REMOTE DESKTOP SERVICES -------------------------
-        public void Deny_log_on_through_Remote_Desktop_Services()
+        public void Analizar_Deny_log_on_through_Remote_Desktop_Services()
         {
+            string politica = "Denegar inicio de sesión a través de Servicios de Escritorio remoto";
             string clave = "SeDenyRemoteInteractiveLogonRight";
-            EstablecerComentario("SeDenyRemoteInteractiveLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1157,17 +1166,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1175,20 +1184,21 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.21 ENABLE COMPUTER AND USER ACCOUNTS TO BE TRUSTED FOR DELEGATION -------------------------
-        public void Enable_computer_and_user_accounts_to_betrusted_for_delegation()
+        public void Analizar_Enable_computer_and_user_accounts_to_betrusted_for_delegation()
         {
+            string politica = "Habilitar confianza con el equipo y las cuentas de usuario para delegación";
             string clave = "SeEnableDelegationPrivilege";
-            EstablecerComentario("SeEnableDelegationPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
                 string valor = configuraciones[clave];
-                EstablecerValor(valor);
+                EstConfig(politica, clave, valor, recomendacion);
                 condicionMetodos.Add(false);
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -1196,10 +1206,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.22 FORCE SHUTDOWN FROM A REMOTE SYSTEM -------------------------
-        public void Force_shutdown_from_a_remote_system()
+        public void Analizar_Force_shutdown_from_a_remote_system()
         {
+            string politica = "Forzar cierre desde un sistema remoto";
             string clave = "SeRemoteShutdownPrivilege";
-            EstablecerComentario("SeRemoteShutdownPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1210,17 +1221,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1228,10 +1239,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.23 GENERATE SECURITY AUDITS -------------------------
-        public void Generate_security_audits()
+        public void Analizar_Generate_security_audits()
         {
+            string politica = "Generar auditorías de seguridad";
             string clave = "SeAuditPrivilege";
-            EstablecerComentario("SeAuditPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1242,17 +1254,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1260,10 +1272,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.24 IMPERSONATE A CLIENT AFTER AUTHENTICATION -------------------------
-        public void Impersonate_a_client_after_authentication()
+        public void Analizar_Impersonate_a_client_after_authentication()
         {
+            string politica = "Suplantar a un cliente tras la autenticación";
             string clave = "SeImpersonatePrivilege";
-            EstablecerComentario("SeImpersonatePrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1274,17 +1287,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1292,10 +1305,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.25 INCREASE SCHEDULING PRIORITY -------------------------
-        public void Increase_scheduling_priority()
+        public void Analizar_Increase_scheduling_priority()
         {
+            string politica = "Aumentar prioridad de programación";
             string clave = "SeIncreaseBasePriorityPrivilege";
-            EstablecerComentario("SeIncreaseBasePriorityPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1306,17 +1320,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1324,10 +1338,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.26 LOAD AND UNLOAD DEVICE DRIVERS -------------------------
-        public void Load_and_unload_device_drivers()
+        public void Analizar_Load_and_unload_device_drivers()
         {
+            string politica = "Cargar y descargar controladores de dispositivo";
             string clave = "SeLoadDriverPrivilege";
-            EstablecerComentario("SeLoadDriverPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1338,17 +1353,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1356,20 +1371,21 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.27 LOCK PAGES IN MEMORY -------------------------
-        public void Lock_pages_in_memory()
+        public void Analizar_Lock_pages_in_memory()
         {
+            string politica = "Bloquear páginas en la memoria";
             string clave = "SeLockMemoryPrivilege";
-            EstablecerComentario("SeLockMemoryPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
                 string valor = configuraciones[clave];
-                EstablecerValor(valor);
+                EstConfig(politica, clave, valor, recomendacion);
                 condicionMetodos.Add(false);
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -1377,10 +1393,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.28 LOG ON AS A BATCH JOB -------------------------
-        public void Log_on_as_a_batch_job()
+        public void Analizar_Log_on_as_a_batch_job()
         {
+            string politica = "Iniciar sesión como proceso por lotes";
             string clave = "SeBatchLogonRight";
-            EstablecerComentario("SeBatchLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1391,17 +1408,17 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1409,17 +1426,18 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.29 LOG ON AS A SERVICE -------------------------
-        public void Log_on_as_a_service()
+        public void Analizar_Log_on_as_a_service()
         {
+            string politica = "Iniciar sesión como servicio";
             string clave = "SeBatchLogonRight";
-            EstablecerComentario("SeBatchLogonRight");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (!configuraciones.ContainsKey(clave))
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(true);
             }
-            else if (configuraciones.ContainsKey(clave)) 
+            else if (configuraciones.ContainsKey(clave))
             {
                 string valor = configuraciones[clave];
 
@@ -1428,12 +1446,12 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
 
             }
@@ -1442,10 +1460,11 @@ namespace PrototipoAuditoriaWin11
 
 
         // 2.2.30 MANAGE AUDITING AND SECURITY LOG -------------------------
-        public void Manage_auditing_and_security_log()
+        public void Analizar_Manage_auditing_and_security_log()
         {
+            string politica = "Administrar registro de seguridad y auditoría";
             string clave = "SeSecurityPrivilege";
-            EstablecerComentario("SeSecurityPrivilege");
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1456,22 +1475,43 @@ namespace PrototipoAuditoriaWin11
                 if (VerificarValores(valor, valoresRequeridos))
                 {
                     condicionMetodos.Add(true);
-                    EstablecerValor(valoresRequeridos);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
-                    EstablecerValor(valor);
+                    EstConfig(politica, clave, valor, recomendacion);
                 }
             }
             else
             {
-                EstablecerValor("Ninguno");
+                EstConfig(politica, clave, "Nulo", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
         // ------------------------- 2.2.30 MANAGE AUDITING AND SECURITY LOG
 
+
+        // 2.2.31 MODIFY AN OBJECT LABEL -------------------------
+        public void Analizar_Modify_an_object_label()
+        {
+            string politica = "Modificar la etiqueta de un objeto";
+            string clave = "SeRelabelPrivilege";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                EstConfig(politica, clave, valor, recomendacion);
+                condicionMetodos.Add(false);
+            }
+            else
+            {
+                EstConfig(politica, clave, "Nulo", recomendacion);
+                condicionMetodos.Add(true);
+            }
+        }
+        // ------------------------- 2.2.31 MODIFY AN OBJECT LABEL
 
 
 

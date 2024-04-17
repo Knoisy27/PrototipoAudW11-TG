@@ -87,79 +87,33 @@ namespace PrototipoAuditoriaWin11
 
         private void BtnAnalizar_Click(object sender, EventArgs e)
         {
-            // Verificar si la ventana de análisis está visible
             if (!ventanaAnalisis.Visible)
             {
-                // Mostrar la ventana de análisis si no está visible
                 ventanaAnalisis.BringToFront();
                 ventanaAnalisis.Visible = true;
 
-                // Realizar el análisis...
                 Program.VerificarArchivoCFG();
 
-                string[] metodos =
-                {
-                    "Enforce_Password_History",
-                    "Maximum_Password_Age",
-                    "MinimumPasswordAge",
-                    "MinimumPasswordLength",
-                    "Password_must_meet_complexity_requirements",
-                    "Relax_minimum_password_length_limits",
-                    "Clear_Text_Password",
-                    "Account_lockout_duration",
-                    "Account_lockout_threshold",
-                    "Allow_Administrator_account_lockout",
-                    "Reset_account_lockout_counter_after",
-                    "Access_Credential_Manager_as_a_trusted_caller",
-                    "Access_this_computer_from_the_network",
-                    "Act_as_part_of_the_operating_system",
-                    "Adjust_memory_quotas_for_a_process",
-                    "Allow_log_on_locally",
-                    "Allow_log_on_through_Remote_Desktop_Services",
-                    "Back_up_files_and_directories",
-                    "Change_the_system_time",
-                    "Change_the_time_zone",
-                    "Create_a_pagefile",
-                    "Create_a_token_object_is_set_to_No_One",
-                    "Create_global_objects",
-                    "Create_permanent_shared_objects",
-                    "Create_symbolic_links",
-                    "Debug_programs",
-                    "Deny_access_to_this_computer_from_the_network",
-                    "Deny_log_on_as_a_batch_job",
-                    "Deny_log_on_as_a_service",
-                    "Deny_log_on_locally",
-                    "Deny_log_on_through_Remote_Desktop_Services",
-                    "Enable_computer_and_user_accounts_to_betrusted_for_delegation",
-                    "Force_shutdown_from_a_remote_system",
-                    "Generate_security_audits",
-                    "Impersonate_a_client_after_authentication",
-                    "Increase_scheduling_priority",
-                    "Load_and_unload_device_drivers",
-                    "Lock_pages_in_memory",
-                    "Log_on_as_a_batch_job",
-                    "Log_on_as_a_service",
-                    "Manage_auditing_and_security_log",
-                };
+                // Obtener todos los métodos de la clase Logica que comienzan con el prefijo "Analizar_"
+                var metodos = typeof(Logica).GetMethods()
+                    .Where(m => m.Name.StartsWith("Analizar_"))
+                    .ToList();
 
-                foreach (string metodo in metodos)
+                foreach (var metodo in metodos)
                 {
-                    // Utilizar reflexión para obtener el método por su nombre
-                    var methodInfo = typeof(Logica).GetMethod(metodo);
-                    if (methodInfo != null)
+                    try
                     {
                         // Invocar el método dinámicamente
-                        methodInfo.Invoke(logica, null);
-                        // Agregar el comentario y valor pendiente
-                        logica.EjecutarYAgregarComentario(() => { }, logica.Comentario, logica.Valor);
+                        metodo.Invoke(logica, null);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Console.WriteLine($"El método {metodo} no fue encontrado en la clase Logica.");
+                        Console.WriteLine($"Error al ejecutar el método {metodo.Name}: {ex.Message}");
                     }
                 }
 
-                logica.AgregarComentariosPendientes();
+                // Agregar todas las configuraciones pendientes al DataGridView
+                logica.AgregarConfiguracionesPendientes();
                 logica.ColorFilas();
             }
         }

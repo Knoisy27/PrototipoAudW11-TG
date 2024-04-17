@@ -27,8 +27,10 @@ namespace PrototipoAuditoriaWin11
             this.Visible = false;
             toolTip1 = new System.Windows.Forms.ToolTip();
 
-            dgvRec.Columns.Add("ColumnaConfiguraciones", "Configuraciones");
+            dgvRec.Columns.Add("ColumnaPoliticas", "Política");
+            dgvRec.Columns.Add("ColumnaClaves", "Clave");
             dgvRec.Columns.Add("ColumnaValores", "Valor");
+            dgvRec.Columns.Add("ColumnaRecomendaciones", "Recomendación");
             dgvRec.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             // Configurar AutoScroll en PanelDinamicoResultados

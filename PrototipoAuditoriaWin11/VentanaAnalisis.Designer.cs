@@ -31,7 +31,6 @@
             this.btnCerrarVentanaAnalisis = new System.Windows.Forms.Button();
             this.panelDinamicoResultados = new System.Windows.Forms.Panel();
             this.dgvRec = new System.Windows.Forms.DataGridView();
-            this.tlpRecomendaciones = new System.Windows.Forms.TableLayoutPanel();
             this.panelDinamicoResultados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRec)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +62,8 @@
             // 
             // dgvRec
             // 
+            this.dgvRec.AllowUserToAddRows = false;
+            this.dgvRec.AllowUserToDeleteRows = false;
             this.dgvRec.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRec.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRec.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -74,27 +75,11 @@
             this.dgvRec.TabIndex = 0;
             this.dgvRec.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRec_CellMouseEnter);
             // 
-            // tlpRecomendaciones
-            // 
-            this.tlpRecomendaciones.AutoSize = true;
-            this.tlpRecomendaciones.BackColor = System.Drawing.Color.Transparent;
-            this.tlpRecomendaciones.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tlpRecomendaciones.ColumnCount = 2;
-            this.tlpRecomendaciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpRecomendaciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpRecomendaciones.Location = new System.Drawing.Point(52, 640);
-            this.tlpRecomendaciones.Name = "tlpRecomendaciones";
-            this.tlpRecomendaciones.RowCount = 1;
-            this.tlpRecomendaciones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRecomendaciones.Size = new System.Drawing.Size(861, 2);
-            this.tlpRecomendaciones.TabIndex = 0;
-            // 
             // VentanaAnalisis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
-            this.Controls.Add(this.tlpRecomendaciones);
             this.Controls.Add(this.panelDinamicoResultados);
             this.Controls.Add(this.btnCerrarVentanaAnalisis);
             this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -104,7 +89,6 @@
             this.panelDinamicoResultados.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRec)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -112,7 +96,6 @@
 
         private System.Windows.Forms.Button btnCerrarVentanaAnalisis;
         private System.Windows.Forms.Panel panelDinamicoResultados;
-        private System.Windows.Forms.TableLayoutPanel tlpRecomendaciones;
         private System.Windows.Forms.DataGridView dgvRec;
     }
 }
