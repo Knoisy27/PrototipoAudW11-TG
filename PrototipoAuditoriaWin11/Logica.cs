@@ -56,7 +56,7 @@ namespace PrototipoAuditoriaWin11
                     {
                         string clave = partes[0].Trim();
                         string valor = partes[1].Trim();
-                        Console.WriteLine($"{clave} {valor}");
+                        //Console.WriteLine($"{clave} {valor}");
 
                         // Almacena la configuración en el diccionario
                         configuraciones[clave] = valor;

@@ -1,4 +1,6 @@
-﻿namespace PrototipoAuditoriaWin11
+﻿using System.Windows.Forms;
+
+namespace PrototipoAuditoriaWin11
 {
     partial class VentanaAnalisis
     {
@@ -37,6 +39,7 @@
             // 
             // btnCerrarVentanaAnalisis
             // 
+            this.btnCerrarVentanaAnalisis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrarVentanaAnalisis.BackColor = System.Drawing.Color.Transparent;
             this.btnCerrarVentanaAnalisis.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrarVentanaAnalisis.FlatAppearance.BorderSize = 0;
@@ -53,6 +56,9 @@
             // 
             // panelDinamicoResultados
             // 
+            this.panelDinamicoResultados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDinamicoResultados.BackColor = System.Drawing.Color.White;
             this.panelDinamicoResultados.Controls.Add(this.dgvRec);
             this.panelDinamicoResultados.Location = new System.Drawing.Point(52, 46);
@@ -64,14 +70,17 @@
             // 
             this.dgvRec.AllowUserToAddRows = false;
             this.dgvRec.AllowUserToDeleteRows = false;
+            this.dgvRec.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRec.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRec.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvRec.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRec.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRec.Location = new System.Drawing.Point(0, 0);
+            this.dgvRec.Location = new System.Drawing.Point(3, 3);
             this.dgvRec.Name = "dgvRec";
             this.dgvRec.RowHeadersWidth = 62;
             this.dgvRec.RowTemplate.Height = 28;
-            this.dgvRec.Size = new System.Drawing.Size(948, 560);
+            this.dgvRec.Size = new System.Drawing.Size(942, 554);
             this.dgvRec.TabIndex = 0;
             this.dgvRec.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRec_CellMouseEnter);
             // 
@@ -79,7 +88,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(241)))));
             this.Controls.Add(this.panelDinamicoResultados);
             this.Controls.Add(this.btnCerrarVentanaAnalisis);
             this.ImeMode = System.Windows.Forms.ImeMode.NoControl;

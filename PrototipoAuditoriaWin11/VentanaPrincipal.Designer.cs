@@ -37,6 +37,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtEspecs = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -45,6 +46,7 @@
             // 
             this.panelTop.AllowDrop = true;
             this.panelTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(15)))), ((int)(((byte)(25)))));
+            this.panelTop.Controls.Add(this.label1);
             this.panelTop.Controls.Add(this.btnMin);
             this.panelTop.Controls.Add(this.btnMax);
             this.panelTop.Controls.Add(this.btnCerrar);
@@ -78,8 +80,13 @@
             // btnAnalizar
             // 
             resources.ApplyResources(this.btnAnalizar, "btnAnalizar");
+            this.btnAnalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnAnalizar.FlatAppearance.BorderSize = 0;
+            this.btnAnalizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSpringGreen;
+            this.btnAnalizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnAnalizar.ForeColor = System.Drawing.Color.White;
             this.btnAnalizar.Name = "btnAnalizar";
-            this.btnAnalizar.UseVisualStyleBackColor = true;
+            this.btnAnalizar.UseVisualStyleBackColor = false;
             this.btnAnalizar.Click += new System.EventHandler(this.BtnAnalizar_Click);
             // 
             // panel1
@@ -97,10 +104,16 @@
             // 
             // txtEspecs
             // 
-            this.txtEspecs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.txtEspecs, "txtEspecs");
+            this.txtEspecs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtEspecs.Name = "txtEspecs";
             this.txtEspecs.ReadOnly = true;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Name = "label1";
             // 
             // FormVentanaPrincipal
             // 
@@ -113,8 +126,13 @@
             this.Controls.Add(this.panelTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormVentanaPrincipal";
+            this.Opacity = 0.99D;
+            this.SizeChanged += new System.EventHandler(this.FormVentanaPrincipal_SizeChanged);
+            this.VisibleChanged += new System.EventHandler(this.FormVentanaPrincipal_VisibleChanged);
             this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,6 +148,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtEspecs;
+        private System.Windows.Forms.Label label1;
     }
 }
 

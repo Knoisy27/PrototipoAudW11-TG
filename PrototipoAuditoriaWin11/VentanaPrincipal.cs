@@ -9,6 +9,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveCharts.WinForms;
 
 namespace PrototipoAuditoriaWin11
 {
@@ -22,18 +25,59 @@ namespace PrototipoAuditoriaWin11
         public FormVentanaPrincipal()
         {
             InitializeComponent();
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            MostrarEspecificacionesEquipo();
 
             ventanaAnalisis = new VentanaAnalisis();
             logica = new Logica(ventanaAnalisis.PanelDinamicoResultados, ventanaAnalisis.DgvResultados);
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-
             // Agregar VentanaAnalisis al formulario principal
             this.Controls.Add(ventanaAnalisis);
-
-
+            ventanaAnalisis.Hide();
+            ventanaAnalisis.VisibleChanged += FormVentanaPrincipal_VisibleChanged;
         }
 
+        // FUNCIONALIDAD PARA REDIMENSIONAR LA VENTANA DESDE LOS BORDES -------------------------
+        private const int cGrip = 16;
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTLEFT = 10;
+        private const int HTRIGHT = 11;
+        private const int HTTOP = 12;
+        private const int HTTOPLEFT = 13;
+        private const int HTTOPRIGHT = 14;
+        private const int HTBOTTOM = 15;
+        private const int HTBOTTOMLEFT = 16;
+        private const int HTBOTTOMRIGHT = 17;
 
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_NCHITTEST && (int)m.Result == HTCLIENT)
+            {
+                Point pos = new Point(m.LParam.ToInt32());
+                pos = PointToClient(pos);
+
+                if (pos.X <= cGrip && pos.Y <= cGrip)
+                    m.Result = (IntPtr)HTTOPLEFT;
+                else if (pos.X >= ClientSize.Width - cGrip && pos.Y <= cGrip)
+                    m.Result = (IntPtr)HTTOPRIGHT;
+                else if (pos.X <= cGrip && pos.Y >= ClientSize.Height - cGrip)
+                    m.Result = (IntPtr)HTBOTTOMLEFT;
+                else if (pos.X >= ClientSize.Width - cGrip && pos.Y >= ClientSize.Height - cGrip)
+                    m.Result = (IntPtr)HTBOTTOMRIGHT;
+                else if (pos.X <= cGrip)
+                    m.Result = (IntPtr)HTLEFT;
+                else if (pos.X >= ClientSize.Width - cGrip)
+                    m.Result = (IntPtr)HTRIGHT;
+                else if (pos.Y <= cGrip)
+                    m.Result = (IntPtr)HTTOP;
+                else if (pos.Y >= ClientSize.Height - cGrip)
+                    m.Result = (IntPtr)HTBOTTOM;
+            }
+        }
+        // ------------------------- FUNCIONALIDAD PARA REDIMENSIONAR LA VENTANA DESDE LOS BORDES
 
 
         // BOTONES PANEL TOP -------------------------
@@ -44,8 +88,16 @@ namespace PrototipoAuditoriaWin11
 
         private void btnMax_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal) this.WindowState = FormWindowState.Maximized;
-            else this.WindowState = FormWindowState.Normal;
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                AjustarVentanaAnalisis(); // Ajustar tamaño y posición al maximizar
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+                AjustarVentanaAnalisis(); // Ajustar tamaño y posición al restaurar
+            }
         }
 
         private void btnMin_Click(object sender, EventArgs e)
@@ -85,12 +137,45 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- FUNCIONALIDADES DE MOVER LA VENTANA CON EL PANEL TOP
 
 
+
+
+        private void MostrarEspecificacionesEquipo()
+        {
+            string especificaciones = "";
+
+            // Nombre del sistema operativo
+            especificaciones += "Sistema operativo: " + Environment.OSVersion.VersionString + Environment.NewLine;
+
+            // Arquitectura del sistema operativo
+            especificaciones += "Arquitectura del sistema operativo: " + (Environment.Is64BitOperatingSystem ? "64 bits" : "32 bits") + Environment.NewLine;
+
+            // Versión del sistema operativo
+            especificaciones += "Versión del sistema operativo: " + Environment.OSVersion.Version.ToString() + Environment.NewLine;
+
+            // Nombre del equipo
+            especificaciones += "Nombre del equipo: " + Environment.MachineName + Environment.NewLine;
+
+            // Nombre del usuario
+            especificaciones += "Nombre del usuario: " + Environment.UserName + Environment.NewLine;
+
+            // Nombre del dominio del usuario
+            especificaciones += "Nombre del dominio del usuario: " + Environment.UserDomainName + Environment.NewLine;
+
+            // Agregar las especificaciones al TextBox
+            txtEspecs.Text = especificaciones;
+        }
+
+
+
+
+
         private void BtnAnalizar_Click(object sender, EventArgs e)
         {
-            if (!ventanaAnalisis.Visible)
+            if (!ventanaAnalisis.Visible) 
             {
                 ventanaAnalisis.BringToFront();
-                ventanaAnalisis.Visible = true;
+                ventanaAnalisis.Show();
+                //ventanaAnalisis.Visible = true;
 
                 Program.VerificarArchivoCFG();
 
@@ -115,9 +200,48 @@ namespace PrototipoAuditoriaWin11
                 // Agregar todas las configuraciones pendientes al DataGridView
                 logica.AgregarConfiguracionesPendientes();
                 logica.ColorFilas();
+            }               
+            
+        }
+
+
+        private void AjustarVentanaAnalisis()
+        {
+
+            // Verificar si la ventana de análisis está visible
+            if (ventanaAnalisis != null && ventanaAnalisis.Visible)
+            {
+                // Obtener el tamaño de la ventana principal
+                int anchoVentanaPrincipal = this.ClientSize.Width;
+                int altoVentanaPrincipal = this.ClientSize.Height;
+
+                /*// Definir el porcentaje de ancho y alto que quieres para la ventana de análisis
+                double porcentajeAncho = 0.8; // 50%
+                double porcentajeAlto = 0.8;  // 50%
+
+                // Calcular el tamaño de la ventana de análisis en función del porcentaje
+                int anchoVentanaAnalisis = (int)(anchoVentanaPrincipal * porcentajeAncho);
+                int altoVentanaAnalisis = (int)(altoVentanaPrincipal * porcentajeAlto);*/
+
+                // Ajustar el tamaño de la ventana de análisis
+                ventanaAnalisis.Size = new Size(anchoVentanaPrincipal-165, altoVentanaPrincipal-40);
+
+                
             }
         }
 
+
+        private void FormVentanaPrincipal_VisibleChanged(object sender, EventArgs e)
+        {
+            if (ventanaAnalisis.Visible)
+            {
+                AjustarVentanaAnalisis();
+            }
+        }
+        private void FormVentanaPrincipal_SizeChanged(object sender, EventArgs e)
+        {
+            AjustarVentanaAnalisis();
+        }
 
     }
 }

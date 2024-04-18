@@ -24,7 +24,7 @@ namespace PrototipoAuditoriaWin11
         {
             InitializeComponent();
             //logica = new Logica(PanelDinamicoResultados, DgvResultados);
-            this.Visible = false;
+            //this.Visible = false;
             toolTip1 = new System.Windows.Forms.ToolTip();
 
             dgvRec.Columns.Add("ColumnaPoliticas", "Política");
@@ -38,6 +38,8 @@ namespace PrototipoAuditoriaWin11
             dgvRec.CellMouseEnter += dgvRec_CellMouseEnter;
         }
 
+
+
         private void btnCerrarVentanaAnalisis_Click(object sender, EventArgs e)
         {
 
@@ -49,7 +51,8 @@ namespace PrototipoAuditoriaWin11
             if (formPrincipal != null)
             {
                 // Cerrar la ventana actual (VentanaAnalisis)
-                formPrincipal.ventanaAnalisis.Visible = false;
+                //formPrincipal.ventanaAnalisis.Visible = false;
+                formPrincipal.ventanaAnalisis.Hide();
             }
 
             //logica.condicionMetodos.Clear();
