@@ -30,7 +30,7 @@ namespace PrototipoAuditoriaWin11
 
             ventanaAnalisis = new VentanaAnalisis();
             logica = new Logica(ventanaAnalisis.PanelDinamicoResultados, ventanaAnalisis.DgvResultados);
-            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             // Agregar VentanaAnalisis al formulario principal
             this.Controls.Add(ventanaAnalisis);
             ventanaAnalisis.Hide();
@@ -88,21 +88,21 @@ namespace PrototipoAuditoriaWin11
 
         private void btnMax_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal)
             {
-                this.WindowState = FormWindowState.Maximized;
+                WindowState = FormWindowState.Maximized;
                 AjustarVentanaAnalisis(); // Ajustar tamaño y posición al maximizar
             }
             else
             {
-                this.WindowState = FormWindowState.Normal;
+                WindowState = FormWindowState.Normal;
                 AjustarVentanaAnalisis(); // Ajustar tamaño y posición al restaurar
             }
         }
 
         private void btnMin_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
         // ------------------------- BOTONES PANEL TOP
 
@@ -159,7 +159,7 @@ namespace PrototipoAuditoriaWin11
             especificaciones += "Nombre del usuario: " + Environment.UserName + Environment.NewLine;
 
             // Nombre del dominio del usuario
-            especificaciones += "Nombre del dominio del usuario: " + Environment.UserDomainName + Environment.NewLine;
+            especificaciones += "Nombre del dominio del usuario: " + Environment.UserDomainName /*+ Environment.NewLine*/;
 
             // Agregar las especificaciones al TextBox
             txtEspecs.Text = especificaciones;
@@ -169,13 +169,21 @@ namespace PrototipoAuditoriaWin11
 
 
 
+        private void btnAnalizar_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void btnAnalizar_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
         private void BtnAnalizar_Click(object sender, EventArgs e)
         {
             if (!ventanaAnalisis.Visible) 
             {
                 ventanaAnalisis.BringToFront();
                 ventanaAnalisis.Show();
-                //ventanaAnalisis.Visible = true;
 
                 Program.VerificarArchivoCFG();
 

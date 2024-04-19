@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentanaPrincipal));
             this.panelTop = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnMin = new System.Windows.Forms.Button();
             this.btnMax = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
@@ -37,7 +38,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtEspecs = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +55,12 @@
             this.panelTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseDown);
             this.panelTop.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseMove);
             this.panelTop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseUp);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Name = "label1";
             // 
             // btnMin
             // 
@@ -82,6 +88,8 @@
             resources.ApplyResources(this.btnAnalizar, "btnAnalizar");
             this.btnAnalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.btnAnalizar.FlatAppearance.BorderSize = 0;
+            this.btnAnalizar.MouseLeave += new System.EventHandler(this.btnAnalizar_MouseLeave);
+            this.btnAnalizar.MouseHover += new System.EventHandler(this.btnAnalizar_MouseHover);
             this.btnAnalizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSpringGreen;
             this.btnAnalizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
             this.btnAnalizar.ForeColor = System.Drawing.Color.White;
@@ -108,12 +116,6 @@
             this.txtEspecs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtEspecs.Name = "txtEspecs";
             this.txtEspecs.ReadOnly = true;
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Name = "label1";
             // 
             // FormVentanaPrincipal
             // 

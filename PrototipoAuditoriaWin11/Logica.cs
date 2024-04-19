@@ -8,6 +8,9 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Net;
 using System.Drawing.Printing;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Diagnostics;
 
 namespace PrototipoAuditoriaWin11
 {
@@ -40,7 +43,6 @@ namespace PrototipoAuditoriaWin11
             {
                 // Lee todas las líneas del archivo
                 string[] lineas = System.IO.File.ReadAllLines(rutaArchivoConfig);
-
                 // Procesa cada línea para obtener configuraciones
                 foreach (string linea in lineas)
                 {
@@ -50,8 +52,9 @@ namespace PrototipoAuditoriaWin11
                         continue;
                     }
 
-                    // Divide la línea en clave y valor (si es una configuración válida)
-                    string[] partes = linea.Split('=');
+                    // Divide la línea solo en la primera aparición de '='
+                    string[] partes = linea.Split(new char[] { '=' }, 2);
+
                     if (partes.Length == 2)
                     {
                         string clave = partes[0].Trim();
@@ -60,7 +63,7 @@ namespace PrototipoAuditoriaWin11
 
                         // Almacena la configuración en el diccionario
                         configuraciones[clave] = valor;
-                        //Console.WriteLine(configuraciones[clave]);
+                        Console.WriteLine(configuraciones[clave]);
                     }
                 }
 
@@ -122,7 +125,7 @@ namespace PrototipoAuditoriaWin11
         {
 
             DataGridViewCellStyle estilo = dgvRec.Rows[rowIndex].DefaultCellStyle;
-            estilo.BackColor = condicion ? Color.LightGreen : Color.LightCoral;
+            estilo.BackColor = condicion ? System.Drawing.Color.LightGreen : System.Drawing.Color.LightCoral;
 
         }
         public void ColorFilas()
@@ -221,10 +224,6 @@ namespace PrototipoAuditoriaWin11
         }
         // ------------------------- 1.1.1 ENFORCE PASSWORD HISTORY
 
-
-
-
-
         // 1.1.2 MAXIMUM PASSWORD AGE -------------------------
         public void Analizar_Maximum_Password_Age()
         {
@@ -252,10 +251,6 @@ namespace PrototipoAuditoriaWin11
             }
         }
         // ------------------------- 1.1.1 MAXIMUM PASSWORD AGE
-
-
-
-
 
         // 1.1.3 MINIMUM PASSWORD AGE -------------------------
         public void Analizar_MinimumPasswordAge()
@@ -409,8 +404,6 @@ namespace PrototipoAuditoriaWin11
             EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.1.7 STORE PASSWORDS USING REVERSIBLE ENCRYPTION
-
-
 
 
         // 1.2.1 ACCOUNT LOCKOUT DURATION -------------------------
@@ -573,7 +566,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -606,8 +599,8 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
-                condicionMetodos.Add(true);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+                condicionMetodos.Add(false);
             }
         }
         // ------------------------- 2.2.2 ACCESS THIS COMPUTER FROM THE NETWORK
@@ -628,7 +621,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -660,7 +653,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -692,7 +685,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -725,7 +718,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -758,7 +751,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -791,7 +784,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -824,7 +817,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -857,7 +850,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -878,7 +871,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -911,7 +904,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -933,7 +926,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -978,7 +971,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1011,7 +1004,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1044,7 +1037,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1077,7 +1070,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1110,7 +1103,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1143,7 +1136,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1176,7 +1169,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1198,7 +1191,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -1231,7 +1224,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1264,7 +1257,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1297,7 +1290,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1330,7 +1323,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1363,7 +1356,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1385,7 +1378,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -1418,7 +1411,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1434,7 +1427,7 @@ namespace PrototipoAuditoriaWin11
 
             if (!configuraciones.ContainsKey(clave))
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(true);
             }
             else if (configuraciones.ContainsKey(clave))
@@ -1485,7 +1478,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1507,11 +1500,709 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "Nulo", recomendacion);
+                EstConfig(politica, clave, "No está definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
         // ------------------------- 2.2.31 MODIFY AN OBJECT LABEL
+
+
+        // 2.2.32 MODIFY FIRMWARE ENVIRONMENT VALUES -------------------------
+        public void Analizar_Modify_firmware_environment_values()
+        {
+            string politica = "Modificar valores de entorno firmware";
+            string clave = "SeSystemEnvironmentPrivilege";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor, recomendacion);
+                }
+            }
+            else
+            {
+                EstConfig(politica, clave, "No está definido", recomendacion);
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.32 MODIFY FIRMWARE ENVIRONMENT VALUES
+
+
+        // 2.2.33 PERFORM VOLUME MAINTENANCE TASKS -------------------------
+        public void Analizar_Perform_volume_maintenance_tasks()
+        {
+            string politica = "Realizar tareas de mantenimiento del volumen";
+            string clave = "SeManageVolumePrivilege";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor, recomendacion);
+                }
+            }
+            else
+            {
+                EstConfig(politica, clave, "No está definido", recomendacion);
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.33 PERFORM VOLUME MAINTENANCE TASKS
+
+
+        // 2.2.34 PROFILE SINGLE PROCESS -------------------------
+        public void Analizar_Profile_single_process()
+        {
+            string politica = "Generar perfiles de un solo proceso\r\n";
+            string clave = "SeProfileSingleProcessPrivilege";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor, recomendacion);
+                }
+            }
+            else
+            {
+                EstConfig(politica, clave, "No está definido", recomendacion);
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.34 PROFILE SINGLE PROCESS
+
+
+        // 2.2.35 PROFILE SYSTEM PERFORMANCE -------------------------
+        public void Analizar_Profile_system_performance()
+        {
+            string politica = "Generar perfiles del rendimiento del sistema";
+            string clave = "SeSystemProfilePrivilege";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544,*S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor, recomendacion);
+                }
+            }
+            else
+            {
+                EstConfig(politica, clave, "No está definido", recomendacion);
+                condicionMetodos.Add(false);
+            }
+        }
+        // ------------------------- 2.2.35 PROFILE SYSTEM PERFORMANCE
+
+
+        // 2.2.36 REPLACE A PROCESS LEVEL TOKEN -------------------------
+        // ------------------------- 2.2.36 REPLACE A PROCESS LEVEL TOKEN
+
+
+        // 2.2.37 RESTORE FILES AND DIRECTORIES -------------------------
+        // ------------------------- 2.2.37 RESTORE FILES AND DIRECTORIES
+
+
+        // 2.2.38 SHUT DOWN THE SYSTEM -------------------------
+        public void Analizar_Shut_down_the_system()
+        {
+            string politica = "Apagar el sistema";
+            string clave = "SeShutdownPrivilege";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544,*S-1-5-32-545";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor, recomendacion);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.2.38 SHUT DOWN THE SYSTEM
+
+
+        // 2.2.39 TAKE OWNERSHIP OF FILES OR OTHER OBJECTS -------------------------
+        public void Analizar_Take_ownership_of_files_or_other_objects()
+        {
+            string politica = "Tomar posesión de archivos y otros objetos";
+            string clave = "SeTakeOwnershipPrivilege";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+
+                string valoresRequeridos = "*S-1-5-32-544";
+
+                if (VerificarValores(valor, valoresRequeridos))
+                {
+                    condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valoresRequeridos, recomendacion);
+                }
+                else
+                {
+                    condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor, recomendacion);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.2.39 TAKE OWNERSHIP OF FILES OR OTHER OBJECTS
+
+
+        // n2.3.1.1 ACCOUNTS: BLOCK MICROSOFT ACCOUNTS -------------------------
+        public void Analizar_Accounts__Block_Microsoft_accounts()
+        {
+            string politica = "Cuentas: bloquear cuentas de Microsoft";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\NoConnectedUser";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,3")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.1.1 ACCOUNTS: BLOCK MICROSOFT ACCOUNTS
+
+
+
+        // 2.3.1.2 ACCOUNTS: GUEST ACCOUNT STATUS -------------------------
+        public void Analizar_Accounts__Guest_account_status()
+        {
+            string politica = "Cuentas: estado de la cuenta de invitado";
+            string clave = "EnableGuestAccount";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.1.2 ACCOUNTS: GUEST ACCOUNT STATUS
+
+
+        // 2.3.1.3 ACCOUNTS: LIMIT LOCAL ACCOUNT USE OF BLANK PASSWORDS TO CONSOLE -------------------------
+        public void Analizar_Accounts__Limit_local_account_use_of_blank_passwords_to_console_logon_only()
+        {
+            string politica = "Cuentas: limitar el uso de cuentas locales con contraseña en blanco solo para iniciar sesión en la consola";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.1.3 ACCOUNTS: LIMIT LOCAL ACCOUNT USE OF BLANK PASSWORDS TO CONSOLE
+
+
+        // 2.3.1.4 ACCOUNTS: RENAME ADMINISTRATOR ACCOUNT -------------------------
+        public void Analizar_Accounts__Rename_administrator_account()
+        {
+            string politica = "Cuentas: cambiar el nombre de la cuenta de administrador";
+            string clave = "NewAdministratorName";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor != "Administrator")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.1.4 ACCOUNTS: RENAME ADMINISTRATOR ACCOUNT
+
+
+        // 2.3.1.5 ACCOUNTS: RENAME GUEST ACCOUNT -------------------------
+        public void Analizar_Accounts__Rename_guest_account()
+        {
+            string politica = "Cuentas: cambiar el nombre de cuenta de invitado";
+            string clave = "NewGuestName";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor != "Guest")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.1.5 ACCOUNTS: RENAME GUEST ACCOUNT
+
+
+        // 2.3.2.1 AUDIT: FORCE AUDIT POLICY SUBCATEGORY SETTINGS (WINDOWS VISTA OR LATER) TO OVERRIDE AUDIT POLICY CATEGORY SETTINGS -------------------------
+        public void Analizar_Audit__Force_audit_policy_subcategory_settings__Windows_Vista_or_later__to_override_audit_policy_category_settings()
+        {
+            string politica = "Auditoría: forzar que la configuración de subcategoría de directiva de auditoría (Windows Vista o posterior) invalide la configuración de categoría de directiva de auditoría.";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.2.1 AUDIT: FORCE AUDIT POLICY SUBCATEGORY SETTINGS (WINDOWS VISTA OR LATER) TO OVERRIDE AUDIT POLICY CATEGORY SETTINGS
+
+
+        // 2.3.2.2 AUDIT: SHUT DOWN SYSTEM IMMEDIATELY IF UNABLE TO LOG SECURITY AUDITS -------------------------
+        public void Analizar_Audit__Shut_down_system_immediately_if__unable_to_log_security_audits()
+        {
+            string politica = "Auditoría: apagar el sistema de inmediato si no se pueden registrar las auditorías de seguridad";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\CrashOnAuditFail";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.2.2 AUDIT: SHUT DOWN SYSTEM IMMEDIATELY IF UNABLE TO LOG SECURITY AUDITS
+
+
+        // 2.3.4.1 DEVICES: PREVENT USERS FROM INSTALLING PRINTER DRIVERS -------------------------
+        public void Analizar_Devices__Prevent_users_from_installing_printer__drivers()
+        {
+            string politica = "Dispositivos: impedir que los usuarios instalen controladores de impresora cuando se conecten a impresoras compartidas";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Print\\Providers\\LanMan Print Services\\Servers\\AddPrinterDrivers";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.4.1 DEVICES: PREVENT USERS FROM INSTALLING PRINTER DRIVERS 
+
+
+        // 2.3.7.1 INTERACTIVE LOGON: DO NOT REQUIRE CTRL+ALT+DEL -------------------------
+        public void Analizar_Interactive_logon__Do_not_require__CTRL__ALT__DEL()
+        {
+            string politica = "Inicio de sesión interactivo: no requerir Ctrl+Alt+Supr";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DisableCAD";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.7.1 INTERACTIVE LOGON: DO NOT REQUIRE CTRL+ALT+DEL
+
+
+        // 2.3.7.2 INTERACTIVE LOGON: DON'T DISPLAY LAST SIGNED-IN -------------------------
+        public void Analizar_Interactive_logon__Dont_display_last_signed__in()
+        {
+            string politica = "Inicio de sesión interactivo: No mostrar último inicio de sesión";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DontDisplayLastUserName";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.7.2 INTERACTIVE LOGON: DON'T DISPLAY LAST SIGNED-IN
+
+
+        // 2.3.7.3 INTERACTIVE LOGON: MACHINE ACCOUNT LOCKOUT THRESHOLD -------------------------
+        public void Analizar_Interactive_logon__Machine_account_lockout_threshold()
+        {
+            string politica = "Inicio de sesión interactivo: umbral de la cuenta de la máquina.";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\MaxDevicePasswordFailedAttempts";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                // Dividir la cadena de entrada en partes basadas en la coma
+                string[] partes = configuraciones[clave].Split(',');
+                int valor = Convert.ToInt32(partes[1]);
+                if (valor > 0  && valor <= 10)
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.7.3 INTERACTIVE LOGON: MACHINE ACCOUNT LOCKOUT THRESHOLD
+
+
+        // 2.3.7.4 INTERACTIVE LOGON: MACHINE INACTIVITY LIMIT -------------------------
+        public void Analizar_Interactive_logon__Machine_inactivity_limit()
+        {
+            string politica = "Inicio de sesión interactivo: límite de inactividad de equipo.";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string[] partes = configuraciones[clave].Split(',');
+                int valor = Convert.ToInt32(partes[1]);
+                if (valor > 0 && valor <= 900)
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.7.4 INTERACTIVE LOGON: MACHINE INACTIVITY LIMIT
+
+
+        // 2.3.7.5 INTERACTIVE LOGON: MESSAGE TEXT FOR USERS ATTEMPTING TO LOG ON -------------------------
+        public void Analizar_Interactive_logon__Message_text_for_users_attempting_to_log_on()
+        {
+            string politica = "Inicio de sesión interactivo: texto del mensaje para los usuarios que intentan iniciar una sesión";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeText";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            Console.WriteLine(configuraciones.ContainsKey(clave));
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor != "7," && valor != "7")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.7.5 INTERACTIVE LOGON: MESSAGE TEXT FOR USERS ATTEMPTING TO LOG ON
+
+
+        // 2.3.7.6 INTERACTIVE LOGON: MESSAGE TITLE FOR USERS ATTEMPTING TO LOG ON -------------------------
+        public void Analizar_Interactive_logon__Message_title_for_users_attempting_to_log_on()
+        {
+            string politica = "Inicio de sesión interactivo: título del mensaje para los usuarios que intentan iniciar una sesión";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeCaption";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor != "1," && valor != "1" && valor != "\"\"")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.7.6 INTERACTIVE LOGON: MESSAGE TITLE FOR USERS ATTEMPTING TO LOG ON 
+
+
+        // 2.3.7.7 INTERACTIVE LOGON: PROMPT USER TO CHANGE PASSWORD BEFORE EXPIRATION -------------------------
+        public void Analizar_Interactive_logon__Prompt_user_to_change_password_before_expiration()
+        {
+            string politica = "Inicio de sesión interactivo: pedir al usuario que cambie la contraseña antes de que expire";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\PasswordExpiryWarning";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string[] partes = configuraciones[clave].Split(',');
+                int valor = Convert.ToInt32(partes[1]);
+                if (valor >= 5 && valor <= 14)
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.7.7 INTERACTIVE LOGON: PROMPT USER TO CHANGE PASSWORD BEFORE EXPIRATION 
+
+
+        // 2.3.7.8 INTERACTIVE LOGON: SMART CARD REMOVAL BEHAVIOR -------------------------
+        public void Analizar_Interactive_logon__Smart_card_removal__behavior()
+        {
+            string politica = "Inicio de sesión interactivo: comportamiento de extracción de tarjeta inteligente";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor != "1,\"0\"")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.7.8 INTERACTIVE LOGON: SMART CARD REMOVAL BEHAVIOR 
+
+        // 175
+
+
+
 
 
 

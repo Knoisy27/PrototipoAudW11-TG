@@ -74,10 +74,11 @@ namespace PrototipoAuditoriaWin11
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRec.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvRec.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvRec.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgvRec.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRec.Location = new System.Drawing.Point(3, 3);
             this.dgvRec.Name = "dgvRec";
+            this.dgvRec.ReadOnly = true;
             this.dgvRec.RowHeadersWidth = 62;
             this.dgvRec.RowTemplate.Height = 28;
             this.dgvRec.Size = new System.Drawing.Size(942, 554);
