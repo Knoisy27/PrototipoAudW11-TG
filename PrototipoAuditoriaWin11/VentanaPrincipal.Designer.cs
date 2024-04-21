@@ -88,18 +88,18 @@
             resources.ApplyResources(this.btnAnalizar, "btnAnalizar");
             this.btnAnalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.btnAnalizar.FlatAppearance.BorderSize = 0;
-            this.btnAnalizar.MouseLeave += new System.EventHandler(this.btnAnalizar_MouseLeave);
-            this.btnAnalizar.MouseHover += new System.EventHandler(this.btnAnalizar_MouseHover);
-            this.btnAnalizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSpringGreen;
-            this.btnAnalizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnAnalizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SkyBlue;
+            this.btnAnalizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnAnalizar.ForeColor = System.Drawing.Color.White;
             this.btnAnalizar.Name = "btnAnalizar";
             this.btnAnalizar.UseVisualStyleBackColor = false;
             this.btnAnalizar.Click += new System.EventHandler(this.BtnAnalizar_Click);
+            this.btnAnalizar.MouseLeave += new System.EventHandler(this.btnAnalizar_MouseLeave);
+            this.btnAnalizar.MouseHover += new System.EventHandler(this.btnAnalizar_MouseHover);
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Lime;
+            this.panel1.BackColor = System.Drawing.Color.DodgerBlue;
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 

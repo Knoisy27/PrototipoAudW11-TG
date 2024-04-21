@@ -79,11 +79,13 @@ namespace PrototipoAuditoriaWin11
             this.dgvRec.Location = new System.Drawing.Point(3, 3);
             this.dgvRec.Name = "dgvRec";
             this.dgvRec.ReadOnly = true;
-            this.dgvRec.RowHeadersWidth = 62;
+            this.dgvRec.RowHeadersWidth = 30;
+            this.dgvRec.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvRec.RowTemplate.Height = 28;
             this.dgvRec.Size = new System.Drawing.Size(942, 554);
             this.dgvRec.TabIndex = 0;
             this.dgvRec.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRec_CellMouseEnter);
+            this.dgvRec.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvRec_RowPostPaint);
             // 
             // VentanaAnalisis
             // 

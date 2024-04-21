@@ -11,6 +11,7 @@ using System.Drawing.Printing;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Diagnostics;
+using System.Windows.Media.Media3D;
 
 namespace PrototipoAuditoriaWin11
 {
@@ -156,7 +157,8 @@ namespace PrototipoAuditoriaWin11
             // Dividir la cadena original en substrings basados en la coma como delimitador
             string[] substrings = cadena.Split(',');
             // Verificar que la cantidad de substrings sea igual a la cantidad de valores requeridos
-            if (substrings.Length != valoresArray.Length)            {
+            if (substrings.Length != valoresArray.Length)
+            {
                 return false; // Si la cantidad de substrings no coincide, retornar false
             }
             // Verificar si todos los valores requeridos están presentes en los substrings
@@ -184,7 +186,7 @@ namespace PrototipoAuditoriaWin11
 
 
 
-        private void EstConfig(string politica, string clave, string valor, string recomendacion) 
+        private void EstConfig(string politica, string clave, string valor, string recomendacion)
         {
             Configuracion configuracion = new Configuracion(politica, clave, valor, recomendacion);
             configuracionesPendientes.Add(configuracion);
@@ -203,7 +205,7 @@ namespace PrototipoAuditoriaWin11
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
-                int valor = Convert.ToInt32(configuraciones[clave]);
+                long valor = Convert.ToInt64(configuraciones[clave]);
                 if (valor >= 24)
                 {
                     condicionMetodos.Add(true);
@@ -233,7 +235,7 @@ namespace PrototipoAuditoriaWin11
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
-                int valor = Convert.ToInt32(configuraciones[clave]);
+                long valor = Convert.ToInt64(configuraciones[clave]);
                 if (valor > 0 && valor <= 365)
                 {
                     condicionMetodos.Add(true);
@@ -261,7 +263,7 @@ namespace PrototipoAuditoriaWin11
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey("MinimumPasswordAge"))
             {
-                int valor = Convert.ToInt32(configuraciones[clave]);
+                long valor = Convert.ToInt64(configuraciones[clave]);
                 if (valor > 0)
                 {
                     condicionMetodos.Add(true);
@@ -290,7 +292,7 @@ namespace PrototipoAuditoriaWin11
             string recomendacion = "Comentario_Recomendacion_Aqui";
             if (configuraciones.ContainsKey("MinimumPasswordLength"))
             {
-                int valor = Convert.ToInt32(configuraciones[clave]);
+                long valor = Convert.ToInt64(configuraciones[clave]);
                 if (valor > 13)
                 {
                     condicionMetodos.Add(true);
@@ -318,7 +320,7 @@ namespace PrototipoAuditoriaWin11
             string recomendacion = "Comentario_Recomendacion_Aqui";
             if (configuraciones.ContainsKey(clave))
             {
-                int valor = Convert.ToInt32(configuraciones[clave]);
+                long valor = Convert.ToInt64(configuraciones[clave]);
                 if (valor == 1)
                 {
                     condicionMetodos.Add(true);
@@ -373,11 +375,11 @@ namespace PrototipoAuditoriaWin11
         // 1.1.7 STORE PASSWORDS USING REVERSIBLE ENCRYPTION -------------------------
         public void Analizar_Clear_Text_Password()
         {
-            
+
             // Definir la política y la recomendación
             string politica = "Almacenar contraseñas con cifrado reversible";
             string clave = "ClearTextPassword";
-            int valor = Convert.ToInt32(configuraciones[clave]);
+            long valor = Convert.ToInt64(configuraciones[clave]);
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             // Verificar si la configuración está presente en el diccionario
@@ -409,12 +411,12 @@ namespace PrototipoAuditoriaWin11
         // 1.2.1 ACCOUNT LOCKOUT DURATION -------------------------
         public void Analizar_Account_lockout_duration()
         {
-            
+
 
             // Definir la política y la recomendación
             string politica = "Duración del bloqueo de la cuenta";
             string clave = "LockoutDuration";
-            int valor = Convert.ToInt32(configuraciones[clave]);
+            long valor = Convert.ToInt64(configuraciones[clave]);
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             // Verificar si la configuración está presente en el diccionario
@@ -450,7 +452,7 @@ namespace PrototipoAuditoriaWin11
             // Definir la política y la recomendación
             string politica = "Umbral de bloqueo de cuenta";
             string clave = "LockoutBadCount";
-            int valor = Convert.ToInt32(configuraciones[clave]);
+            long valor = Convert.ToInt64(configuraciones[clave]);
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             // Verificar si la configuración está presente en el diccionario
@@ -486,7 +488,7 @@ namespace PrototipoAuditoriaWin11
             // Definir la política y la recomendación
             string politica = "Permitir bloqueo de cuenta de administrador";
             string clave = "AllowAdministratorLockout";
-            int valor = Convert.ToInt32(configuraciones[clave]);
+            long valor = Convert.ToInt64(configuraciones[clave]);
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             // Verificar si la configuración está presente en el diccionario
@@ -522,7 +524,7 @@ namespace PrototipoAuditoriaWin11
             // Definir la política y la recomendación
             string politica = "Restablecer el bloqueo de la cuenta después de";
             string clave = "ResetLockoutCount";
-            int valor = Convert.ToInt32(configuraciones[clave]);
+            long valor = Convert.ToInt64(configuraciones[clave]);
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             // Verificar si la configuración está presente en el diccionario
@@ -575,7 +577,7 @@ namespace PrototipoAuditoriaWin11
         // 2.2.2 ACCESS THIS COMPUTER FROM THE NETWORK -------------------------
         public void Analizar_Access_this_computer_from_the_network()
         {
-            
+
             string politica = "Tener acceso a este equipo desde la red";
             string clave = "SeNetworkLogonRight";
             string recomendacion = "Comentario_Recomendacion_Aqui";
@@ -608,7 +610,7 @@ namespace PrototipoAuditoriaWin11
         // 2.2.3 ACT AS PART OF THE OPERATING SYSTEM -------------------------
         public void Analizar_Act_as_part_of_the_operating_system()
         {
-            
+
             string politica = "Actuar como parte del sistema operativo";
             string clave = "SeTcbPrivilege";
             string recomendacion = "Comentario_Recomendacion_Aqui";
@@ -663,7 +665,7 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Allow_log_on_locally()
         {
             string politica = "Permitir inicio de sesión local";
-            string clave = "SeInteractiveLogonRight";
+            string clave = "SelongeractiveLogonRight";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (configuraciones.ContainsKey(clave))
@@ -2025,8 +2027,8 @@ namespace PrototipoAuditoriaWin11
             {
                 // Dividir la cadena de entrada en partes basadas en la coma
                 string[] partes = configuraciones[clave].Split(',');
-                int valor = Convert.ToInt32(partes[1]);
-                if (valor > 0  && valor <= 10)
+                long valor = Convert.ToInt64(partes[1]);
+                if (valor > 0 && valor <= 10)
                 {
                     EstConfig(politica, clave, valor.ToString(), recomendacion);
                     condicionMetodos.Add(true);
@@ -2056,7 +2058,7 @@ namespace PrototipoAuditoriaWin11
             if (configuraciones.ContainsKey(clave))
             {
                 string[] partes = configuraciones[clave].Split(',');
-                int valor = Convert.ToInt32(partes[1]);
+                long valor = Convert.ToInt64(partes[1]);
                 if (valor > 0 && valor <= 900)
                 {
                     EstConfig(politica, clave, valor.ToString(), recomendacion);
@@ -2083,8 +2085,6 @@ namespace PrototipoAuditoriaWin11
             string politica = "Inicio de sesión interactivo: texto del mensaje para los usuarios que intentan iniciar una sesión";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeText";
             string recomendacion = "Comentario_Recomendacion_Aqui";
-
-            Console.WriteLine(configuraciones.ContainsKey(clave));
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2149,7 +2149,7 @@ namespace PrototipoAuditoriaWin11
             if (configuraciones.ContainsKey(clave))
             {
                 string[] partes = configuraciones[clave].Split(',');
-                int valor = Convert.ToInt32(partes[1]);
+                long valor = Convert.ToInt64(partes[1]);
                 if (valor >= 5 && valor <= 14)
                 {
                     EstConfig(politica, clave, valor.ToString(), recomendacion);
@@ -2199,22 +2199,465 @@ namespace PrototipoAuditoriaWin11
         }
         // ------------------------- 2.3.7.8 INTERACTIVE LOGON: SMART CARD REMOVAL BEHAVIOR 
 
-        // 175
+
+        // 2.3.8.1 MICROSOFT NETWORK CLIENT: DIGITALLY SIGN COMMUNICATIONS (ALWAYS) -------------------------
+        public void Analizar_Microsoft_network_client__Digitally_sign_communications__always()
+        {
+            string politica = "Cliente de red de Microsoft: firma digital de comunicaciones (siempre)";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.8.1 MICROSOFT NETWORK CLIENT: DIGITALLY SIGN COMMUNICATIONS (ALWAYS) 
 
 
+        // 2.3.8.2 MICROSOFT NETWORK CLIENT: DIGITALLY SIGN COMMUNICATIONS (IF SERVER AGREES) -------------------------
+        public void Analizar_Microsoft_network_client__Digitally_sign_communications__if_server_agrees__()
+        {
+            string politica = "Cliente de red de Microsoft: firma digital de comunicaciones (si el servidor está de acuerdo)";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.8.2 MICROSOFT NETWORK CLIENT: DIGITALLY SIGN COMMUNICATIONS (IF SERVER AGREES) 
 
 
+        // 2.3.8.3 MICROSOFT NETWORK CLIENT: SEND UNENCRYPTED PASSWORD TO THIRD-PARTY SMB SERVERS -------------------------
+        public void Analizar_Microsoft_network_client__Send_unencrypted_password_to_third__party_SMB_servers()
+        {
+            string politica = "Cliente de redes de Microsoft: enviar contraseña sin cifrar para conectar con servidores SMB de terceros\r\n";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.8.3 MICROSOFT NETWORK CLIENT: SEND UNENCRYPTED PASSWORD TO THIRD-PARTY SMB SERVERS 
 
 
+        // 2.3.9.1 MICROSOFT NETWORK SERVER: AMOUNT OF IDLE TIME REQUIRED BEFORE SUSPENDING SESSION -------------------------
+        public void Analizar_Microsoft_network_server__Amount_of_idle_time_required_before_suspending_session()
+        {
+            string politica = "Servidor de red Microsoft: tiempo de inactividad requerido antes de suspender la sesión";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\AutoDisconnect";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string[] partes = configuraciones[clave].Split(',');
+                long valor = Convert.ToInt64(partes[1]);
+                if (valor <= 15)
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.9.1 MICROSOFT NETWORK SERVER: AMOUNT OF IDLE TIME REQUIRED BEFORE SUSPENDING SESSION 
 
 
+        // 2.3.9.2 MICROSOFT NETWORK SERVER: DIGITALLY SIGN COMMUNICATIONS (ALWAYS) -------------------------
+        public void Analizar_Microsoft_network_server__Digitally_sign_communications__always()
+        {
+            string politica = "Servidor de red de Microsoft: firma digital de comunicaciones (siempre)\r\n";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RequireSecuritySignature";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.9.2 MICROSOFT NETWORK SERVER: DIGITALLY SIGN COMMUNICATIONS (ALWAYS) 
 
 
+        // 2.3.9.3 MICROSOFT NETWORK SERVER: DIGITALLY SIGN COMMUNICATIONS (IF CLIENT AGREES) -------------------------
+        public void Analizar_Microsoft_network_server__Digitally_sign_communications__if_client_agrees__()
+        {
+            string politica = "Servidor de red de Microsoft: firma digital de comunicaciones (si el cliente está de acuerdo)";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableSecuritySignature";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.9.3 MICROSOFT NETWORK SERVER: DIGITALLY SIGN COMMUNICATIONS (IF CLIENT AGREES) 
 
 
+        // 2.3.9.4 MICROSOFT NETWORK SERVER: DISCONNECT CLIENTS WHEN LOGON HOURS EXPIRE -------------------------
+        public void Analizar_Microsoft_network_server__Disconnect_clients_when_logon_hours_expire()
+        {
+            string politica = "Servidor de red Microsoft: desconectar a los clientes cuando expiren las horas de inicio de sesión";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableForcedLogOff";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.9.4 MICROSOFT NETWORK SERVER: DISCONNECT CLIENTS WHEN LOGON HOURS EXPIRE 
 
 
+        // 2.3.8.8 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL -------------------------
+        public void Analizar_Microsoft_network_server__Server_SPN_target_name_validation_level()
+        {
+            string politica = "Servidor de red Microsoft: nivel de validación de nombres de destino SPN del servidor\r\n";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\SmbServerNameHardeningLevel";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
 
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor != "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.8.8 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL 
+
+
+        // 2.3.10.1 NETWORK ACCESS: ALLOW ANONYMOUS SID/NAME TRANSLATION -------------------------
+        public void Analizar_Network_access__Allow_anonymous__SID__Name_translation()
+        {
+            string politica = "Acceso de red: permitir traducción SID-nombre anónima";
+            string clave = "LSAAnonymousNameLookup";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                long valor = Convert.ToInt64(configuraciones[clave]);
+                if (valor == 0)
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.1 NETWORK ACCESS: ALLOW ANONYMOUS SID/NAME TRANSLATION 
+
+
+        // 2.3.10.2 NETWORK ACCESS: DO NOT ALLOW ANONYMOUS ENUMERATION OF SAM ACCOUNTS -------------------------
+        public void Analizar_Network_access__Do_not_allow_anonymous__enumeration_of_SAM_accounts()
+        {
+            string politica = "Acceso a redes: no permitir enumeraciones anónimas de cuentas SAM";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.2 NETWORK ACCESS: DO NOT ALLOW ANONYMOUS ENUMERATION OF SAM ACCOUNTS 
+
+
+        // 2.3.10.3 NETWORK ACCESS: DO NOT ALLOW ANONYMOUS ENUMERATION OF SAM ACCOUNTS AND SHARES -------------------------
+        public void Analizar_Network_access__Do_not_allow_anonymous__enumeration_of_SAM_accounts_and_shares()
+        {
+            string politica = "Acceso a redes: no permitir enumeraciones anónimas de cuentas y recursos compartidos SAM";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.3 NETWORK ACCESS: DO NOT ALLOW ANONYMOUS ENUMERATION OF SAM ACCOUNTS AND SHARES 
+
+
+        // 2.3.10.4 NETWORK ACCESS: DO NOT ALLOW STORAGE OF PASSWORDS AND CREDENTIALS FOR NETWORK AUTHENTICATION -------------------------
+        public void Analizar_Network_access__Do_not_allow_storage_of_passwords_and_credentials_for_network_authentication()
+        {
+            string politica = "Acceso a redes: no permitir el almacenamiento de contraseñas y credenciales para la autenticación de la red";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\DisableDomainCreds";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.4 NETWORK ACCESS: DO NOT ALLOW STORAGE OF PASSWORDS AND CREDENTIALS FOR NETWORK AUTHENTICATION 
+
+
+        // 2.3.10.5 NETWORK ACCESS: LET EVERYONE PERMISSIONS APPLY TO ANONYMOUS USERS -------------------------
+        public void Analizar_Network_access__Let_Everyone_permissions_apply_to_anonymous_users()
+        {
+            string politica = "Acceso a redes: permitir la aplicación de los permisos Todos a los usuarios anónimos";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.5 NETWORK ACCESS: LET EVERYONE PERMISSIONS APPLY TO ANONYMOUS USERS 
+
+
+        // 2.3.10.6 NETWORK ACCESS: NAMED PIPES THAT CAN BE ACCESSED ANONYMOUSLY -------------------------
+        public void Analizar_Network_access__Named_Pipes_that_can_be_accessed_anonymously()
+        {
+            string politica = "Acceso a redes: canalizaciones con nombre accesibles anónimamente";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionPipes";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "7,")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.6 NETWORK ACCESS: NAMED PIPES THAT CAN BE ACCESSED ANONYMOUSLY 
+
+
+        // 2.3.10.7 NETWORK ACCESS: REMOTELY ACCESSIBLE REGISTRY PATHS -------------------------
+        public void Analizar_Network_access__Remotely_accessible_registry_paths()
+        {
+            string politica = "Acceso a redes: rutas del Registro accesibles remotamente";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedExactPaths\\Machine";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                string[] valores = configuraciones[clave].Split(',');
+                string subcadena = string.Join(",", valores.Skip(1));
+
+                string valoresRequeridos = "System\\CurrentControlSet\\Control\\ProductOptions,System\\CurrentControlSet\\Control\\Server Applications,Software\\Microsoft\\Windows NT\\CurrentVersion";
+
+                bool valorB = VerificarValores(subcadena, valoresRequeridos);
+
+                if (valorB)
+                {
+                    EstConfig(politica, clave, "7," + valoresRequeridos, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.7 NETWORK ACCESS: REMOTELY ACCESSIBLE REGISTRY PATHS 
+
+        // 207
 
 
 

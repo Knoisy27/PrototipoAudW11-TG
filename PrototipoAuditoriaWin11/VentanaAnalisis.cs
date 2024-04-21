@@ -66,5 +66,14 @@ namespace PrototipoAuditoriaWin11
             }
         }
 
+        private void dgvRec_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // Dibujar el índice de la fila en el área del encabezado de fila
+            string rowIndex = (e.RowIndex + 1).ToString(); // El índice de la fila comienza en 0, por lo que sumamos 1 para obtener el índice desde 1
+            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, dgvRec.RowHeadersWidth, e.RowBounds.Height);
+
+            // Configurar el estilo del texto
+            TextRenderer.DrawText(e.Graphics, rowIndex, dgvRec.RowHeadersDefaultCellStyle.Font, headerBounds, dgvRec.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
+        }
     }
 }
