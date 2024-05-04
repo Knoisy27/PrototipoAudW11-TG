@@ -33,10 +33,14 @@ namespace PrototipoAuditoriaWin11
 
 
 
-
+        public void LimpiarDatosCFG() 
+        {
+            configuraciones.Clear();
+            GuardarDatosCFG();
+        }
 
         // LOGICA PARA LEER Y GUARDAR LOS DATOS DEL ARCHIVO SECURITY.CFG -------------------------
-        private void GuardarDatosCFG()
+        public void GuardarDatosCFG()
         {
             string rutaArchivoConfig = @"C:\Windows\Temp\security.cfg";
 
@@ -64,7 +68,7 @@ namespace PrototipoAuditoriaWin11
 
                         // Almacena la configuración en el diccionario
                         configuraciones[clave] = valor;
-                        Console.WriteLine(configuraciones[clave]);
+                        //Console.WriteLine(configuraciones[clave]);
                     }
                 }
 
@@ -2636,11 +2640,9 @@ namespace PrototipoAuditoriaWin11
 
                 string valoresRequeridos = "System\\CurrentControlSet\\Control\\ProductOptions,System\\CurrentControlSet\\Control\\Server Applications,Software\\Microsoft\\Windows NT\\CurrentVersion";
 
-                bool valorB = VerificarValores(subcadena, valoresRequeridos);
-
-                if (valorB)
+                if (VerificarValores(subcadena, valoresRequeridos))
                 {
-                    EstConfig(politica, clave, "7," + valoresRequeridos, recomendacion);
+                    EstConfig(politica, clave, valor, recomendacion);
                     condicionMetodos.Add(true);
                 }
                 else
@@ -2657,7 +2659,870 @@ namespace PrototipoAuditoriaWin11
         }
         // ------------------------- 2.3.10.7 NETWORK ACCESS: REMOTELY ACCESSIBLE REGISTRY PATHS 
 
-        // 207
+
+        // 2.3.10.8 NETWORK ACCESS: REMOTELY ACCESSIBLE REGISTRY PATHS AND SUB-PATHS -------------------------
+        public void Analizar_Network_access__Remotely_accessible_registry_paths_and_sub__paths()
+        {
+            string politica = "Acceso de red: rutas y subrutas de Registro accesibles remotamente\r\n";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedPaths\\Machine";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                string[] valores = configuraciones[clave].Split(',');
+                string subcadena = string.Join(",", valores.Skip(1));
+
+                string valoresRequeridos = "System\\CurrentControlSet\\Control\\Print\\Printers,System\\CurrentControlSet\\Services\\Eventlog,Software\\Microsoft\\OLAP Server,Software\\Microsoft\\Windows NT\\CurrentVersion\\Print,Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows,System\\CurrentControlSet\\Control\\ContentIndex,System\\CurrentControlSet\\Control\\Terminal Server,System\\CurrentControlSet\\Control\\Terminal Server\\UserConfig,System\\CurrentControlSet\\Control\\Terminal Server\\DefaultUserConfiguration,Software\\Microsoft\\Windows NT\\CurrentVersion\\Perflib,System\\CurrentControlSet\\Services\\SysmonLog";
+
+                if (VerificarValores(subcadena, valoresRequeridos))
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.8 NETWORK ACCESS: REMOTELY ACCESSIBLE REGISTRY PATHS AND SUB-PATHS 
+
+
+        // 2.3.10.9 NETWORK ACCESS: RESTRICT ANONYMOUS ACCESS TO NAMED PIPES AND SHARES -------------------------
+        public void Analizar_Network_access__Restrict_anonymous__access_to_Named_Pipes_and_Shares()
+        {
+            string politica = "Acceso a redes: restringir acceso anónimo a canalizaciones con nombre y recursos compartidos";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.9 NETWORK ACCESS: RESTRICT ANONYMOUS ACCESS TO NAMED PIPES AND SHARES 
+
+
+        // 2.3.10.10 NETWORK ACCESS: RESTRICT CLIENTS ALLOWED TO MAKE REMOTE CALLS TO SAM -------------------------
+        public void Analizar_Network_access__Restrict_clients_allowed_to_make_remote_calls_to_SAM()
+        {
+            string politica = "Acceso de red: evitar que los clientes con permiso realicen llamadas remotas a SAM";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "1,\"O:BAG:BAD:(A;;RC;;;BA)\"")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.10 NETWORK ACCESS: RESTRICT CLIENTS ALLOWED TO MAKE REMOTE CALLS TO SAM 
+
+
+        // 2.3.10.11 NETWORK ACCESS: SHARES THAT CAN BE ACCESSED ANONYMOUSLY -------------------------
+        public void Analizar_Network_access__Shares_that_can_be_accessed_anonymously()
+        {
+            string politica = "Acceso a redes: recursos compartidos accesibles anónimamente";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionShares";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "7,")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.11 NETWORK ACCESS: SHARES THAT CAN BE ACCESSED ANONYMOUSLY 
+
+
+        // 2.3.10.12 NETWORK ACCESS: SHARING AND SECURITY MODEL FOR LOCAL ACCOUNTS -------------------------
+        public void Analizar_Network_access__Sharing_and_security_model_for_local_accounts()
+        {
+            string politica = "Acceso a redes: modelo de seguridad y uso compartido para cuentas locales";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\ForceGuest";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.10.12 NETWORK ACCESS: SHARING AND SECURITY MODEL FOR LOCAL ACCOUNTS 
+
+
+        // 2.3.11.1 NETWORK SECURITY: ALLOW LOCAL SYSTEM TO USE COMPUTER IDENTITY FOR NTLM -------------------------
+        public void Analizar_Network_security__Allow_Local_System_to_use_computer_identity_for_NTLM()
+        {
+            string politica = "Seguridad de red: permitir que LocalSystem use la identidad del PC para NTLM\r\n";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.1 NETWORK SECURITY: ALLOW LOCAL SYSTEM TO USE COMPUTER IDENTITY FOR NTLM 
+
+
+        // 2.3.11.2 NETWORK SECURITY: ALLOW LOCALSYSTEM NULL SESSION FALLBACK -------------------------
+        public void Analizar_Network_security__Allow_LocalSystem_NULL_session_fallback()
+        {
+            string politica = "Seguridad de red: permitir retroceso a sesión NULL de LocalSystem ";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.2 NETWORK SECURITY: ALLOW LOCALSYSTEM NULL SESSION FALLBACK 
+
+
+        // 2.3.11.3 NETWORK SECURITY: ALLOW PKU2U AUTHENTICATION REQUESTS TO THIS COMPUTER TO USE ONLINE IDENTITIES -------------------------
+        public void Analizar_Network_Security__Allow_PKU2U_authentication_requests_to_this_computer_to_use_online_identities()
+        {
+            string politica = "Seguridad de red: Permite las solicitudes de autenticación PKU2U a este equipo para usar identidades en línea.";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\pku2u\\AllowOnlineID";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.3 NETWORK SECURITY: ALLOW PKU2U AUTHENTICATION REQUESTS TO THIS COMPUTER TO USE ONLINE IDENTITIES 
+
+
+        // 2.3.11.4 NETWORK SECURITY: CONFIGURE ENCRYPTION TYPES ALLOWED FOR KERBEROS -------------------------
+        public void Analizar_Network_security__Configure_encryption_types_allowed_for_Kerberos()
+        {
+            string politica = "Seguridad de red: configurar tipos de cifrado permitidos para Kerberos\r\n";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters\\SupportedEncryptionTypes";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,2147483640")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.4 NETWORK SECURITY: CONFIGURE ENCRYPTION TYPES ALLOWED FOR KERBEROS 
+
+
+        // 2.3.11.5 NETWORK SECURITY: DO NOT STORE LAN MANAGER HASH VALUE ON NEXT PASSWORD CHANGE -------------------------
+        public void Analizar_Network_security__Do_not_store_LAN_Manager_hash_value_on_next_password_change()
+        {
+            string politica = "Seguridad de red: no almacenar valor de hash de LAN Manager en el próximo cambio de contraseña";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.5 NETWORK SECURITY: DO NOT STORE LAN MANAGER HASH VALUE ON NEXT PASSWORD CHANGE 
+
+
+        // 2.3.11.6 NETWORK SECURITY: FORCE LOGOFF WHEN LOGON HOURS EXPIRE -------------------------
+        public void Analizar_Network_security__Force_logoff_when_logon_hours_expire()
+        {
+            string politica = "Seguridad de red: forzar el cierre de sesión cuando expire la hora de inicio de sesión";
+            string clave = "ForceLogoffWhenHourExpire";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                long valor = Convert.ToInt64(configuraciones[clave]);
+                if (valor == 1)
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.6 NETWORK SECURITY: FORCE LOGOFF WHEN LOGON HOURS EXPIRE 
+
+
+        // 2.3.11.7 NETWORK SECURITY: LAN MANAGER AUTHENTICATION LEVEL -------------------------
+        public void Analizar_Network_security__LAN_Manager__authentication_level()
+        {
+            string politica = "Seguridad de red: nivel de autenticación de LAN Manager";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,5")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.7 NETWORK SECURITY: LAN MANAGER AUTHENTICATION LEVEL 
+
+
+        // 2.3.11.8 NETWORK SECURITY: LDAP CLIENT SIGNING REQUIREMENTS -------------------------
+        public void Analizar_Network_security__LDAP_client_signing_requirements()
+        {
+            string politica = "Seguridad de red: requisitos de firma de cliente LDAP";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor != "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.8 NETWORK SECURITY: LDAP CLIENT SIGNING REQUIREMENTS 
+
+
+        // 2.3.11.9 NETWORK SECURITY: MINIMUM SESSION SECURITY FOR NTLM SSP BASED (INCLUDING SECURE RPC) CLIENTS -------------------------
+        public void Analizar_Network_security__Minimum_session_security_for_NTLM_SSP_based__including_secure_RPC__clients()
+        {
+            string politica = "Seguridad de red: seguridad de sesión mínima para clientes NTLM basados en SSP (incluida RPC segura)";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,537395200")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.9 NETWORK SECURITY: MINIMUM SESSION SECURITY FOR NTLM SSP BASED (INCLUDING SECURE RPC) CLIENTS 
+
+
+        // 2.3.11.10 NETWORK SECURITY: MINIMUM SESSION SECURITY FOR NTLM SSP BASED (INCLUDING SECURE RPC) SERVERS -------------------------
+        public void Analizar_Network_security__Minimum_session__security_for_NTLM_SSP_based__including_secure_RPC__servers()
+        {
+            string politica = "Seguridad de red: seguridad de sesión mínima para servidores NTLM basados en SSP (incluida RPC segura)";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,537395200")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.11.10 NETWORK SECURITY: MINIMUM SESSION SECURITY FOR NTLM SSP BASED (INCLUDING SECURE RPC) SERVERS 
+
+
+        // 2.3.14.1 SYSTEM CRYPTOGRAPHY: FORCE STRONG KEY PROTECTION FOR USER KEYS STORED ON THE COMPUTER -------------------------
+        public void Analizar_System_cryptography__Force_strong_key_protection_for_user_keys_stored_on_the_computer()
+        {
+            string politica = "Criptografía de sistema: forzar la protección con claves seguras para las claves de usuario almacenadas en el equipo";
+            string clave = "MACHINE\\Software\\Policies\\Microsoft\\Cryptography\\ForceKeyProtection";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor != "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.14.1 SYSTEM CRYPTOGRAPHY: FORCE STRONG KEY PROTECTION FOR USER KEYS STORED ON THE COMPUTER 
+
+
+        // 2.3.15.1 SYSTEM OBJECTS: REQUIRE CASE INSENSITIVITY FOR NON-WINDOWS SUBSYSTEMS -------------------------
+        public void Analizar_System_objects__Require_case_insensitivity_for_non__Windows_subsystems()
+        {
+            string politica = "Objetos de sistema: requerir no distinguir mayúsculas de minúsculas para subsistemas que no sean de Windows";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.15.1 SYSTEM OBJECTS: REQUIRE CASE INSENSITIVITY FOR NON-WINDOWS SUBSYSTEMS 
+
+
+        // 2.3.15.2 SYSTEM OBJECTS: STRENGTHEN DEFAULT PERMISSIONS OF INTERNAL SYSTEM OBJECTS (E.G. SYMBOLIC LINKS) -------------------------
+        public void Analizar_System_objects__Strengthen_default_permissions_of_internal_system_objects__e__g___Symbolic_Links__()
+        {
+            string politica = "Objetos de sistema: reforzar los permisos predeterminados de los objetos internos del sistema (por ejemplo, vínculos simbólicos)";
+            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.15.2 SYSTEM OBJECTS: STRENGTHEN DEFAULT PERMISSIONS OF INTERNAL SYSTEM OBJECTS (E.G. SYMBOLIC LINKS) 
+
+
+        // 2.3.17.1 USER ACCOUNT CONTROL: ADMIN APPROVAL MODE FOR THE BUILT-IN ADMINISTRATOR ACCOUNT -------------------------
+        public void Analizar_User_Account_Control__Admin_Approval_Mode_for_the_Built__in_Administrator_account()
+        {
+            string politica = "Control de cuentas de usuario: usar Modo de aprobación de administrador para la cuenta predefinida Administrador";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.17.1 USER ACCOUNT CONTROL: ADMIN APPROVAL MODE FOR THE BUILT-IN ADMINISTRATOR ACCOUNT 
+
+
+        // 2.3.17.2 USER ACCOUNT CONTROL: BEHAVIOR OF THE ELEVATION PROMPT FOR ADMINISTRATORS IN ADMIN APPROVAL MODE -------------------------
+        public void Analizar_User_Account_Control__Behavior_of_the_elevation_prompt_for_administrators_in_Admin_Approval_Mode()
+        {
+            string politica = "Control de cuentas de usuario: comportamiento de la petición de elevación para los administradores en Modo de aprobación de administrador\r\n";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1" || valor == "4,2")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.17.2 USER ACCOUNT CONTROL: BEHAVIOR OF THE ELEVATION PROMPT FOR ADMINISTRATORS IN ADMIN APPROVAL MODE 
+
+
+        // 2.3.17.3 USER ACCOUNT CONTROL: BEHAVIOR OF THE ELEVATION PROMPT FOR STANDARD USERS -------------------------
+        public void Analizar_User_Account_Control__Behavior_of_the_elevation_prompt_for_standard_users()
+        {
+            string politica = "Control de cuentas de usuario: comportamiento de la petición de elevación para los usuarios estándar";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.17.3 USER ACCOUNT CONTROL: BEHAVIOR OF THE ELEVATION PROMPT FOR STANDARD USERS 
+
+
+        // 2.3.17.4 USER ACCOUNT CONTROL: DETECT APPLICATION INSTALLATIONS AND PROMPT FOR ELEVATION -------------------------
+        public void Analizar_User_Account_Control__Detect_application_installations_and_prompt_for_elevation()
+        {
+            string politica = "Control de cuentas de usuario: detectar instalaciones de aplicaciones y pedir confirmación de elevación";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.17.4 USER ACCOUNT CONTROL: DETECT APPLICATION INSTALLATIONS AND PROMPT FOR ELEVATION 
+
+
+        // 2.3.17.5 USER ACCOUNT CONTROL: ONLY ELEVATE UIACCESS APPLICATIONS THAT ARE INSTALLED IN SECURE LOCATIONS -------------------------
+        public void Analizar_User_Account_Control__Only_elevate_UIAccess_applications_that_are_installed_in_secure_locations()
+        {
+            string politica = "Control de cuentas de usuario: elevar solo aplicaciones UIAccess instaladas en ubicaciones seguras";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.17.5 USER ACCOUNT CONTROL: ONLY ELEVATE UIACCESS APPLICATIONS THAT ARE INSTALLED IN SECURE LOCATIONS 
+
+
+        // 2.3.17.6 USER ACCOUNT CONTROL: RUN ALL ADMINISTRATORS IN ADMIN APPROVAL MODE -------------------------
+        public void Analizar_User_Account_Control__Run_all_administrators_in_Admin_Approval_Mode()
+        {
+            string politica = "Control de cuentas de usuario: activar el Modo de aprobación de administrador.\r\n";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.17.6 USER ACCOUNT CONTROL: RUN ALL ADMINISTRATORS IN ADMIN APPROVAL MODE 
+
+
+        // 2.3.17.7 USER ACCOUNT CONTROL: SWITCH TO THE SECURE DESKTOP WHEN PROMPTING FOR ELEVATION -------------------------
+        public void Analizar_User_Account_Control__Switch_to_the_secure_desktop_when_prompting_for_elevation()
+        {
+            string politica = "Control de cuentas de usuario: cambiar al escritorio seguro cuando se pida confirmación de elevación";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\PromptOnSecureDesktop";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.17.7 USER ACCOUNT CONTROL: SWITCH TO THE SECURE DESKTOP WHEN PROMPTING FOR ELEVATION 
+
+
+        // 2.3.17.8 USER ACCOUNT CONTROL: VIRTUALIZE FILE AND REGISTRY WRITE FAILURES TO PER-USER LOCATIONS -------------------------
+        public void Analizar_User_Account_Control__Virtualize_file_and_registry_write_failures_to_per__user_locations()
+        {
+            string politica = "Control de cuentas de usuario: virtualizar los errores de escritura de archivo y del Registro a ubicaciones por usuario";
+            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4,1")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 2.3.17.8 USER ACCOUNT CONTROL: VIRTUALIZE FILE AND REGISTRY WRITE FAILURES TO PER-USER LOCATIONS 
+
+
+        // 5.1 BLUETOOTH AUDIO GATEWAY SERVICE (BTAGSERVICE) -------------------------
+        public void Analizar_Bluetooth_Audio_Gateway_Service__BTAGService__()
+        {
+            string politica = "Servicio de puerta de enlace de audio bluetooth";
+            string clave = "BTAGService";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (configuraciones.ContainsKey(clave))
+            {
+                string valor = configuraciones[clave];
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.1 BLUETOOTH AUDIO GATEWAY SERVICE (BTAGSERVICE) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

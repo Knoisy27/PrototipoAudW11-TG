@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Wpf;
@@ -169,10 +164,10 @@ namespace PrototipoAuditoriaWin11
 
 
 
-        private void btnAnalizar_MouseHover(object sender, EventArgs e)
+        /*private void btnAnalizar_MouseHover(object sender, EventArgs e)
         {
             Cursor = Cursors.Hand;
-        }
+        }*/
 
         private void btnAnalizar_MouseLeave(object sender, EventArgs e)
         {
@@ -186,6 +181,7 @@ namespace PrototipoAuditoriaWin11
                 ventanaAnalisis.Show();
 
                 Program.VerificarArchivoCFG();
+                logica.LimpiarDatosCFG();
 
                 // Obtener todos los métodos de la clase Logica que comienzan con el prefijo "Analizar_"
                 var metodos = typeof(Logica).GetMethods()
@@ -251,5 +247,57 @@ namespace PrototipoAuditoriaWin11
             AjustarVentanaAnalisis();
         }
 
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            Process.Start("https://github.com/Knoisy27/PrototipoAudW11-TG");
+        }
+
+        private void btnHerramientas_Click(object sender, EventArgs e)
+        {
+            panelHerramientasSub.Visible = (panelHerramientasSub.Visible == true) ? false : true;
+        }
+
+
+        private void btnGpedit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process gpedit = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = @"C:\WINDOWS\System32\gpedit.msc",
+                        UseShellExecute = true,
+                        Verb = "runas" // Establece el verbo a "runas" para ejecutar como administrador
+                    }
+                };
+                gpedit.Start();
+            }
+            catch
+            {
+                string msg = "No se encuentra la herramienta gpedit.msc";
+                string title = @"C:\WINDOWS\System32\gpedit.msc";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBox.Show(msg, title, buttons, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRegedit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //ExecuteCommand(@"%windir%\\System32\\gpedit.msc");
+                Process gpedit = new Process();
+                gpedit.StartInfo.FileName = @"C:\WINDOWS\regedit.exe";
+                gpedit.Start();
+            }
+            catch
+            {
+                string msg = "No se encuentra la herramienta regedit.exe\n";
+                string title = @"C:\WINDOWS\regedit.exe";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                MessageBox.Show(msg, title, buttons, MessageBoxIcon.Error);
+            }
+        }
     }
 }

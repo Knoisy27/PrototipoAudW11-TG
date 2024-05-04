@@ -30,6 +30,7 @@ namespace PrototipoAuditoriaWin11
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaAnalisis));
             this.btnCerrarVentanaAnalisis = new System.Windows.Forms.Button();
             this.panelDinamicoResultados = new System.Windows.Forms.Panel();
             this.dgvRec = new System.Windows.Forms.DataGridView();
@@ -39,18 +40,18 @@ namespace PrototipoAuditoriaWin11
             // 
             // btnCerrarVentanaAnalisis
             // 
-            this.btnCerrarVentanaAnalisis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCerrarVentanaAnalisis.AutoSize = true;
             this.btnCerrarVentanaAnalisis.BackColor = System.Drawing.Color.Transparent;
             this.btnCerrarVentanaAnalisis.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrarVentanaAnalisis.FlatAppearance.BorderSize = 0;
             this.btnCerrarVentanaAnalisis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrarVentanaAnalisis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btnCerrarVentanaAnalisis.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrarVentanaAnalisis.Image")));
             this.btnCerrarVentanaAnalisis.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnCerrarVentanaAnalisis.Location = new System.Drawing.Point(1031, 3);
+            this.btnCerrarVentanaAnalisis.Location = new System.Drawing.Point(28, 13);
             this.btnCerrarVentanaAnalisis.Name = "btnCerrarVentanaAnalisis";
-            this.btnCerrarVentanaAnalisis.Size = new System.Drawing.Size(36, 37);
+            this.btnCerrarVentanaAnalisis.Size = new System.Drawing.Size(38, 38);
             this.btnCerrarVentanaAnalisis.TabIndex = 2;
-            this.btnCerrarVentanaAnalisis.Text = "X";
             this.btnCerrarVentanaAnalisis.UseVisualStyleBackColor = false;
             this.btnCerrarVentanaAnalisis.Click += new System.EventHandler(this.btnCerrarVentanaAnalisis_Click);
             // 
@@ -61,7 +62,7 @@ namespace PrototipoAuditoriaWin11
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDinamicoResultados.BackColor = System.Drawing.Color.White;
             this.panelDinamicoResultados.Controls.Add(this.dgvRec);
-            this.panelDinamicoResultados.Location = new System.Drawing.Point(52, 46);
+            this.panelDinamicoResultados.Location = new System.Drawing.Point(82, 68);
             this.panelDinamicoResultados.Name = "panelDinamicoResultados";
             this.panelDinamicoResultados.Size = new System.Drawing.Size(948, 560);
             this.panelDinamicoResultados.TabIndex = 3;
@@ -102,6 +103,7 @@ namespace PrototipoAuditoriaWin11
             this.panelDinamicoResultados.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRec)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

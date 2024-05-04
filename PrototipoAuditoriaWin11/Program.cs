@@ -13,11 +13,12 @@ namespace PrototipoAuditoriaWin11
         // GENERAR EL ARCHIVO SECURITY.CFG -------------------------
         private static void GenerarArchivoCFG()
         {
-            Console.WriteLine("El archivo no existe. Continúa con tu proceso.");
+            //Console.WriteLine("El archivo no existe. Continúa con tu proceso.");
             string command = @"C:\Windows\System32\secedit";
             string arguments = @"/export /cfg C:\Windows\Temp\security.cfg";
 
             ProcessStartInfo startInfo = new ProcessStartInfo(command, arguments);
+            startInfo.CreateNoWindow = true;
             startInfo.UseShellExecute = false; // Evita que se abra una nueva ventana de CMD
             startInfo.RedirectStandardOutput = true; // Captura la salida del comando
 
@@ -28,7 +29,7 @@ namespace PrototipoAuditoriaWin11
 
                 // Lee la salida del comando (opcional)
                 string output = process.StandardOutput.ReadToEnd();
-                Console.WriteLine(output);
+                //Console.WriteLine(output);
 
                 process.WaitForExit();
             }
@@ -46,10 +47,12 @@ namespace PrototipoAuditoriaWin11
                 {
                     File.Delete(filePath);
                     GenerarArchivoCFG();
+                    Console.WriteLine("El archivo existe");
                 }
                 else
                 {
                     GenerarArchivoCFG();
+                    Console.WriteLine("El archivo existe");
                 }
             }
             catch (Exception ex)
