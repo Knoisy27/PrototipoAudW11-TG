@@ -1,0 +1,13 @@
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Release\PrototipoAuditoriaWin11.exe.config
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Release\PrototipoAuditoriaWin11.exe
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Release\PrototipoAuditoriaWin11.pdb
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Release\es-CO\PrototipoAuditoriaWin11.resources.dll
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\PrototipoAuditoriaWin11.csproj.AssemblyReference.cache
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\PrototipoAuditoriaWin11.FormVentanaPrincipal.resources
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\PrototipoAuditoriaWin11.Properties.Resources.resources
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\PrototipoAuditoriaWin11.FormVentanaPrincipal.es-CO.resources
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\PrototipoAuditoriaWin11.csproj.GenerateResource.cache
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\PrototipoAuditoriaWin11.csproj.CoreCompileInputs.cache
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\es-CO\PrototipoAuditoriaWin11.resources.dll
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\PrototipoAuditoriaWin11.exe
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Release\PrototipoAuditoriaWin11.pdb
