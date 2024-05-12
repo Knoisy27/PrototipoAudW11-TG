@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuracion.cs" />
+    <Compile Include="RegistroWindows.cs" />
     <Compile Include="VentanaAnalisis.cs">
       <SubType>UserControl</SubType>
     </Compile>

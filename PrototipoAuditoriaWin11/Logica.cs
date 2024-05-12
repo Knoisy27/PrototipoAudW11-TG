@@ -3445,16 +3445,16 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 2.3.17.8 USER ACCOUNT CONTROL: VIRTUALIZE FILE AND REGISTRY WRITE FAILURES TO PER-USER LOCATIONS 
 
 
-        // 5.1 BLUETOOTH AUDIO GATEWAY SERVICE (BTAGSERVICE) -------------------------
-        public void Analizar_Bluetooth_Audio_Gateway_Service__BTAGService__()
+        /*// 5.1 BLUETOOTH AUDIO GATEWAY SERVICE -------------------------
+        public void Analizar_Bluetooth_Support_Service__bthserv__()
         {
-            string politica = "Servicio de puerta de enlace de audio bluetooth";
-            string clave = "BTAGService";
+            string politica = "Servicio de puerta de enlace de audio de Bluetooth";
+            string clave = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\BTAGService:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
-            if (configuraciones.ContainsKey(clave))
+            if (RegistroWindows.ExisteClaveRegistro(@"SYSTEM\CurrentControlSet\Services\BTAGService:Start"))
             {
-                string valor = configuraciones[clave];
+                string valor = RegistroWindows.ObtenerValorRegistro(@"SYSTEM\CurrentControlSet\Services\BTAGService:Start");
                 if (valor == "4")
                 {
                     EstConfig(politica, clave, valor, recomendacion);
@@ -3472,9 +3472,10 @@ namespace PrototipoAuditoriaWin11
                 EstConfig(politica, clave, "No está definido", recomendacion);
             }
         }
-        // ------------------------- 5.1 BLUETOOTH AUDIO GATEWAY SERVICE (BTAGSERVICE) 
+        // ------------------------- 5.1 BLUETOOTH AUDIO GATEWAY SERVICE (BTAGSERVICE) */
 
 
+        // 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 5.10, 5.11, 5.12, 5.13, 5.14, 5.15, 5.16, 5.17, 5.18, 5.19, 5.20, 5.21, 5.22, 5.23, 5.24, 5.25, 5.26, 5.27, 5.28, 5.29, 5.30, 5.31, 5.32, 5.33, 5.34, 5.35, 5.36, 5.37, 5.38, 5.39, 5.40, 5.41, 5.42, 5.43, 5.44, 5.45 (System Services)
 
 
 
