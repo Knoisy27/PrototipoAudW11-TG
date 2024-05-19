@@ -22,3 +22,9 @@ C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\Prototip.23E70FA9.Up2Date
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.exe
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.pdb
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\YamlDotNet.dll
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\YamlDotNet.xml
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.ControlRecomendaciones.resources
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\Newtonsoft.Json.dll
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\Newtonsoft.Json.xml
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.ControlGrafRec.resources

@@ -16,6 +16,8 @@ namespace PrototipoAuditoriaWin11
         private Point lastLocation;
         private Logica logica;
         public VentanaAnalisis ventanaAnalisis;
+        private ControlRecomendaciones controlRecomendaciones;
+        //public ControlGrafRecomendaciones controlRecomendaciones;
 
         public FormVentanaPrincipal()
         {
@@ -24,12 +26,14 @@ namespace PrototipoAuditoriaWin11
             MostrarEspecificacionesEquipo();
 
             ventanaAnalisis = new VentanaAnalisis();
-            logica = new Logica(ventanaAnalisis.PanelDinamicoResultados, ventanaAnalisis.DgvResultados);
+            controlRecomendaciones = new ControlRecomendaciones();
+            logica = new Logica(/*ventanaAnalisis.PanelDinamicoResultados, */ventanaAnalisis.DgvResultados);
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             // Agregar VentanaAnalisis al formulario principal
             this.Controls.Add(ventanaAnalisis);
-            ventanaAnalisis.Hide();
+            //this.Controls.Add(controlRecomendaciones);
             ventanaAnalisis.VisibleChanged += FormVentanaPrincipal_VisibleChanged;
+            ventanaAnalisis.ControlRecomendacionesVisibleChanged += VentanaAnalisis_ControlRecomendacionesVisibleChanged;
         }
 
         // FUNCIONALIDAD PARA REDIMENSIONAR LA VENTANA DESDE LOS BORDES -------------------------
@@ -86,13 +90,13 @@ namespace PrototipoAuditoriaWin11
             if (WindowState == FormWindowState.Normal)
             {
                 WindowState = FormWindowState.Maximized;
-                AjustarVentanaAnalisis(); // Ajustar tamaño y posición al maximizar
             }
             else
             {
                 WindowState = FormWindowState.Normal;
-                AjustarVentanaAnalisis(); // Ajustar tamaño y posición al restaurar
             }
+            AjustarVentanaAnalisis();
+            AjustarControlRecomendaciones();
         }
 
         private void btnMin_Click(object sender, EventArgs e)
@@ -211,40 +215,55 @@ namespace PrototipoAuditoriaWin11
 
         private void AjustarVentanaAnalisis()
         {
-
-            // Verificar si la ventana de análisis está visible
             if (ventanaAnalisis != null && ventanaAnalisis.Visible)
             {
-                // Obtener el tamaño de la ventana principal
                 int anchoVentanaPrincipal = this.ClientSize.Width;
                 int altoVentanaPrincipal = this.ClientSize.Height;
 
-                /*// Definir el porcentaje de ancho y alto que quieres para la ventana de análisis
-                double porcentajeAncho = 0.8; // 50%
-                double porcentajeAlto = 0.8;  // 50%
+                ventanaAnalisis.Size = new Size(anchoVentanaPrincipal - 165, altoVentanaPrincipal - 40);
 
-                // Calcular el tamaño de la ventana de análisis en función del porcentaje
-                int anchoVentanaAnalisis = (int)(anchoVentanaPrincipal * porcentajeAncho);
-                int altoVentanaAnalisis = (int)(altoVentanaPrincipal * porcentajeAlto);*/
-
-                // Ajustar el tamaño de la ventana de análisis
-                ventanaAnalisis.Size = new Size(anchoVentanaPrincipal-165, altoVentanaPrincipal-40);
-
-                
+                /*// Ajustar el tamaño de ControlGrafRecomendaciones dentro de VentanaAnalisis
+                if (ventanaAnalisis.controlRecomendaciones != null && ventanaAnalisis.controlRecomendaciones.Visible)
+                {
+                    ventanaAnalisis.controlRecomendaciones.Size = new Size(anchoVentanaPrincipal - 165, altoVentanaPrincipal - 40);
+                    Console.WriteLine($"ControlGrafRecomendaciones Size: {ventanaAnalisis.controlRecomendaciones.Size}");
+                }*/
             }
         }
 
+
+        private void AjustarControlRecomendaciones() 
+        {
+            if (ventanaAnalisis != null && ventanaAnalisis.Visible)
+            {
+                int anchoVentanaPrincipal = this.ClientSize.Width;
+                int altoVentanaPrincipal = this.ClientSize.Height;
+
+                // Ajustar el tamaño de ControlGrafRecomendaciones dentro de VentanaAnalisis
+                if (ventanaAnalisis.controlRecomendaciones != null && ventanaAnalisis.controlRecomendaciones.Visible)
+                {
+                    ventanaAnalisis.controlRecomendaciones.Size = new Size(anchoVentanaPrincipal - 165, altoVentanaPrincipal - 40);
+                    Console.WriteLine($"ControlGrafRecomendaciones Size: {ventanaAnalisis.controlRecomendaciones.Size}");
+                }
+            }
+        }
+        private void VentanaAnalisis_ControlRecomendacionesVisibleChanged(object sender, EventArgs e)
+        {
+            AjustarControlRecomendaciones();
+        }
 
         private void FormVentanaPrincipal_VisibleChanged(object sender, EventArgs e)
         {
             if (ventanaAnalisis.Visible)
             {
                 AjustarVentanaAnalisis();
+
             }
         }
         private void FormVentanaPrincipal_SizeChanged(object sender, EventArgs e)
         {
             AjustarVentanaAnalisis();
+            AjustarControlRecomendaciones();
         }
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)

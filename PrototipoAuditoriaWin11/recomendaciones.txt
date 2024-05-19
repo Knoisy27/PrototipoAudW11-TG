@@ -1,0 +1,54 @@
+﻿#PasswordHistorySize
+Descripción:
+
+Esta configuración de política determina cuántas contraseñas renovadas y únicas deben asociarse con una cuenta de usuario antes de poder reutilizar una contraseña antigua. El valor debe estar entre 0 y 24 contraseñas. El valor predeterminado para sistemas independientes es 0 contraseñas, mientras que para sistemas unidos a un dominio es 24 contraseñas. Para mantener la efectividad de esta política, se recomienda usar la configuración de Edad mínima de la contraseña para evitar cambios repetidos. Estado recomendado: 24 o más contraseñas.
+
+Nota:
+
+Las configuraciones de Política de contraseñas y de Política de bloqueo de cuentas deben aplicarse mediante la GPO de Política de dominio predeterminada para tener efecto globalmente en cuentas de usuario de dominio. Las excepciones a estas reglas pueden definirse usando Objetos de configuración de contraseña, independientes de la Política de grupo.
+
+Nota #2:
+
+Microsoft tiene un límite máximo de 24 contraseñas guardadas. Para más información, visita la documentación de Microsoft sobre Imponer el historial de contraseñas en Windows 10.
+
+Justificación:
+
+El uso prolongado de una misma contraseña aumenta el riesgo de ataques de fuerza bruta y explotación de cuentas comprometidas. Evitar la reutilización de contraseñas y establecer una edad mínima adecuada ayuda a mantener la seguridad. Un valor bajo en esta configuración permite la reutilización frecuente de contraseñas, reduciendo la efectividad de la política de contraseñas.
+
+Impacto:
+
+Esta configuración obliga a los usuarios a crear nuevas contraseñas en cada cambio, lo que puede llevar a prácticas de seguridad inadecuadas, como anotar las contraseñas. También aumenta el riesgo de contraseñas predecibles. Un valor bajo en la edad mínima de la contraseña puede aumentar la carga administrativa al incrementar los reinicios de contraseña solicitados por los usuarios.
+
+#MaximumPasswordAge
+Descripción:
+
+Esta configuración de política define cuánto tiempo puede usar un usuario su contraseña antes de que expire. Los valores van de 0 a 999 días. Si establece el valor en 0, la contraseña nunca caducará. Aunque los atacantes pueden descifrar contraseñas, cuanto más frecuentemente cambie la contraseña, menos oportunidades tendrán los atacantes de usar una contraseña descifrada. Sin embargo, cuanto más bajo esté configurado este valor, mayor será el potencial de aumento en las llamadas al soporte técnico debido a que los usuarios tienen que cambiar su contraseña o olvidar cuál es la contraseña actual. El estado recomendado para esta configuración es de 365 días o menos, pero no 0.
+
+Nota:
+
+Las configuraciones de Política de contraseñas y de Política de bloqueo de cuentas deben aplicarse mediante la GPO de Política de dominio predeterminada para tener efecto globalmente en cuentas de usuario de dominio. Las excepciones a estas reglas pueden definirse usando Objetos de configuración de contraseña, independientes de la Política de grupo.
+
+Justificación:
+
+Cuanto más tiempo exista una contraseña, mayor será la probabilidad de que sea comprometida por un ataque de fuerza bruta, por un atacante que obtenga conocimientos generales sobre el usuario o por el usuario que comparta la contraseña. Configurar la configuración de Edad máxima de la contraseña en 0 para que los usuarios nunca estén obligados a cambiar sus contraseñas es un riesgo de seguridad importante, ya que permite que una contraseña comprometida sea utilizada por el usuario malintencionado durante el tiempo que el usuario válido tenga acceso autorizado.
+
+Impacto:
+
+Si la configuración de Edad máxima de la contraseña es demasiado baja, se requiere que los usuarios cambien sus contraseñas con mucha frecuencia. Esta configuración puede reducir la seguridad en la organización, ya que los usuarios podrían escribir sus contraseñas en un lugar inseguro o perderlas. Si el valor para esta configuración de política es demasiado alto, se reduce el nivel de seguridad dentro de una organización porque permite a los posibles atacantes más tiempo para descubrir contraseñas de usuarios o para usar cuentas comprometidas.
+
+#MinimumPasswordAge
+Descripción:
+
+Esta configuración de política determina el número de días que debe usar una contraseña antes de poder cambiarla. El rango de valores para esta configuración de política es entre 1 y 999 días. (También puede establecer el valor en 0 para permitir cambios de contraseña inmediatos). El valor predeterminado para esta configuración es de 0 días. El estado recomendado para esta configuración es: 1 o más día(s).
+
+Nota:
+
+Las configuraciones de Política de contraseñas y de Política de bloqueo de cuentas deben aplicarse mediante la GPO de Política de dominio predeterminada para tener efecto globalmente en cuentas de usuario de dominio. Las excepciones a estas reglas pueden definirse usando Objetos de configuración de contraseña, independientes de la Política de grupo.
+
+Justificación:
+
+Los usuarios pueden tener contraseñas favoritas que les guste usar porque son fáciles de recordar y creen que su elección de contraseña es segura contra compromisos. Desafortunadamente, las contraseñas son comprometidas y si un atacante está apuntando a la cuenta de usuario específica de un individuo, con conocimiento previo de datos sobre ese usuario, la reutilización de contraseñas antiguas puede causar una brecha de seguridad. Para abordar la reutilización de contraseñas se requiere una combinación de configuraciones de seguridad. El uso de esta configuración de política con la configuración de Imponer el historial de contraseñas evita la fácil reutilización de contraseñas antiguas. Por ejemplo, si configura la configuración de Imponer el historial de contraseñas para asegurarse de que los usuarios no puedan reutilizar ninguna de sus últimas 12 contraseñas, podrían cambiar su contraseña 13 veces en pocos minutos y reutilizar la contraseña con la que comenzaron, a menos que también configure la configuración de Edad mínima de la contraseña a un número mayor que 0. Debe configurar esta configuración de política a un número mayor que 0 para que la configuración de Imponer el historial de contraseñas sea efectiva.
+
+Impacto:
+
+Si un administrador establece una contraseña para un usuario pero quiere que ese usuario cambie la contraseña cuando inicie sesión por primera vez, el administrador debe seleccionar la casilla de verificación El usuario debe cambiar la contraseña en el próximo inicio de sesión, o el usuario no podrá cambiar la contraseña hasta el próximo día.

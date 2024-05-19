@@ -1,31 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
-using Microsoft.Win32;
-using System.Reflection;
-using System.Security.Principal;
-using System.Net;
-using System.Drawing.Printing;
-using System.Windows.Documents;
-using System.Windows.Media;
-using System.Diagnostics;
-using System.Windows.Media.Media3D;
+using System.IO;
+using YamlDotNet.Serialization;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace PrototipoAuditoriaWin11
 {
     internal class Logica
     {
-        private Panel panelDinamicoResultados;
+        //private Panel panelDinamicoResultados;
         private DataGridView dgvRec;
         private Dictionary<string, string> configuraciones;
         public List<bool> condicionMetodos = new List<bool>();
         private List<Configuracion> configuracionesPendientes = new List<Configuracion>();
 
-        public Logica(Panel panel, DataGridView dataGridView)
+        public Logica(/*Panel panel, */DataGridView dataGridView)
         {
-            panelDinamicoResultados = panel;
+            //panelDinamicoResultados = panel;
             dgvRec = dataGridView;
             configuraciones = new Dictionary<string, string>();
             GuardarDatosCFG();
@@ -186,16 +180,57 @@ namespace PrototipoAuditoriaWin11
         }
         // ------------------------- FUNCION AUXILIAR PARA SEPARAR POR LA COMA DESDE UN STRING
 
-
-
-
-
         private void EstConfig(string politica, string clave, string valor, string recomendacion)
         {
             Configuracion configuracion = new Configuracion(politica, clave, valor, recomendacion);
             configuracionesPendientes.Add(configuracion);
         }
 
+        public string ObtenerInformacionMetodo(string clave)
+        {
+            string rutaArchivoConfig = @"C:\\Users\\josel\\source\\repos\\PrototipoAuditoriaWin11\\PrototipoAuditoriaWin11\\recomendaciones.txt";
+
+            StringBuilder informacion = new StringBuilder();
+            bool encontrado = false;
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(rutaArchivoConfig))
+                {
+                    string linea;
+                    while ((linea = sr.ReadLine()) != null)
+                    {
+                        // Buscar la entrada correspondiente al nombre del método
+                        if (linea.StartsWith("#" + clave))
+                        {
+                            encontrado = true;
+                            continue;
+                        }
+                        if (encontrado)
+                        {
+                            // Leer la descripción hasta encontrar el próximo carácter especial #
+                            if (linea.StartsWith("#"))
+                            {
+                                break;
+                            }
+                            informacion.AppendLine(linea);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                informacion.Append($"Error al leer el archivo de configuración: {ex.Message}");
+            }
+
+            // Si la palabra clave no se encontró, mostrar un mensaje
+            if (!encontrado)
+            {
+                informacion.Append($"No se encontró información para la política {clave}");
+            }
+
+            return informacion.ToString();
+        }
 
 
 
@@ -205,7 +240,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Exigir historial de contraseñas";
             string clave = "PasswordHistorySize";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "> 24";
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
@@ -3445,16 +3480,16 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 2.3.17.8 USER ACCOUNT CONTROL: VIRTUALIZE FILE AND REGISTRY WRITE FAILURES TO PER-USER LOCATIONS 
 
 
-        /*// 5.1 BLUETOOTH AUDIO GATEWAY SERVICE -------------------------
-        public void Analizar_Bluetooth_Support_Service__bthserv__()
+        // 5.1 BLUETOOTH AUDIO GATEWAY SERVICE -------------------------
+        public void Analizar_Bluetooth_Audio_Gateway_Service__BTAGService__()
         {
             string politica = "Servicio de puerta de enlace de audio de Bluetooth";
-            string clave = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\BTAGService:Start";
+            string clave = @"SYSTEM\CurrentControlSet\Services\BTAGService:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
-            if (RegistroWindows.ExisteClaveRegistro(@"SYSTEM\CurrentControlSet\Services\BTAGService:Start"))
+            if (RegistroWindows.ExisteClaveRegistro(clave))
             {
-                string valor = RegistroWindows.ObtenerValorRegistro(@"SYSTEM\CurrentControlSet\Services\BTAGService:Start");
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
                 if (valor == "4")
                 {
                     EstConfig(politica, clave, valor, recomendacion);
@@ -3472,10 +3507,157 @@ namespace PrototipoAuditoriaWin11
                 EstConfig(politica, clave, "No está definido", recomendacion);
             }
         }
-        // ------------------------- 5.1 BLUETOOTH AUDIO GATEWAY SERVICE (BTAGSERVICE) */
+        // ------------------------- 5.1 BLUETOOTH AUDIO GATEWAY SERVICE (BTAGSERVICE) 
 
 
-        // 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 5.10, 5.11, 5.12, 5.13, 5.14, 5.15, 5.16, 5.17, 5.18, 5.19, 5.20, 5.21, 5.22, 5.23, 5.24, 5.25, 5.26, 5.27, 5.28, 5.29, 5.30, 5.31, 5.32, 5.33, 5.34, 5.35, 5.36, 5.37, 5.38, 5.39, 5.40, 5.41, 5.42, 5.43, 5.44, 5.45 (System Services)
+        // 5.2 BLUETOOTH SUPPORT SERVICE (BTHSERV) -------------------------
+        public void Analizar_Bluetooth_Support_Service__bthserv__()
+        {
+            string politica = "Servicio de compatibilidad con Bluetooth";
+            string clave = @"SYSTEM\CurrentControlSet\Services\bthserv:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.2 BLUETOOTH SUPPORT SERVICE (BTHSERV) 
+
+
+        // 5.3 COMPUTER BROWSER (BROWSER) -------------------------  *
+        public void Analizar_Computer_Browser__Browser__()
+        {
+            string politica = "Computer Browser";
+            string clave = @"SYSTEM\CurrentControlSet\Services\Browser:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.3 COMPUTER BROWSER (BROWSER) 
+
+
+        // 5.4 DOWNLOADED MAPS MANAGER (MAPSBROKER) -------------------------
+        public void Analizar_Downloaded_Maps_Manager__MapsBroker__()
+        {
+            string politica = "Administrador de mapas descargados";
+            string clave = @"SYSTEM\CurrentControlSet\Services\MapsBroker:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.4 DOWNLOADED MAPS MANAGER (MAPSBROKER) 
+
+
+        // 5.5 GEOLOCATION SERVICE (LFSVC) -------------------------
+        public void Analizar_Geolocation_Service__lfsvc__()
+        {
+            string politica = "Servicio de geolocalización";
+            string clave = @"SYSTEM\CurrentControlSet\Services\lfsvc:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.5 GEOLOCATION SERVICE (LFSVC) 
+
+
+        // 5.6 IIS ADMIN SERVICE (IISADMIN) -------------------------  *
+        public void Analizar_IIS_Admin_Service__IISADMIN__()
+        {
+            string politica = "Servicio de Administración de IIS";
+            string clave = @"SYSTEM\CurrentControlSet\Services\IISADMIN:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.6 IIS ADMIN SERVICE (IISADMIN) 
 
 
 

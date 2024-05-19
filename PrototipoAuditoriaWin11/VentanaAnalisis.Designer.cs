@@ -34,6 +34,7 @@ namespace PrototipoAuditoriaWin11
             this.btnCerrarVentanaAnalisis = new System.Windows.Forms.Button();
             this.panelDinamicoResultados = new System.Windows.Forms.Panel();
             this.dgvRec = new System.Windows.Forms.DataGridView();
+            this.btnEstadisticas = new System.Windows.Forms.Button();
             this.panelDinamicoResultados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRec)).BeginInit();
             this.SuspendLayout();
@@ -85,8 +86,22 @@ namespace PrototipoAuditoriaWin11
             this.dgvRec.RowTemplate.Height = 28;
             this.dgvRec.Size = new System.Drawing.Size(942, 554);
             this.dgvRec.TabIndex = 0;
+            this.dgvRec.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRec_CellClick);
             this.dgvRec.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRec_CellMouseEnter);
             this.dgvRec.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvRec_RowPostPaint);
+            // 
+            // btnEstadisticas
+            // 
+            this.btnEstadisticas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEstadisticas.AutoSize = true;
+            this.btnEstadisticas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEstadisticas.Location = new System.Drawing.Point(905, 13);
+            this.btnEstadisticas.Name = "btnEstadisticas";
+            this.btnEstadisticas.Size = new System.Drawing.Size(122, 38);
+            this.btnEstadisticas.TabIndex = 4;
+            this.btnEstadisticas.Text = "Estadísticas";
+            this.btnEstadisticas.UseVisualStyleBackColor = true;
+            this.btnEstadisticas.Click += new System.EventHandler(this.btnEstadisticas_Click);
             // 
             // VentanaAnalisis
             // 
@@ -94,6 +109,7 @@ namespace PrototipoAuditoriaWin11
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(241)))));
+            this.Controls.Add(this.btnEstadisticas);
             this.Controls.Add(this.panelDinamicoResultados);
             this.Controls.Add(this.btnCerrarVentanaAnalisis);
             this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -112,5 +128,6 @@ namespace PrototipoAuditoriaWin11
         private System.Windows.Forms.Button btnCerrarVentanaAnalisis;
         private System.Windows.Forms.Panel panelDinamicoResultados;
         private System.Windows.Forms.DataGridView dgvRec;
+        private Button btnEstadisticas;
     }
 }

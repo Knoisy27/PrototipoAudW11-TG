@@ -13,19 +13,26 @@ namespace PrototipoAuditoriaWin11
 {
     public partial class VentanaAnalisis : UserControl
     {
-        public Panel PanelDinamicoResultados => panelDinamicoResultados;
-        private System.Windows.Forms.ToolTip toolTip1;  // Declaración del control ToolTip
-        //Logica logica;
+        //public Panel PanelDinamicoResultados => panelDinamicoResultados;
+        //private System.Windows.Forms.ToolTip toolTip1;  // Declaración del control ToolTip
+        public ControlRecomendaciones controlRecomendaciones { get; private set; }
+        public ControlGrafRec controlGrafRec { get; private set; }
+        Logica logica;
 
-
+        public event EventHandler ControlRecomendacionesVisibleChanged;
 
         public DataGridView DgvResultados => dgvRec;
         public VentanaAnalisis()
         {
             InitializeComponent();
-            //logica = new Logica(PanelDinamicoResultados, DgvResultados);
-            //this.Visible = false;
-            toolTip1 = new System.Windows.Forms.ToolTip();
+            this.Hide();
+            logica = new Logica(/*PanelDinamicoResultados, */DgvResultados);
+            //toolTip1 = new System.Windows.Forms.ToolTip();
+            controlRecomendaciones = new ControlRecomendaciones();
+            controlGrafRec = new ControlGrafRec();
+
+            this.Controls.Add(controlRecomendaciones);
+            this.Controls.Add(controlGrafRec); 
 
             dgvRec.Columns.Add("ColumnaPoliticas", "Política");
             dgvRec.Columns.Add("ColumnaClaves", "Clave");
@@ -34,8 +41,10 @@ namespace PrototipoAuditoriaWin11
             dgvRec.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             // Configurar AutoScroll en PanelDinamicoResultados
-            PanelDinamicoResultados.AutoScroll = true;
+            //PanelDinamicoResultados.AutoScroll = true;
             dgvRec.CellMouseEnter += dgvRec_CellMouseEnter;
+            // Subscribirse al evento VisibleChanged
+            controlRecomendaciones.VisibleChanged += ControlRecomendaciones_VisibleChanged;
         }
 
 
@@ -75,5 +84,61 @@ namespace PrototipoAuditoriaWin11
             // Configurar el estilo del texto
             TextRenderer.DrawText(e.Graphics, rowIndex, dgvRec.RowHeadersDefaultCellStyle.Font, headerBounds, dgvRec.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
         }
+
+        private void dgvRec_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 3) // Verifica si se hizo clic en la última celda de cualquier fila
+            {
+                Console.WriteLine("ultima fila");
+                string clave = dgvRec.Rows[e.RowIndex].Cells[1].Value.ToString(); // Obtiene el valor de la segunda celda de la fila clickeada
+                string informacion = logica.ObtenerInformacionMetodo(clave);
+                controlRecomendaciones.MostrarInformacion(informacion);
+                controlRecomendaciones.Visible = true;
+                controlRecomendaciones.BringToFront();
+            }
+        }
+
+        private void ControlRecomendaciones_VisibleChanged(object sender, EventArgs e)
+        {
+            // Propagar el evento hacia afuera
+            ControlRecomendacionesVisibleChanged?.Invoke(this, e);
+        }
+
+        private void btnEstadisticas_Click(object sender, EventArgs e)
+        {
+            controlGrafRec.BringToFront();
+            controlGrafRec.Show();
+            ActualizarGrafico();
+        }
+
+        public void ActualizarGrafico()
+        {
+            // Lógica para actualizar el gráfico
+            if (controlGrafRec != null)
+            {
+                controlGrafRec.ActualizarGrafico(ObtenerDatosParaGrafico());
+            }
+        }
+
+        private Tuple<int, int> ObtenerDatosParaGrafico()
+        {
+            int configuradasCorrectamente = 0;
+            int configuradasIncorrectamente = 0;
+
+            foreach (DataGridViewRow row in dgvRec.Rows)
+            {
+                if (row.DefaultCellStyle.BackColor == Color.LightGreen)
+                {
+                    configuradasCorrectamente++;
+                }
+                else if (row.DefaultCellStyle.BackColor == Color.LightCoral)
+                {
+                    configuradasIncorrectamente++;
+                }
+            }
+
+            return Tuple.Create(configuradasCorrectamente, configuradasIncorrectamente);
+        }
+
     }
 }
