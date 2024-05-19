@@ -240,7 +240,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Exigir historial de contraseñas";
             string clave = "PasswordHistorySize";
-            string recomendacion = "> 24";
+            string recomendacion = "24 o más contraseñas";
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
@@ -269,7 +269,7 @@ namespace PrototipoAuditoriaWin11
         {
             string clave = "MaximumPasswordAge";
             string politica = "Vigencia máxima de la contraseña";
-            string recomendacion = "< 365, !=0";
+            string recomendacion = "365 días o menos, pero no 0";
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
@@ -297,7 +297,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Vigencia mínima de la contraseña";
             string clave = "MinimumPasswordAge";
-            string recomendacion = "> 1";
+            string recomendacion = "1 o más días";
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey("MinimumPasswordAge"))
             {
@@ -327,7 +327,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Longitud mínima de la contraseña";
             string clave = "MinimumPasswordLength";
-            string recomendacion = "< 14";
+            string recomendacion = "14 o más caracteres";
             if (configuraciones.ContainsKey("MinimumPasswordLength"))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);
