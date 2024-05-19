@@ -65,7 +65,7 @@ namespace PrototipoAuditoriaWin11
             this.panelDinamicoResultados.Controls.Add(this.dgvRec);
             this.panelDinamicoResultados.Location = new System.Drawing.Point(82, 68);
             this.panelDinamicoResultados.Name = "panelDinamicoResultados";
-            this.panelDinamicoResultados.Size = new System.Drawing.Size(948, 560);
+            this.panelDinamicoResultados.Size = new System.Drawing.Size(946, 558);
             this.panelDinamicoResultados.TabIndex = 3;
             // 
             // dgvRec
@@ -84,7 +84,7 @@ namespace PrototipoAuditoriaWin11
             this.dgvRec.RowHeadersWidth = 30;
             this.dgvRec.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvRec.RowTemplate.Height = 28;
-            this.dgvRec.Size = new System.Drawing.Size(942, 554);
+            this.dgvRec.Size = new System.Drawing.Size(940, 552);
             this.dgvRec.TabIndex = 0;
             this.dgvRec.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRec_CellClick);
             this.dgvRec.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRec_CellMouseEnter);
@@ -94,13 +94,15 @@ namespace PrototipoAuditoriaWin11
             // 
             this.btnEstadisticas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEstadisticas.AutoSize = true;
+            this.btnEstadisticas.BackColor = System.Drawing.Color.Ivory;
+            this.btnEstadisticas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEstadisticas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEstadisticas.Location = new System.Drawing.Point(905, 13);
+            this.btnEstadisticas.Location = new System.Drawing.Point(903, 13);
             this.btnEstadisticas.Name = "btnEstadisticas";
             this.btnEstadisticas.Size = new System.Drawing.Size(122, 38);
             this.btnEstadisticas.TabIndex = 4;
             this.btnEstadisticas.Text = "Estadísticas";
-            this.btnEstadisticas.UseVisualStyleBackColor = true;
+            this.btnEstadisticas.UseVisualStyleBackColor = false;
             this.btnEstadisticas.Click += new System.EventHandler(this.btnEstadisticas_Click);
             // 
             // VentanaAnalisis
@@ -113,9 +115,9 @@ namespace PrototipoAuditoriaWin11
             this.Controls.Add(this.panelDinamicoResultados);
             this.Controls.Add(this.btnCerrarVentanaAnalisis);
             this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Location = new System.Drawing.Point(252, 60);
+            this.Location = new System.Drawing.Point(251, 61);
             this.Name = "VentanaAnalisis";
-            this.Size = new System.Drawing.Size(1070, 660);
+            this.Size = new System.Drawing.Size(1068, 658);
             this.panelDinamicoResultados.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRec)).EndInit();
             this.ResumeLayout(false);

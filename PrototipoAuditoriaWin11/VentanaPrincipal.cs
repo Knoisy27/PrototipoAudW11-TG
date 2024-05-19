@@ -17,7 +17,7 @@ namespace PrototipoAuditoriaWin11
         private Logica logica;
         public VentanaAnalisis ventanaAnalisis;
         private ControlRecomendaciones controlRecomendaciones;
-        //public ControlGrafRecomendaciones controlRecomendaciones;
+        private ControlGrafRec controlGrafRec;
 
         public FormVentanaPrincipal()
         {
@@ -27,13 +27,16 @@ namespace PrototipoAuditoriaWin11
 
             ventanaAnalisis = new VentanaAnalisis();
             controlRecomendaciones = new ControlRecomendaciones();
-            logica = new Logica(/*ventanaAnalisis.PanelDinamicoResultados, */ventanaAnalisis.DgvResultados);
+            controlGrafRec = new ControlGrafRec();
+            logica = new Logica(ventanaAnalisis.DgvResultados);
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             // Agregar VentanaAnalisis al formulario principal
+            ventanaAnalisis.Dock = DockStyle.Fill;
             this.Controls.Add(ventanaAnalisis);
-            //this.Controls.Add(controlRecomendaciones);
+
             ventanaAnalisis.VisibleChanged += FormVentanaPrincipal_VisibleChanged;
             ventanaAnalisis.ControlRecomendacionesVisibleChanged += VentanaAnalisis_ControlRecomendacionesVisibleChanged;
+            ventanaAnalisis.ControlGrafRecVisibleChanged += VentanaAnalisis_ControlGrafRecVisibleChanged;
         }
 
         // FUNCIONALIDAD PARA REDIMENSIONAR LA VENTANA DESDE LOS BORDES -------------------------
@@ -97,6 +100,7 @@ namespace PrototipoAuditoriaWin11
             }
             AjustarVentanaAnalisis();
             AjustarControlRecomendaciones();
+            AjustarControlGrafRec();
         }
 
         private void btnMin_Click(object sender, EventArgs e)
@@ -165,14 +169,6 @@ namespace PrototipoAuditoriaWin11
         }
 
 
-
-
-
-        /*private void btnAnalizar_MouseHover(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }*/
-
         private void btnAnalizar_MouseLeave(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
@@ -221,13 +217,6 @@ namespace PrototipoAuditoriaWin11
                 int altoVentanaPrincipal = this.ClientSize.Height;
 
                 ventanaAnalisis.Size = new Size(anchoVentanaPrincipal - 165, altoVentanaPrincipal - 40);
-
-                /*// Ajustar el tamaño de ControlGrafRecomendaciones dentro de VentanaAnalisis
-                if (ventanaAnalisis.controlRecomendaciones != null && ventanaAnalisis.controlRecomendaciones.Visible)
-                {
-                    ventanaAnalisis.controlRecomendaciones.Size = new Size(anchoVentanaPrincipal - 165, altoVentanaPrincipal - 40);
-                    Console.WriteLine($"ControlGrafRecomendaciones Size: {ventanaAnalisis.controlRecomendaciones.Size}");
-                }*/
             }
         }
 
@@ -247,9 +236,31 @@ namespace PrototipoAuditoriaWin11
                 }
             }
         }
+
+        private void AjustarControlGrafRec()
+        {
+            if (ventanaAnalisis != null && ventanaAnalisis.Visible)
+            {
+                int anchoVentanaPrincipal = this.ClientSize.Width;
+                int altoVentanaPrincipal = this.ClientSize.Height;
+
+                // Ajustar el tamaño de ControlGrafRec dentro de VentanaAnalisis
+                if (ventanaAnalisis.controlGrafRec != null && ventanaAnalisis.controlGrafRec.Visible)
+                {
+                    ventanaAnalisis.controlGrafRec.Size = new Size(anchoVentanaPrincipal - 165, altoVentanaPrincipal - 40);
+                    Console.WriteLine($"ControlGrafRec Size: {ventanaAnalisis.controlGrafRec.Size}");
+                }
+            }
+        }
+
         private void VentanaAnalisis_ControlRecomendacionesVisibleChanged(object sender, EventArgs e)
         {
             AjustarControlRecomendaciones();
+        }
+        
+        private void VentanaAnalisis_ControlGrafRecVisibleChanged(object sender, EventArgs e)
+        {
+            AjustarControlGrafRec();
         }
 
         private void FormVentanaPrincipal_VisibleChanged(object sender, EventArgs e)
@@ -264,6 +275,7 @@ namespace PrototipoAuditoriaWin11
         {
             AjustarVentanaAnalisis();
             AjustarControlRecomendaciones();
+            AjustarControlGrafRec();
         }
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)

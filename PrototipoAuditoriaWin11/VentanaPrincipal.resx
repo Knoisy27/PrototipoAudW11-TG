@@ -117,63 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
-    <value>panelTop</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="btnCerrar" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnMin" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnMax" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>panelTop</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panelTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="panelTop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="panelTop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1318, 50</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="panelTop.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panelTop.Name" xml:space="preserve">
-    <value>panelTop</value>
-  </data>
-  <data name="&gt;&gt;panelTop.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelTop.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panelTop.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="tableLayoutPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tableLayoutPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -189,6 +137,7 @@
   <data name="btnCerrar.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnCerrar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAP
@@ -355,6 +304,30 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="panelTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panelTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="panelTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1318, 50</value>
+  </data>
+  <data name="panelTop.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Name" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelTop.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="btnAnalizar.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -456,34 +429,34 @@
   </data>
   <data name="btnHerramientas.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
+        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
+        MmCO4/4DU2npJLSFWMAAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="btnHerramientas.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
@@ -692,39 +665,6 @@
   </data>
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="txtEspecs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="txtEspecs.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial Narrow, 11pt</value>
-  </data>
-  <data name="txtEspecs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>286, 505</value>
-  </data>
-  <data name="txtEspecs.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="txtEspecs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1002, 187</value>
-  </data>
-  <data name="txtEspecs.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="txtEspecs.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="&gt;&gt;txtEspecs.Name" xml:space="preserve">
-    <value>txtEspecs</value>
-  </data>
-  <data name="&gt;&gt;txtEspecs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtEspecs.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtEspecs.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="pictureBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -7719,6 +7659,9 @@
         +cLHGp+8YMaX7y5G3P/Z
 </value>
   </data>
+  <data name="pictureBox2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>253, 62</value>
   </data>
@@ -7742,6 +7685,39 @@
   </data>
   <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="txtEspecs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="txtEspecs.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 11pt</value>
+  </data>
+  <data name="txtEspecs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>286, 505</value>
+  </data>
+  <data name="txtEspecs.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txtEspecs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1002, 187</value>
+  </data>
+  <data name="txtEspecs.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="txtEspecs.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;txtEspecs.Name" xml:space="preserve">
+    <value>txtEspecs</value>
+  </data>
+  <data name="&gt;&gt;txtEspecs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtEspecs.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtEspecs.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
