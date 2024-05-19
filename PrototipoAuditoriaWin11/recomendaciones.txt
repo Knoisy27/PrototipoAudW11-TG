@@ -52,3 +52,26 @@ Los usuarios pueden tener contraseñas favoritas que les guste usar porque son f
 Impacto:
 
 Si un administrador establece una contraseña para un usuario pero quiere que ese usuario cambie la contraseña cuando inicie sesión por primera vez, el administrador debe seleccionar la casilla de verificación El usuario debe cambiar la contraseña en el próximo inicio de sesión, o el usuario no podrá cambiar la contraseña hasta el próximo día.
+
+#MinimumPasswordLength
+Descripción:
+
+Esta configuración de política determina el número mínimo de caracteres que componen una contraseña para una cuenta de usuario. Existen muchas teorías diferentes sobre cómo determinar la mejor longitud de contraseña para una organización, pero quizás "frase de contraseña" sea un término más adecuado que "contraseña". En Microsoft Windows 2000 y versiones más recientes, las frases de contraseña pueden ser bastante largas e incluir espacios. Por lo tanto, una frase como "Quiero tomar un batido de $5" es una frase de contraseña válida; es una contraseña considerablemente más fuerte que una cadena de 8 o 10 caracteres de números y letras aleatorios, y sin embargo, es más fácil de recordar. Los usuarios deben ser educados sobre la selección y el mantenimiento adecuados de las contraseñas, especialmente en lo que respecta a la longitud de las contraseñas. En entornos empresariales, el valor ideal para la configuración de Longitud mínima de la contraseña es de 14 caracteres, sin embargo, debe ajustar este valor para cumplir con los requisitos comerciales de su organización. El estado recomendado para esta configuración es: 14 o más caracteres.
+
+Nota:
+
+En Windows Server 2016 y versiones anteriores de Windows Server, la interfaz gráfica de la Política de seguridad local (LSP), el Editor de directivas de grupo local (LGPE) y el Editor de administración de directivas de grupo (GPME) no permitían establecer este valor en más de 14 caracteres. Sin embargo, a partir de Windows Server 2019, Microsoft cambió la interfaz gráfica para permitir una longitud mínima de contraseña de hasta 20 caracteres.
+
+Nota #2:
+
+Las configuraciones de Política de contraseñas y de Política de bloqueo de cuentas deben aplicarse mediante la GPO de Política de dominio predeterminada para tener efecto globalmente en cuentas de usuario de dominio. Las excepciones a estas reglas pueden definirse usando Objetos de configuración de contraseña, independientes de la Política de grupo.
+
+Justificación:
+
+Los tipos de ataques de contraseña incluyen ataques de diccionario (que intentan usar palabras y frases comunes) y ataques de fuerza bruta (que prueban todas las combinaciones posibles de caracteres). Además, los atacantes a veces intentan obtener la base de datos de cuentas para usar herramientas y descubrir las cuentas y contraseñas.
+
+Impacto:
+
+Los requisitos de contraseñas extremadamente largas pueden, en realidad, disminuir la seguridad de una organización, porque los usuarios podrían dejar la información en un lugar inseguro o perderla. Si se requieren contraseñas muy largas, las contraseñas mal escritas podrían causar bloqueos de cuentas y aumentar el volumen de llamadas al servicio de asistencia. Si su organización tiene problemas con contraseñas olvidadas debido a los requisitos de longitud de contraseña, considere enseñar a sus usuarios sobre las frases de contraseña, que son a menudo más fáciles de recordar y, debido al mayor número de combinaciones de caracteres, mucho más difíciles de descubrir.
+
+Nota: Las versiones más antiguas de Windows, como Windows 98 y Windows NT 4.0, no admiten contraseñas de más de 14 caracteres. Las computadoras que ejecutan estos sistemas operativos antiguos no pueden autenticarse con computadoras o dominios que usen cuentas que requieran contraseñas largas.
