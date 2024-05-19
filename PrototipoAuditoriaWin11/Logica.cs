@@ -269,7 +269,7 @@ namespace PrototipoAuditoriaWin11
         {
             string clave = "MaximumPasswordAge";
             string politica = "Vigencia máxima de la contraseña";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "< 365, !=0";
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
@@ -297,7 +297,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Vigencia mínima de la contraseña";
             string clave = "MinimumPasswordAge";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "> 1";
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey("MinimumPasswordAge"))
             {
@@ -327,7 +327,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Longitud mínima de la contraseña";
             string clave = "MinimumPasswordLength";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "< 14";
             if (configuraciones.ContainsKey("MinimumPasswordLength"))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);
