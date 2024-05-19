@@ -41,7 +41,7 @@
             this.btnAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAceptar.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnAceptar.BackColor = System.Drawing.Color.Ivory;
             this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Location = new System.Drawing.Point(431, 3);
@@ -60,7 +60,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.Controls.Add(this.btnAceptar, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 583);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(-1, 581);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -83,19 +83,19 @@
             this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tlp.Size = new System.Drawing.Size(1070, 580);
+            this.tlp.Size = new System.Drawing.Size(1068, 578);
             this.tlp.TabIndex = 2;
             // 
             // tbRecomendaciones
             // 
             this.tbRecomendaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbRecomendaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.tbRecomendaciones.Location = new System.Drawing.Point(56, 32);
+            this.tbRecomendaciones.Location = new System.Drawing.Point(56, 31);
             this.tbRecomendaciones.Multiline = true;
             this.tbRecomendaciones.Name = "tbRecomendaciones";
             this.tbRecomendaciones.ReadOnly = true;
             this.tbRecomendaciones.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbRecomendaciones.Size = new System.Drawing.Size(957, 516);
+            this.tbRecomendaciones.Size = new System.Drawing.Size(955, 514);
             this.tbRecomendaciones.TabIndex = 0;
             // 
             // ControlRecomendaciones
@@ -106,7 +106,7 @@
             this.Controls.Add(this.tlp);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ControlRecomendaciones";
-            this.Size = new System.Drawing.Size(1070, 660);
+            this.Size = new System.Drawing.Size(1068, 658);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tlp.ResumeLayout(false);
             this.tlp.PerformLayout();

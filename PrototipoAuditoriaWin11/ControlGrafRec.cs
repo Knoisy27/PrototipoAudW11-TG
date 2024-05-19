@@ -17,7 +17,7 @@ namespace PrototipoAuditoriaWin11
         public ControlGrafRec()
         {
             InitializeComponent();
-            this.Visible = false;
+            this.Hide();
         }
 
         public void ActualizarGrafico(Tuple<int, int> datos)

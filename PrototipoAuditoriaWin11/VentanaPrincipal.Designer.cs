@@ -46,8 +46,8 @@ namespace PrototipoAuditoriaWin11
             this.btnRegedit = new System.Windows.Forms.Button();
             this.btnGpedit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.txtEspecs = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.txtEspecs = new System.Windows.Forms.TextBox();
             this.panelTop.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -199,6 +199,12 @@ namespace PrototipoAuditoriaWin11
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
+            // pictureBox2
+            // 
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
             // txtEspecs
             // 
             resources.ApplyResources(this.txtEspecs, "txtEspecs");
@@ -206,12 +212,6 @@ namespace PrototipoAuditoriaWin11
             this.txtEspecs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtEspecs.Name = "txtEspecs";
             this.txtEspecs.ReadOnly = true;
-            // 
-            // pictureBox2
-            // 
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.TabStop = false;
             // 
             // FormVentanaPrincipal
             // 
@@ -251,15 +251,15 @@ namespace PrototipoAuditoriaWin11
         private System.Windows.Forms.Button btnAnalizar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox txtEspecs;
         private System.Windows.Forms.Label label1;
         private PictureBox pictureBox1;
         private TableLayoutPanel tableLayoutPanel1;
-        private PictureBox pictureBox2;
         private Button btnHerramientas;
         private Panel panelHerramientasSub;
         private Button btnRegedit;
         private Button btnGpedit;
+        private PictureBox pictureBox2;
+        private TextBox txtEspecs;
     }
 }
 

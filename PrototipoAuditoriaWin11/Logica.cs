@@ -248,19 +248,18 @@ namespace PrototipoAuditoriaWin11
                 if (valor >= 24)
                 {
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
-
-                // Crear instancia de Configuracion y agregarla a la lista
-                EstConfig(politica, clave, valor.ToString(), recomendacion);
 
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 1.1.1 ENFORCE PASSWORD HISTORY
@@ -269,7 +268,7 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Maximum_Password_Age()
         {
             string clave = "MaximumPasswordAge";
-            string politica = "Exigir historial de contraseñas";
+            string politica = "Vigencia máxima de la contraseña";
             string recomendacion = "Comentario_Recomendacion_Aqui";
             //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
@@ -278,17 +277,17 @@ namespace PrototipoAuditoriaWin11
                 if (valor > 0 && valor <= 365)
                 {
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
-
-                EstConfig(politica, clave, valor.ToString(), recomendacion);
             }
             else
             {
-                Console.WriteLine("La clave MaximumPasswordAge no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 1.1.1 MAXIMUM PASSWORD AGE
@@ -296,7 +295,7 @@ namespace PrototipoAuditoriaWin11
         // 1.1.3 MINIMUM PASSWORD AGE -------------------------
         public void Analizar_MinimumPasswordAge()
         {
-            string politica = "Longitud mínima de la contraseña";
+            string politica = "Vigencia mínima de la contraseña";
             string clave = "MinimumPasswordAge";
             string recomendacion = "Comentario_Recomendacion_Aqui";
             //GuardarDatosCFG();
@@ -306,18 +305,18 @@ namespace PrototipoAuditoriaWin11
                 if (valor > 0)
                 {
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
-
-                EstConfig(politica, clave, valor.ToString(), recomendacion);
 
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 1.1.3 MINIMUM PASSWORD AGE
@@ -326,7 +325,7 @@ namespace PrototipoAuditoriaWin11
         // 1.1.4 MINIMUM PASSWORD LENGTH -------------------------
         public void Analizar_MinimumPasswordLength()
         {
-            string politica = "Tamaño mínimo de la contraseña";
+            string politica = "Longitud mínima de la contraseña";
             string clave = "MinimumPasswordLength";
             string recomendacion = "Comentario_Recomendacion_Aqui";
             if (configuraciones.ContainsKey("MinimumPasswordLength"))
@@ -335,17 +334,17 @@ namespace PrototipoAuditoriaWin11
                 if (valor > 13)
                 {
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else
                 {
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
-
-                EstConfig(politica, clave, valor.ToString(), recomendacion);
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 1.1.4 MINIMUM PASSWORD LENGTH
@@ -363,17 +362,17 @@ namespace PrototipoAuditoriaWin11
                 if (valor == 1)
                 {
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else if (valor == 0)
                 {
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
-
-                EstConfig(politica, clave, valor.ToString(), recomendacion);
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 1.1.5 PASSWORD MUST MEET COMPLEXITY REQUIREMENTS
@@ -393,17 +392,17 @@ namespace PrototipoAuditoriaWin11
                 if (valor == "4,1")
                 {
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else if (valor == "4,0")
                 {
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
-
-                EstConfig(politica, clave, valor, recomendacion);
             }
             else
             {
-                Console.WriteLine("La clave PasswordHistorySize no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
 
         }
@@ -429,20 +428,19 @@ namespace PrototipoAuditoriaWin11
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else if (valor == 0)
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
             }
             else
             {
-                // Imprimir un mensaje de advertencia si la clave no está definida
-                Console.WriteLine("La clave ClearTextPassword no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
-
-            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.1.7 STORE PASSWORDS USING REVERSIBLE ENCRYPTION
 
@@ -466,20 +464,19 @@ namespace PrototipoAuditoriaWin11
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
             }
             else
             {
-                // Imprimir un mensaje de advertencia si la clave no está definida
-                Console.WriteLine("La clave LockoutDuration no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
-
-            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.2.1 ACCOUNT LOCKOUT DURATION
 
@@ -502,20 +499,19 @@ namespace PrototipoAuditoriaWin11
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
             }
             else
             {
-                // Imprimir un mensaje de advertencia si la clave no está definida
-                Console.WriteLine("La clave LockoutBadCount no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
-
-            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.2.2 ACCOUNT LOCKOUT THRESHOLD
 
@@ -538,20 +534,19 @@ namespace PrototipoAuditoriaWin11
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else if (valor == 0)
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
             }
             else
             {
-                // Imprimir un mensaje de advertencia si la clave no está definida
-                Console.WriteLine("La clave AllowAdministratorLockout no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
-
-            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.2.3 ALLOW ADMINISTRATOR ACCOUNT LOCKOUT
 
@@ -574,20 +569,19 @@ namespace PrototipoAuditoriaWin11
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(true);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
                 else
                 {
                     // Establecer el valor y la condición
                     condicionMetodos.Add(false);
+                    EstConfig(politica, clave, valor.ToString(), recomendacion);
                 }
             }
             else
             {
-                // Imprimir un mensaje de advertencia si la clave no está definida
-                Console.WriteLine("La clave ResetLockoutCount no está definida en el archivo de configuración.");
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
-
-            EstConfig(politica, clave, valor.ToString(), recomendacion);
         }
         // ------------------------- 1.2.4 RESET ACCOUNT LOCKOUT COUNTER AFTER
 
@@ -607,7 +601,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -640,7 +634,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -662,7 +656,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -694,7 +688,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -726,7 +720,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -759,7 +753,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -792,7 +786,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -825,7 +819,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -858,7 +852,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -891,7 +885,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -912,7 +906,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -945,7 +939,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -967,7 +961,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -1012,7 +1006,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1045,7 +1039,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1078,7 +1072,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1111,7 +1105,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1144,7 +1138,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1177,7 +1171,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1210,7 +1204,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1232,7 +1226,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -1265,7 +1259,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1298,7 +1292,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1331,7 +1325,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1364,7 +1358,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1397,7 +1391,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1419,7 +1413,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -1452,7 +1446,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1468,7 +1462,7 @@ namespace PrototipoAuditoriaWin11
 
             if (!configuraciones.ContainsKey(clave))
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(true);
             }
             else if (configuraciones.ContainsKey(clave))
@@ -1519,7 +1513,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1541,7 +1535,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(true);
             }
         }
@@ -1574,7 +1568,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1607,7 +1601,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1640,7 +1634,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1673,7 +1667,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
                 condicionMetodos.Add(false);
             }
         }
@@ -1715,7 +1709,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.2.38 SHUT DOWN THE SYSTEM
@@ -1748,7 +1742,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.2.39 TAKE OWNERSHIP OF FILES OR OTHER OBJECTS
@@ -1778,7 +1772,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.1.1 ACCOUNTS: BLOCK MICROSOFT ACCOUNTS
@@ -1809,7 +1803,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.1.2 ACCOUNTS: GUEST ACCOUNT STATUS
@@ -1839,7 +1833,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.1.3 ACCOUNTS: LIMIT LOCAL ACCOUNT USE OF BLANK PASSWORDS TO CONSOLE
@@ -1869,7 +1863,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.1.4 ACCOUNTS: RENAME ADMINISTRATOR ACCOUNT
@@ -1899,7 +1893,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.1.5 ACCOUNTS: RENAME GUEST ACCOUNT
@@ -1929,7 +1923,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.2.1 AUDIT: FORCE AUDIT POLICY SUBCATEGORY SETTINGS (WINDOWS VISTA OR LATER) TO OVERRIDE AUDIT POLICY CATEGORY SETTINGS
@@ -1959,7 +1953,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.2.2 AUDIT: SHUT DOWN SYSTEM IMMEDIATELY IF UNABLE TO LOG SECURITY AUDITS
@@ -1989,7 +1983,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.4.1 DEVICES: PREVENT USERS FROM INSTALLING PRINTER DRIVERS 
@@ -2019,7 +2013,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.7.1 INTERACTIVE LOGON: DO NOT REQUIRE CTRL+ALT+DEL
@@ -2049,7 +2043,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.7.2 INTERACTIVE LOGON: DON'T DISPLAY LAST SIGNED-IN
@@ -2081,7 +2075,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.7.3 INTERACTIVE LOGON: MACHINE ACCOUNT LOCKOUT THRESHOLD
@@ -2112,7 +2106,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.7.4 INTERACTIVE LOGON: MACHINE INACTIVITY LIMIT
@@ -2142,7 +2136,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.7.5 INTERACTIVE LOGON: MESSAGE TEXT FOR USERS ATTEMPTING TO LOG ON
@@ -2172,7 +2166,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.7.6 INTERACTIVE LOGON: MESSAGE TITLE FOR USERS ATTEMPTING TO LOG ON 
@@ -2203,7 +2197,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.7.7 INTERACTIVE LOGON: PROMPT USER TO CHANGE PASSWORD BEFORE EXPIRATION 
@@ -2233,7 +2227,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.7.8 INTERACTIVE LOGON: SMART CARD REMOVAL BEHAVIOR 
@@ -2263,7 +2257,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.8.1 MICROSOFT NETWORK CLIENT: DIGITALLY SIGN COMMUNICATIONS (ALWAYS) 
@@ -2293,7 +2287,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.8.2 MICROSOFT NETWORK CLIENT: DIGITALLY SIGN COMMUNICATIONS (IF SERVER AGREES) 
@@ -2323,7 +2317,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.8.3 MICROSOFT NETWORK CLIENT: SEND UNENCRYPTED PASSWORD TO THIRD-PARTY SMB SERVERS 
@@ -2354,7 +2348,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.9.1 MICROSOFT NETWORK SERVER: AMOUNT OF IDLE TIME REQUIRED BEFORE SUSPENDING SESSION 
@@ -2384,7 +2378,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.9.2 MICROSOFT NETWORK SERVER: DIGITALLY SIGN COMMUNICATIONS (ALWAYS) 
@@ -2414,7 +2408,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.9.3 MICROSOFT NETWORK SERVER: DIGITALLY SIGN COMMUNICATIONS (IF CLIENT AGREES) 
@@ -2444,7 +2438,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.9.4 MICROSOFT NETWORK SERVER: DISCONNECT CLIENTS WHEN LOGON HOURS EXPIRE 
@@ -2474,7 +2468,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.8.8 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL 
@@ -2504,7 +2498,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.1 NETWORK ACCESS: ALLOW ANONYMOUS SID/NAME TRANSLATION 
@@ -2534,7 +2528,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.2 NETWORK ACCESS: DO NOT ALLOW ANONYMOUS ENUMERATION OF SAM ACCOUNTS 
@@ -2564,7 +2558,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.3 NETWORK ACCESS: DO NOT ALLOW ANONYMOUS ENUMERATION OF SAM ACCOUNTS AND SHARES 
@@ -2594,7 +2588,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.4 NETWORK ACCESS: DO NOT ALLOW STORAGE OF PASSWORDS AND CREDENTIALS FOR NETWORK AUTHENTICATION 
@@ -2624,7 +2618,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.5 NETWORK ACCESS: LET EVERYONE PERMISSIONS APPLY TO ANONYMOUS USERS 
@@ -2654,7 +2648,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.6 NETWORK ACCESS: NAMED PIPES THAT CAN BE ACCESSED ANONYMOUSLY 
@@ -2689,7 +2683,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.7 NETWORK ACCESS: REMOTELY ACCESSIBLE REGISTRY PATHS 
@@ -2724,7 +2718,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.8 NETWORK ACCESS: REMOTELY ACCESSIBLE REGISTRY PATHS AND SUB-PATHS 
@@ -2754,7 +2748,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.9 NETWORK ACCESS: RESTRICT ANONYMOUS ACCESS TO NAMED PIPES AND SHARES 
@@ -2784,7 +2778,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.10 NETWORK ACCESS: RESTRICT CLIENTS ALLOWED TO MAKE REMOTE CALLS TO SAM 
@@ -2814,7 +2808,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.11 NETWORK ACCESS: SHARES THAT CAN BE ACCESSED ANONYMOUSLY 
@@ -2844,7 +2838,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.10.12 NETWORK ACCESS: SHARING AND SECURITY MODEL FOR LOCAL ACCOUNTS 
@@ -2874,7 +2868,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.1 NETWORK SECURITY: ALLOW LOCAL SYSTEM TO USE COMPUTER IDENTITY FOR NTLM 
@@ -2904,7 +2898,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.2 NETWORK SECURITY: ALLOW LOCALSYSTEM NULL SESSION FALLBACK 
@@ -2934,7 +2928,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.3 NETWORK SECURITY: ALLOW PKU2U AUTHENTICATION REQUESTS TO THIS COMPUTER TO USE ONLINE IDENTITIES 
@@ -2964,7 +2958,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.4 NETWORK SECURITY: CONFIGURE ENCRYPTION TYPES ALLOWED FOR KERBEROS 
@@ -2994,7 +2988,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.5 NETWORK SECURITY: DO NOT STORE LAN MANAGER HASH VALUE ON NEXT PASSWORD CHANGE 
@@ -3024,7 +3018,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.6 NETWORK SECURITY: FORCE LOGOFF WHEN LOGON HOURS EXPIRE 
@@ -3054,7 +3048,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.7 NETWORK SECURITY: LAN MANAGER AUTHENTICATION LEVEL 
@@ -3084,7 +3078,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.8 NETWORK SECURITY: LDAP CLIENT SIGNING REQUIREMENTS 
@@ -3114,7 +3108,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.9 NETWORK SECURITY: MINIMUM SESSION SECURITY FOR NTLM SSP BASED (INCLUDING SECURE RPC) CLIENTS 
@@ -3144,7 +3138,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.11.10 NETWORK SECURITY: MINIMUM SESSION SECURITY FOR NTLM SSP BASED (INCLUDING SECURE RPC) SERVERS 
@@ -3174,7 +3168,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.14.1 SYSTEM CRYPTOGRAPHY: FORCE STRONG KEY PROTECTION FOR USER KEYS STORED ON THE COMPUTER 
@@ -3204,7 +3198,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.15.1 SYSTEM OBJECTS: REQUIRE CASE INSENSITIVITY FOR NON-WINDOWS SUBSYSTEMS 
@@ -3234,7 +3228,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.15.2 SYSTEM OBJECTS: STRENGTHEN DEFAULT PERMISSIONS OF INTERNAL SYSTEM OBJECTS (E.G. SYMBOLIC LINKS) 
@@ -3264,7 +3258,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.17.1 USER ACCOUNT CONTROL: ADMIN APPROVAL MODE FOR THE BUILT-IN ADMINISTRATOR ACCOUNT 
@@ -3294,7 +3288,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.17.2 USER ACCOUNT CONTROL: BEHAVIOR OF THE ELEVATION PROMPT FOR ADMINISTRATORS IN ADMIN APPROVAL MODE 
@@ -3324,7 +3318,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.17.3 USER ACCOUNT CONTROL: BEHAVIOR OF THE ELEVATION PROMPT FOR STANDARD USERS 
@@ -3354,7 +3348,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.17.4 USER ACCOUNT CONTROL: DETECT APPLICATION INSTALLATIONS AND PROMPT FOR ELEVATION 
@@ -3384,7 +3378,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.17.5 USER ACCOUNT CONTROL: ONLY ELEVATE UIACCESS APPLICATIONS THAT ARE INSTALLED IN SECURE LOCATIONS 
@@ -3414,7 +3408,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.17.6 USER ACCOUNT CONTROL: RUN ALL ADMINISTRATORS IN ADMIN APPROVAL MODE 
@@ -3444,7 +3438,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.17.7 USER ACCOUNT CONTROL: SWITCH TO THE SECURE DESKTOP WHEN PROMPTING FOR ELEVATION 
@@ -3474,7 +3468,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 2.3.17.8 USER ACCOUNT CONTROL: VIRTUALIZE FILE AND REGISTRY WRITE FAILURES TO PER-USER LOCATIONS 
@@ -3504,7 +3498,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 5.1 BLUETOOTH AUDIO GATEWAY SERVICE (BTAGSERVICE) 
@@ -3534,7 +3528,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 5.2 BLUETOOTH SUPPORT SERVICE (BTHSERV) 
@@ -3564,7 +3558,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 5.3 COMPUTER BROWSER (BROWSER) 
@@ -3594,7 +3588,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 5.4 DOWNLOADED MAPS MANAGER (MAPSBROKER) 
@@ -3624,7 +3618,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 5.5 GEOLOCATION SERVICE (LFSVC) 
@@ -3654,7 +3648,7 @@ namespace PrototipoAuditoriaWin11
             else
             {
                 condicionMetodos.Add(false);
-                EstConfig(politica, clave, "No está definido", recomendacion);
+                EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
         // ------------------------- 5.6 IIS ADMIN SERVICE (IISADMIN) 

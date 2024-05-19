@@ -13,23 +13,23 @@ namespace PrototipoAuditoriaWin11
 {
     public partial class VentanaAnalisis : UserControl
     {
-        //public Panel PanelDinamicoResultados => panelDinamicoResultados;
-        //private System.Windows.Forms.ToolTip toolTip1;  // Declaración del control ToolTip
         public ControlRecomendaciones controlRecomendaciones { get; private set; }
         public ControlGrafRec controlGrafRec { get; private set; }
         Logica logica;
 
         public event EventHandler ControlRecomendacionesVisibleChanged;
+        public event EventHandler ControlGrafRecVisibleChanged;
 
         public DataGridView DgvResultados => dgvRec;
         public VentanaAnalisis()
         {
             InitializeComponent();
             this.Hide();
-            logica = new Logica(/*PanelDinamicoResultados, */DgvResultados);
-            //toolTip1 = new System.Windows.Forms.ToolTip();
+            logica = new Logica(DgvResultados);
             controlRecomendaciones = new ControlRecomendaciones();
             controlGrafRec = new ControlGrafRec();
+            controlRecomendaciones.Dock = DockStyle.Fill;
+            controlGrafRec.Dock = DockStyle.Fill;
 
             this.Controls.Add(controlRecomendaciones);
             this.Controls.Add(controlGrafRec); 
@@ -40,11 +40,7 @@ namespace PrototipoAuditoriaWin11
             dgvRec.Columns.Add("ColumnaRecomendaciones", "Recomendación");
             dgvRec.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
-            // Configurar AutoScroll en PanelDinamicoResultados
-            //PanelDinamicoResultados.AutoScroll = true;
             dgvRec.CellMouseEnter += dgvRec_CellMouseEnter;
-            // Subscribirse al evento VisibleChanged
-            controlRecomendaciones.VisibleChanged += ControlRecomendaciones_VisibleChanged;
         }
 
 
@@ -98,11 +94,14 @@ namespace PrototipoAuditoriaWin11
             }
         }
 
-        private void ControlRecomendaciones_VisibleChanged(object sender, EventArgs e)
+        protected override void OnVisibleChanged(EventArgs e)
         {
-            // Propagar el evento hacia afuera
+            base.OnVisibleChanged(e);
             ControlRecomendacionesVisibleChanged?.Invoke(this, e);
+            ControlGrafRecVisibleChanged?.Invoke(this, e);
         }
+
+
 
         private void btnEstadisticas_Click(object sender, EventArgs e)
         {
