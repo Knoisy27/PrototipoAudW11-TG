@@ -355,7 +355,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "La contraseña debe cumplir con los requisitos de complegidad";
             string clave = "PasswordComplexity";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Activado";
             if (configuraciones.ContainsKey(clave))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);
@@ -384,7 +384,7 @@ namespace PrototipoAuditoriaWin11
             // Definir los valores de la política y la recomendación
             string politica = "Reducir los límites de longitud mínima de la contraseña";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\SAM\\RelaxMinimumPasswordLengthLimits";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Activado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -418,7 +418,7 @@ namespace PrototipoAuditoriaWin11
             string politica = "Almacenar contraseñas con cifrado reversible";
             string clave = "ClearTextPassword";
             long valor = Convert.ToInt64(configuraciones[clave]);
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Desactivado";
 
             // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey(clave))
@@ -454,7 +454,7 @@ namespace PrototipoAuditoriaWin11
             string politica = "Duración del bloqueo de la cuenta";
             string clave = "LockoutDuration";
             long valor = Convert.ToInt64(configuraciones[clave]);
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "15 o más minutos.";
 
             // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey("LockoutDuration"))
@@ -489,7 +489,7 @@ namespace PrototipoAuditoriaWin11
             string politica = "Umbral de bloqueo de cuenta";
             string clave = "LockoutBadCount";
             long valor = Convert.ToInt64(configuraciones[clave]);
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "5 o menos intentos de inicio de sesión no válidos, pero no 0.";
 
             // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey("LockoutBadCount"))
@@ -524,7 +524,7 @@ namespace PrototipoAuditoriaWin11
             string politica = "Permitir bloqueo de cuenta de administrador";
             string clave = "AllowAdministratorLockout";
             long valor = Convert.ToInt64(configuraciones[clave]);
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Activado";
 
             // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey("AllowAdministratorLockout"))
@@ -559,7 +559,7 @@ namespace PrototipoAuditoriaWin11
             string politica = "Restablecer el bloqueo de la cuenta después de";
             string clave = "ResetLockoutCount";
             long valor = Convert.ToInt64(configuraciones[clave]);
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "15 o más minutos.";
 
             // Verificar si la configuración está presente en el diccionario
             if (configuraciones.ContainsKey("ResetLockoutCount"))
@@ -591,7 +591,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Acceso al Administrador de credenciales como un llamador de confianza";
             string clave = "SeTrustedCredManAccessPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Nadie";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -613,7 +613,7 @@ namespace PrototipoAuditoriaWin11
 
             string politica = "Tener acceso a este equipo desde la red";
             string clave = "SeNetworkLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, Usuarios de Escritorio Remoto.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -646,7 +646,7 @@ namespace PrototipoAuditoriaWin11
 
             string politica = "Actuar como parte del sistema operativo";
             string clave = "SeTcbPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Nadie";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -667,7 +667,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Ajustar las cuotas de la memoria para un proceso";
             string clave = "SeIncreaseQuotaPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, SERVICIO LOCAL, SERVICIO DE RED.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -699,7 +699,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Permitir inicio de sesión local";
             string clave = "SelongeractiveLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, Usuarios.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -732,7 +732,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Permitir inicio de sesión a través de Servicios de Escritorio remoto";
             string clave = "SeRemoteInteractiveLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, Usuarios de Escritorio Remoto";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -765,7 +765,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Hacer copias de seguridad de archivos y directorios";
             string clave = "SeRestorePrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -798,7 +798,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cambiar la hora del sistema";
             string clave = "SeSystemtimePrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, SERVICIO LOCAL.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -831,7 +831,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cambiar la zona horaria";
             string clave = "SeTimeZonePrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administrador, SERVICIO LOCAL. Usuarios.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -864,7 +864,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Crear un archivo de paginación\r\n";
             string clave = "SeCreatePagefilePrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -896,7 +896,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Crear un objeto token\r\n";
             string clave = "SeCreateTokenPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Ninguno";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -918,7 +918,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Crear objetos globales";
             string clave = "SeCreateGlobalPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, SERVICIO LOCAL, SERVICIO DE RED, SERVICIO.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -951,7 +951,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Crear objetos compartidos permanentes";
             string clave = "SeCreatePermanentPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Ninguno";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -973,7 +973,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Crear vínculos simbólicos";
             string clave = "SeCreateSymbolicLinkPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores y (cuando la función Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines.";
 
             if (configuraciones.ContainsKey(clave))
             {
