@@ -75,3 +75,258 @@ Impacto:
 Los requisitos de contraseñas extremadamente largas pueden, en realidad, disminuir la seguridad de una organización, porque los usuarios podrían dejar la información en un lugar inseguro o perderla. Si se requieren contraseñas muy largas, las contraseñas mal escritas podrían causar bloqueos de cuentas y aumentar el volumen de llamadas al servicio de asistencia. Si su organización tiene problemas con contraseñas olvidadas debido a los requisitos de longitud de contraseña, considere enseñar a sus usuarios sobre las frases de contraseña, que son a menudo más fáciles de recordar y, debido al mayor número de combinaciones de caracteres, mucho más difíciles de descubrir.
 
 Nota: Las versiones más antiguas de Windows, como Windows 98 y Windows NT 4.0, no admiten contraseñas de más de 14 caracteres. Las computadoras que ejecutan estos sistemas operativos antiguos no pueden autenticarse con computadoras o dominios que usen cuentas que requieran contraseñas largas.
+
+#PasswordComplexity
+Descripción:
+Esta configuración de política verifica todas las nuevas contraseñas para asegurar que cumplan con los requisitos básicos de contraseñas seguras. Cuando esta política está habilitada, las contraseñas deben cumplir los siguientes requisitos mínimos:
+
+- No contener el nombre de la cuenta del usuario ni partes del nombre completo del usuario que excedan dos caracteres consecutivos.
+- Tener al menos seis caracteres de longitud.
+- Contener caracteres de tres de las siguientes categorías:
+- Caracteres en mayúsculas en inglés (A a Z).
+- Caracteres en minúsculas en inglés (a a z).
+- Dígitos del 0 al 9.
+- Caracteres no alfabéticos (por ejemplo, !, $, #, %).
+- Una categoría general de cualquier carácter Unicode que no pertenezca a las cuatro categorías anteriores, pudiendo ser específicos de la región.
+- Cada carácter adicional en una contraseña aumenta su complejidad exponencialmente. El estado recomendado para esta configuración es: Habilitado.
+
+Nota:
+Las configuraciones de Política de contraseñas y de Política de bloqueo de cuentas deben aplicarse mediante la GPO de Política de dominio predeterminada para tener efecto global en cuentas de usuario de dominio. Las excepciones a estas reglas pueden definirse usando Objetos de configuración de contraseña, independientes de la Política de grupo.
+
+Justificación:
+Las contraseñas que contienen solo caracteres alfanuméricos son extremadamente fáciles de descubrir con varias herramientas disponibles públicamente.
+
+Impacto:
+Si se mantiene la configuración de complejidad de contraseñas predeterminada, podrían aumentar las llamadas al servicio de asistencia debido a cuentas bloqueadas, ya que los usuarios podrían no estar acostumbrados a contraseñas que contengan caracteres no alfabéticos. Sin embargo, todos los usuarios deberían poder cumplir con el requisito de complejidad con mínima dificultad.
+
+Para organizaciones con requisitos de seguridad más estrictos, se puede crear una versión personalizada del archivo Passfilt.dll para permitir reglas de fortaleza de contraseñas arbitrariamente complejas, como el uso de caracteres no estándar. También se puede requerir el uso de combinaciones de caracteres ALT para aumentar significativamente la complejidad de una contraseña. Sin embargo, requisitos de contraseñas tan estrictos pueden resultar en usuarios descontentos y un servicio de asistencia muy ocupado.
+
+Alternativamente, se podría requerir que todas las contraseñas de administradores utilicen caracteres ALT en el rango 0128 - 0159.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\SAM\\RelaxMinimumPasswordLengthLimits
+Descripción:
+Esta configuración de política determina si la longitud mínima de la contraseña puede aumentarse más allá del límite heredado de 14 caracteres. Estado recomendado: Habilitado.
+
+Nota:
+Esta configuración solo afecta a las cuentas locales en el equipo. Las cuentas de dominio solo se ven afectadas por las configuraciones en los Controladores de Dominio, ya que es allí donde se almacenan las cuentas de dominio.
+
+Justificación:
+Esta configuración permitirá la aplicación de contraseñas o frases de paso más largas y, generalmente, más seguras donde no se utilice MFA (Autenticación Multifactor).
+
+Impacto:
+La configuración de la longitud mínima de la contraseña puede configurarse para ser mayor a 14 caracteres. Si se requieren contraseñas muy largas, las contraseñas mal escritas podrían causar bloqueos de cuenta y aumentar el volumen de llamadas al servicio de asistencia. Si tu organización tiene problemas con contraseñas olvidadas debido a los requisitos de longitud, considera enseñar a tus usuarios sobre las frases de paso, que a menudo son más fáciles de recordar y, debido al mayor número de combinaciones de caracteres, mucho más difíciles de descubrir.
+
+#ClearTextPassword
+Descripción:
+Esta configuración de política determina si el sistema operativo almacena contraseñas de manera que utilice cifrado reversible, lo que proporciona soporte para protocolos de aplicación que requieren conocimiento de la contraseña del usuario para propósitos de autenticación. Las contraseñas almacenadas con cifrado reversible son esencialmente iguales a versiones en texto plano de las contraseñas. Estado recomendado: Deshabilitado.
+
+Nota:
+Las configuraciones de Política de contraseñas y de Política de bloqueo de cuentas deben aplicarse mediante la GPO de Política de dominio predeterminada para tener efecto global en cuentas de usuario de dominio. Las excepciones a estas reglas pueden definirse usando Objetos de configuración de contraseña, independientes de la Política de grupo.
+
+Justificación:
+Habilitar esta configuración permite que el sistema operativo almacene contraseñas en un formato más débil, lo que es mucho más susceptible a compromisos y debilita la seguridad del sistema.
+
+Impacto:
+Si tu organización usa el protocolo de autenticación CHAP a través de acceso remoto o servicios IAS o Autenticación Digest en IIS, debes configurar esta política como Habilitada. Esta configuración es extremadamente peligrosa de aplicar a través de la Política de grupo en una base de usuario por usuario, ya que requiere abrir el objeto de cuenta de usuario apropiado en Usuarios y equipos de Active Directory.
+
+#LockoutDuration
+Descripción:
+Esta configuración de política determina el tiempo que debe pasar antes de que una cuenta bloqueada se desbloquee y el usuario pueda intentar iniciar sesión nuevamente. Especifica el número de minutos que una cuenta bloqueada permanecerá inaccesible. Si el valor de esta configuración se establece en 0, las cuentas bloqueadas permanecerán bloqueadas hasta que un administrador las desbloquee manualmente. Aunque podría parecer una buena idea configurar un valor alto, esto probablemente aumentará el número de llamadas al servicio de asistencia para desbloquear cuentas bloqueadas por error. Estado recomendado: 15 o más minutos.
+
+Nota:
+Las configuraciones de Política de contraseñas y de Política de bloqueo de cuentas deben aplicarse mediante la GPO de Política de dominio predeterminada para tener efecto global en cuentas de usuario de dominio. Las excepciones a estas reglas pueden definirse usando Objetos de configuración de contraseña, independientes de la Política de grupo.
+
+Justificación:
+Se puede crear una condición de denegación de servicio (DoS) si un atacante abusa del umbral de bloqueo de cuenta e intenta repetidamente iniciar sesión con una cuenta específica. Una vez que configuras el umbral de bloqueo de cuenta, la cuenta se bloqueará después del número especificado de intentos fallidos. Si configuras la duración del bloqueo de cuenta en 0, la cuenta permanecerá bloqueada hasta que un administrador la desbloquee manualmente.
+
+Impacto:
+Aunque puede parecer una buena idea configurar esta política para que nunca desbloquee automáticamente una cuenta, esto puede aumentar el número de solicitudes que recibe el servicio de asistencia para desbloquear cuentas que fueron bloqueadas por error.
+
+#LockoutBadCount
+Descripción:
+
+Esta configuración de política determina el número de intentos de inicio de sesión fallidos antes de que se bloquee la cuenta. Establecer esta política en 0 no cumple con el estándar, ya que desactiva el umbral de bloqueo de cuenta. El estado recomendado para esta configuración es: 5 o menos intentos de inicio de sesión inválidos, pero no 0.
+
+Nota:
+
+Las configuraciones de Política de contraseñas y de Política de bloqueo de cuentas deben aplicarse mediante la GPO de Política de dominio predeterminada para tener efecto globalmente en cuentas de usuario de dominio. Sin embargo, se pueden definir excepciones personalizadas a las reglas predeterminadas utilizando Objetos de configuración de contraseña.
+
+Justificación:
+
+Establecer un umbral de bloqueo de cuenta reduce la probabilidad de éxito de un ataque de fuerza bruta en línea. Sin embargo, establecer el umbral de bloqueo de cuenta demasiado bajo aumenta el riesgo de bloqueos accidentales o de un actor malicioso que bloquee intencionalmente cuentas.
+
+Impacto:
+
+Si esta configuración de política está habilitada, una cuenta bloqueada no será utilizable hasta que sea restablecida por un administrador o hasta que expire la duración del bloqueo de cuenta. Esto puede generar llamadas adicionales al servicio de asistencia. Si se aplica esta configuración, un atacante podría causar una denegación de servicio al generar deliberadamente intentos de inicio de sesión fallidos para múltiples usuarios. Por lo tanto, también se debe configurar la Duración del bloqueo de cuenta con un valor relativamente bajo. Si se configura el Umbral de bloqueo de cuenta en 0, existe la posibilidad de que un intento de descubrir contraseñas mediante un ataque de fuerza bruta pase desapercibido si no se cuenta con un mecanismo de auditoría robusto.
+
+#AllowAdministratorLockout
+Descripción:
+
+Esta configuración de política determina si la cuenta de Administrador incorporada está sujeta a las siguientes configuraciones de Política de bloqueo de cuentas: Duración del bloqueo de cuenta, Umbral de bloqueo de cuenta y Reinicio del contador de bloqueo de cuenta. Por defecto, esta cuenta está excluida de los controles de bloqueo de cuenta y nunca será bloqueada con intentos repetidos de contraseña incorrecta.
+
+Estado recomendado: Habilitado.
+
+Nota:
+
+Esta configuración se aplica solo a sistemas operativos actualizados hasta el 11 de octubre de 2022 (ver MS KB5020282).
+
+Justificación:
+
+Habilitar las políticas de bloqueo de cuenta para la cuenta de Administrador incorporada reducirá la probabilidad de un ataque de fuerza bruta exitoso.
+
+Impacto:
+
+La cuenta de Administrador incorporada estará sujeta a las políticas en la Sección 1.2 Política de bloqueo de cuentas de este estándar.
+
+#ResetLockoutCount
+Descripción:
+Este ajuste de política determina el tiempo antes de que el umbral de bloqueo de cuenta se restablezca a cero. Se recomienda establecer este valor en 15 minutos o más.
+
+Justificación:
+Para evitar bloqueos accidentales de cuentas debido a errores de contraseña, es crucial definir un tiempo de reinicio para el contador de bloqueo de cuentas después de intentos fallidos de inicio de sesión.
+
+Impacto:
+Una configuración inadecuada podría exponer al sistema a ataques de denegación de servicio (DoS), permitiendo que un atacante bloquee cuentas mediante múltiples intentos de inicio de sesión fallidos. Configurar este ajuste adecuadamente garantiza que las cuentas se desbloqueen automáticamente después de un período razonable, reduciendo las llamadas de soporte.
+
+#SeTrustedCredManAccessPrivilege
+Descripción:
+
+Este ajuste de seguridad es utilizado por el Administrador de Credenciales durante la Copia de Seguridad y Restauración. Ninguna cuenta debería tener este derecho de usuario, ya que solo se asigna a Winlogon. Las credenciales guardadas de los usuarios podrían estar comprometidas si este derecho de usuario se asigna a otras entidades. El estado recomendado para esta configuración es: Nadie.
+
+Justificación:
+
+Si una cuenta recibe este derecho, el usuario de la cuenta podría crear una aplicación que invoque al Administrador de Credenciales y devuelva las credenciales de otro usuario.
+
+Impacto:
+
+Ninguno, este es el comportamiento predeterminado.
+
+#SeNetworkLogonRight
+Descripción:
+Este ajuste de política permite a otros usuarios en la red conectarse al equipo y es necesario para varios protocolos de red, incluidos los basados en Server Message Block (SMB), NetBIOS, Common Internet File System (CIFS) y Component Object Model Plus (COM+). La configuración recomendada para este ajuste es: Administradores, Usuarios de Escritorio Remoto.
+
+Justificación:
+Los usuarios que pueden conectarse desde su computadora a la red pueden acceder a recursos en otros equipos para los cuales tienen permiso. Por ejemplo, el derecho de usuario "Acceder a este equipo desde la red" es necesario para que los usuarios se conecten a impresoras y carpetas compartidas. Si este derecho se asigna al grupo "Todos", cualquiera podrá leer los archivos en esas carpetas compartidas.
+
+Impacto:
+Si eliminas el derecho de usuario "Acceder a este equipo desde la red" en Controladores de Dominio para todos los usuarios, nadie podrá iniciar sesión en el dominio ni usar los recursos de red. Si eliminas este derecho de usuario en Servidores Miembro, los usuarios no podrán conectarse a esos servidores a través de la red. La negociación exitosa de conexiones IPsec requiere que la máquina iniciadora tenga este derecho, por lo que si usas IPsec, se recomienda asignarlo al grupo "Usuarios Autenticados". Si has instalado componentes opcionales como ASP.NET o Servicios de Información de Internet (IIS), es posible que necesites asignar este derecho de usuario a cuentas adicionales requeridas por esos componentes. Es importante verificar que los usuarios autorizados tengan este derecho de usuario para las computadoras a las que necesitan acceder en la red.
+
+#SeTcbPrivilege
+Descripción:
+Este ajuste de política permite a un proceso asumir la identidad de cualquier usuario y, por lo tanto, obtener acceso a los recursos a los que el usuario está autorizado a acceder. La configuración recomendada para este ajuste es: Nadie.
+
+Justificación:
+El derecho de usuario "Actuar como parte del sistema operativo" es extremadamente poderoso. Cualquier persona con este derecho de usuario puede tomar el control completo de la computadora y borrar evidencia de sus actividades.
+
+Impacto:
+Debería haber poco o ningún impacto porque el derecho de usuario "Actuar como parte del sistema operativo" rara vez es necesario para cuentas que no sean la cuenta del Sistema Local, que implícitamente tiene este derecho.
+
+#SeIncreaseQuotaPrivilege
+Descripción:
+Este ajuste de política permite a un usuario ajustar la cantidad máxima de memoria disponible para un proceso. Si bien la capacidad de ajustar cuotas de memoria es útil para la optimización del sistema, también puede ser abusada. En manos equivocadas, podría utilizarse para lanzar un ataque de denegación de servicio (DoS). El estado recomendado para este ajuste es: Administradores, SERVICIO LOCAL, SERVICIO DE RED.
+
+Justificación:
+Un usuario con el derecho de usuario "Ajustar cuotas de memoria para un proceso" puede reducir la cantidad de memoria disponible para cualquier proceso, lo que podría hacer que las aplicaciones críticas para el negocio en la red se vuelvan lentas o fallen. En manos equivocadas, este privilegio podría utilizarse para iniciar un ataque de denegación de servicio (DoS).
+
+Impacto:
+Las organizaciones que no han restringido a los usuarios a roles con privilegios limitados encontrarán difícil imponer esta contramedida. Además, si ha instalado componentes opcionales como ASP.NET o IIS, es posible que necesite asignar el derecho de usuario "Ajustar cuotas de memoria para un proceso" a cuentas adicionales requeridas por esos componentes. De lo contrario, esta contramedida no debería tener impacto en la mayoría de las computadoras. Si este derecho de usuario es necesario para una cuenta de usuario, se puede asignar a una cuenta de equipo local en lugar de a una cuenta de dominio.
+
+#SelongeractiveLogonRight
+Descripción:
+Este ajuste de política determina qué usuarios pueden iniciar sesión interactivamente en las computadoras de su entorno. Los inicios de sesión que se inician presionando la secuencia de teclas CTRL+ALT+SUPR en el teclado de la computadora cliente requieren este derecho de usuario. Los usuarios que intentan iniciar sesión a través de Terminal Services / Remote Desktop Services o IIS también requieren este derecho de usuario. El estado recomendado para este ajuste es: Administradores, Usuarios.
+
+Justificación:
+Cualquier cuenta con el derecho de usuario "Permitir inicio de sesión localmente" puede iniciar sesión en la consola de la computadora. Si no restringe este derecho de usuario a usuarios legítimos que necesiten poder iniciar sesión en la consola de la computadora, los usuarios no autorizados podrían descargar y ejecutar software malicioso para elevar sus privilegios.
+
+Impacto:
+Si elimina estos grupos predeterminados, podría limitar las capacidades de los usuarios asignados a roles administrativos específicos en su entorno. Debe confirmar que las actividades delegadas no se verán afectadas negativamente por los cambios que realice en el derecho de usuario "Permitir inicio de sesión localmente".
+
+#SeRemoteInteractiveLogonRight
+Descripción:
+Este ajuste de política determina qué usuarios o grupos tienen el derecho de iniciar sesión como cliente de Remote Desktop Services. Si su organización utiliza Asistencia remota como parte de su estrategia de mesa de ayuda, cree un grupo y asígnele este derecho de usuario a través de la Política de grupo. Si la mesa de ayuda en su organización no utiliza Asistencia remota, asigne este derecho de usuario solo al grupo Administradores o use la función de Grupos restringidos para asegurarse de que ninguna cuenta de usuario forme parte del grupo Remote Desktop Users. Restrinja este derecho de usuario al grupo Administradores, y posiblemente al grupo Remote Desktop Users, para evitar que usuarios no deseados obtengan acceso a las computadoras en su red mediante la función de Asistencia remota.
+
+Justificación:
+Cualquier cuenta con el derecho de usuario "Permitir inicio de sesión a través de Remote Desktop Services" puede iniciar sesión en la consola remota de la computadora. Si no restringe este derecho de usuario a usuarios legítimos que necesiten iniciar sesión en la consola de la computadora, los usuarios no autorizados podrían descargar y ejecutar software malicioso para elevar sus privilegios.
+
+Impacto:
+La eliminación del derecho de usuario "Permitir inicio de sesión a través de Remote Desktop Services" de otros grupos o cambios en la membresía de estos grupos predeterminados podrían limitar las habilidades de los usuarios que desempeñan roles administrativos específicos en su entorno. Debe confirmar que las actividades delegadas no se verán afectadas negativamente.
+
+#SeRestorePrivilege
+Descripción:
+Este ajuste de política permite a los usuarios eludir los permisos de archivos y directorios para hacer una copia de seguridad del sistema. Este derecho de usuario se habilita solo cuando una aplicación (como NTBACKUP) intenta acceder a un archivo o directorio a través de la interfaz de programación de aplicaciones (API) de copia de seguridad del sistema de archivos NTFS. De lo contrario, se aplican los permisos de archivo y directorio asignados.
+
+Justificación:
+Los usuarios que pueden hacer copias de seguridad de datos desde una computadora podrían llevar los medios de copia de seguridad a una computadora no perteneciente al dominio en la que tienen privilegios administrativos y restaurar los datos. Podrían adquirir la propiedad de los archivos y ver cualquier dato no cifrado que esté contenido en el conjunto de copia de seguridad.
+
+Impacto:
+Los cambios en la membresía de los grupos que tienen el derecho de usuario "Hacer copia de seguridad de archivos y directorios" podrían limitar las habilidades de los usuarios que desempeñan roles administrativos específicos en su entorno. Debe confirmar que los administradores de copias de seguridad autorizados aún pueden realizar operaciones de copia de seguridad.
+
+#SeSystemtimePrivilege
+Descripción:
+Este ajuste de política determina qué usuarios y grupos pueden cambiar la hora y la fecha en el reloj interno de las computadoras en su entorno. Los usuarios que tienen este derecho de usuario pueden afectar la apariencia de los registros de eventos. Cuando se cambia la configuración de tiempo de una computadora, los eventos registrados reflejan la nueva hora, no la hora real en que ocurrieron los eventos.
+
+Justificación:
+Los usuarios que pueden cambiar la hora en una computadora podrían causar varios problemas. Por ejemplo, los sellos de tiempo en las entradas del registro de eventos podrían ser inexactos, los sellos de tiempo en archivos y carpetas creados o modificados podrían ser incorrectos, y las computadoras que pertenecen a un dominio pueden no poder autenticarse o los usuarios que intentan iniciar sesión en el dominio desde ellas. Además, debido a que el protocolo de autenticación de Kerberos requiere que el solicitante y el autenticador tengan sus relojes sincronizados dentro de un período de desviación definido por el administrador, un atacante que cambie la hora de una computadora puede hacer que esa computadora no pueda obtener ni otorgar tickets de Kerberos.
+
+Impacto:
+No debería haber impacto, porque la sincronización de tiempo para la mayoría de las organizaciones debería estar completamente automatizada para todas las computadoras que pertenecen al dominio. Las computadoras que no pertenecen al dominio deben configurarse para sincronizarse con una fuente externa.
+
+#SeTimeZonePrivilege
+Descripción:
+Este ajuste determina qué usuarios pueden cambiar la zona horaria de la computadora. Esta capacidad no representa un gran peligro para la computadora y puede ser útil para trabajadores móviles.
+
+Justificación:
+Cambiar la zona horaria representa una vulnerabilidad mínima porque la hora del sistema no se ve afectada. Este ajuste simplemente permite a los usuarios mostrar su zona horaria preferida mientras se sincronizan con Controladores de Dominio en diferentes zonas horarias.
+
+Impacto:
+Ninguno; este es el comportamiento predeterminado.
+
+#SeCreatePagefilePrivilege
+Descripción:
+Este ajuste de política permite a los usuarios cambiar el tamaño del archivo de paginación. Al hacer que el archivo de paginación sea extremadamente grande o extremadamente pequeño, un atacante podría afectar fácilmente el rendimiento de una computadora comprometida.
+
+Justificación:
+Los usuarios que pueden cambiar el tamaño del archivo de paginación podrían hacerlo extremadamente pequeño o mover el archivo a un volumen de almacenamiento altamente fragmentado, lo que podría causar una reducción en el rendimiento de la computadora.
+
+Impacto:
+Ninguno; este es el comportamiento predeterminado.
+
+#SeCreateTokenPrivilege
+Descripción:
+Este ajuste de política permite a un proceso crear un token de acceso, que puede proporcionar derechos elevados para acceder a datos sensibles.
+
+Justificación:
+Una cuenta de usuario que recibe este derecho tiene control total sobre el sistema y puede comprometerlo. Se recomienda encarecidamente no asignar ningún derecho de usuario a esta configuración. Los tokens de acceso se crean cuando los usuarios inician sesión en la computadora local o se conectan a una computadora remota a través de una red. Los usuarios con la capacidad de crear o modificar tokens pueden cambiar el nivel de acceso para cualquier cuenta actualmente conectada.
+
+Impacto:
+Ninguno; este es el comportamiento predeterminado.
+
+#SeCreateGlobalPrivilege
+Descripción:
+Este ajuste de política determina si los usuarios pueden crear objetos globales disponibles para todas las sesiones. Los usuarios aún pueden crear objetos específicos de su sesión si no tienen este derecho de usuario. Los usuarios que pueden crear objetos globales podrían afectar los procesos que se ejecutan bajo sesiones de otros usuarios. Esta capacidad podría provocar una variedad de problemas, como fallos en las aplicaciones o corrupción de datos.
+
+Justificación:
+Los usuarios que pueden crear objetos globales podrían afectar los servicios de Windows y los procesos que se ejecutan bajo otras cuentas de usuario o del sistema. Esta capacidad podría llevar a una variedad de problemas, como fallos en las aplicaciones, corrupción de datos y elevación de privilegios.
+
+Impacto:
+Ninguno; este es el comportamiento predeterminado.
+
+#SeCreatePermanentPrivilege
+Descripción:
+Este derecho de usuario es útil para los componentes del modo kernel que extienden el espacio de nombres del objeto. Sin embargo, los componentes que se ejecutan en modo kernel tienen este derecho de usuario inherente. Por lo tanto, generalmente no es necesario asignar específicamente este derecho de usuario.
+
+Justificación:
+Los usuarios que tienen el derecho de usuario para crear objetos compartidos permanentes podrían crear nuevos objetos compartidos y exponer datos sensibles a la red.
+
+Impacto:
+Ninguno; este es el comportamiento predeterminado.
+
+#SeCreateSymbolicLinkPrivilege
+Descripción:
+Esta configuración de política determina qué usuarios pueden crear vínculos simbólicos. En Windows Vista, objetos del sistema de archivos NTFS existentes, como archivos y carpetas, pueden ser accedidos refiriéndose a un nuevo tipo de objeto del sistema de archivos llamado vínculo simbólico. Un vínculo simbólico es un puntero (similar a un acceso directo o archivo .lnk) a otro objeto del sistema de archivos, que puede ser un archivo, carpeta, acceso directo o otro vínculo simbólico. La diferencia entre un acceso directo y un vínculo simbólico es que un acceso directo solo funciona desde el shell de Windows. Para otros programas y aplicaciones, los accesos directos son solo otro archivo, mientras que con los vínculos simbólicos, el concepto de acceso directo se implementa como una característica del sistema de archivos NTFS. Los vínculos simbólicos pueden potencialmente exponer vulnerabilidades de seguridad en aplicaciones que no están diseñadas para usarlos. Por esta razón, el privilegio para crear vínculos simbólicos solo debe asignarse a usuarios de confianza. De forma predeterminada, solo los Administradores pueden crear vínculos simbólicos.
+
+Justificación:
+Los usuarios que tienen el derecho de usuario para crear vínculos simbólicos podrían exponer inadvertida o maliciosamente su sistema a ataques de vínculos simbólicos. Los ataques de vínculos simbólicos pueden ser utilizados para cambiar los permisos en un archivo, corromper datos, destruir datos o como un ataque de denegación de servicio.
+
+Impacto:
+En la mayoría de los casos no habrá impacto porque esta es la configuración predeterminada. Sin embargo, en estaciones de trabajo de Windows con la función Hyper-V instalada, este derecho de usuario también debe otorgarse al grupo especial NT VIRTUAL MACHINE\Virtual Machines; de lo contrario, no podrá crear nuevas máquinas virtuales.
