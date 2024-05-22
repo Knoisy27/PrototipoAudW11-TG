@@ -3604,7 +3604,7 @@ namespace PrototipoAuditoriaWin11
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
                 string valor = RegistroWindows.ObtenerValorRegistro(clave);
-                if (valor == "0")
+                if (valor == "4")
                 {
                     EstConfig(politica, clave, valor, recomendacion);
                     condicionMetodos.Add(true);
@@ -3634,7 +3634,7 @@ namespace PrototipoAuditoriaWin11
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
                 string valor = RegistroWindows.ObtenerValorRegistro(clave);
-                if (valor == "0")
+                if (valor == "4")
                 {
                     EstConfig(politica, clave, valor, recomendacion);
                     condicionMetodos.Add(true);
@@ -3654,6 +3654,64 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 5.6 IIS ADMIN SERVICE (IISADMIN) 
 
 
+        // 5.7 INFRARED MONITOR SERVICE (IRMON) -------------------------
+        public void Analizar_Infrared_monitor_service__irmon__()
+        {
+            string politica = "Servicio de Monitor de Infrarrojos";
+            string clave = @"SYSTEM\CurrentControlSet\Services\irmon:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.7 INFRARED MONITOR SERVICE (IRMON) 
+
+
+        // 5.8 INTERNET CONNECTION SHARING (ICS) (SHAREDACCESS) -------------------------
+        public void Analizar_Internet_Connection_Sharing__ICS__SharedAccess__()
+        {
+            string politica = "Conexión compartida a Internet";
+            string clave = @"SYSTEM\CurrentControlSet\Services\SharedAccess:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.8 INTERNET CONNECTION SHARING (ICS) (SHAREDACCESS) 
 
 
 

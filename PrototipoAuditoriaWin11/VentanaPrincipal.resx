@@ -278,19 +278,19 @@
     <value>True</value>
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Lucida Sans Unicode, 11pt</value>
+    <value>Arial Rounded MT Bold, 11pt</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>27, 11</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 27</value>
+    <value>147, 26</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>SecuritySoftware</value>
+    <value>GP WinAudit</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -430,7 +430,7 @@
   <data name="btnHerramientas.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        rwAAAK8BK7AVuQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAXrSURBVEhLdVYJ
+        rgAAAK4B+ff3XQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAXrSURBVEhLdVYJ
         U1NXGH1jO9OZ/oE6znRxtHaK0oJrARdUNMoioARi8vLeS14SVAQLRQRkc8ERtNaiQrU6ytQKRW3F4lIE
         XAAt4obIUhYBAwRZBIW2KOLpvTcEROyd+ea+e9/knO873/LC2dbkycvfGz/Ld8FUhaCe6W1qnLKY9/nQ
         aZXC8hvvOpCn3fEyX8x6WSAUMiPP9G5bhFqeucJ4csYKY9l0L0Olvbt+/xDc2GWvkK76r0944ugpd54r
@@ -592,7 +592,7 @@
     <value>0, 300</value>
   </data>
   <data name="panelHerramientasSub.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 166</value>
+    <value>253, 138</value>
   </data>
   <data name="panelHerramientasSub.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
