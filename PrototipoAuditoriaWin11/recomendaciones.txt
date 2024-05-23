@@ -330,3 +330,347 @@ Los usuarios que tienen el derecho de usuario para crear vínculos simbólicos p
 
 Impacto:
 En la mayoría de los casos no habrá impacto porque esta es la configuración predeterminada. Sin embargo, en estaciones de trabajo de Windows con la función Hyper-V instalada, este derecho de usuario también debe otorgarse al grupo especial NT VIRTUAL MACHINE\Virtual Machines; de lo contrario, no podrá crear nuevas máquinas virtuales.
+
+#SeDebugPrivilege
+Descripción:
+
+Esta configuración de política determina qué cuentas de usuario tendrán el derecho de adjuntar un depurador a cualquier proceso o al kernel, lo que proporciona acceso completo a componentes sensibles y críticos del sistema operativo. Los desarrolladores que depuran sus propias aplicaciones no necesitan que se les asigne este derecho de usuario; sin embargo, los desarrolladores que depuran nuevos componentes del sistema lo necesitarán. El estado recomendado para esta configuración es: Administradores.
+
+Nota:
+
+Este derecho de usuario se considera un "privilegio sensible" para fines de auditoría.
+
+Justificación:
+
+El derecho de usuario Depurar programas puede ser explotado para capturar información sensible de la computadora desde la memoria del sistema, o para acceder y modificar estructuras del kernel o de la aplicación. Algunas herramientas de ataque explotan este derecho de usuario para extraer contraseñas con hash y otra información de seguridad privada, o para insertar código de rootkit. Por defecto, el derecho de usuario Depurar programas se asigna solo a los administradores, lo que ayuda a mitigar el riesgo de esta vulnerabilidad.
+
+Impacto:
+
+Si revoca este derecho de usuario, nadie podrá depurar programas. Sin embargo, circunstancias típicas rara vez requieren esta capacidad en computadoras de producción. Si surge un problema que requiere depurar una aplicación en un servidor de producción, puede mover el servidor a una Unidad Organizativa diferente temporalmente y asignar el derecho de usuario Depurar programas a una Política de Grupo separada para esa OU. La cuenta de servicio que se utiliza para el servicio de clúster necesita el derecho de usuario Depurar programas; si no lo tiene, el Clúster de Windows fallará. Las herramientas que se utilizan para administrar procesos no podrán afectar a procesos que no sean propiedad de la persona que ejecuta las herramientas. Por ejemplo, la herramienta Kill.exe del Kit de Recursos de Windows Server 2003 requiere este derecho de usuario para que los administradores puedan terminar procesos que no iniciaron.
+
+#SeDenyNetworkLogonRight
+Descripción:
+
+Esta configuración de política prohíbe a los usuarios conectarse a una computadora desde la red, lo que les permitiría acceder y potencialmente modificar datos de forma remota. En entornos de alta seguridad, no debería haber necesidad de que los usuarios remotos accedan a datos en una computadora. En su lugar, el intercambio de archivos debería realizarse mediante el uso de servidores de red. Este derecho de usuario prevalece sobre el derecho de usuario Acceder a esta computadora desde la red si una cuenta está sujeta a ambas políticas. El estado recomendado para esta configuración es incluir: Invitados.
+
+Justificación:
+
+Los usuarios que pueden iniciar sesión en la computadora a través de la red pueden enumerar listas de nombres de cuentas, nombres de grupos y recursos compartidos. Los usuarios con permiso para acceder a carpetas y archivos compartidos pueden conectarse a través de la red y posiblemente ver o modificar datos.
+
+Impacto:
+
+Si configura el derecho de usuario Denegar el acceso a esta computadora desde la red para otros grupos, podría limitar las capacidades de los usuarios asignados a roles administrativos específicos en su entorno. Debería verificar que las tareas delegadas no se vean afectadas negativamente.
+
+#SeDenyBatchLogonRight
+Descripción:
+
+Esta configuración de política determina qué cuentas no podrán iniciar sesión en la computadora como un trabajo por lotes. Un trabajo por lotes no es un archivo por lotes (.bat), sino más bien una facilidad de cola de lotes. Las cuentas que utilizan el Programador de tareas para programar trabajos necesitan este derecho de usuario. Este derecho de usuario prevalece sobre el derecho de usuario Iniciar sesión como trabajo por lotes, que podría utilizarse para permitir que las cuentas programen trabajos que consuman recursos del sistema de manera excesiva. Tal situación podría causar una condición de denegación de servicio (DoS). No asignar este derecho de usuario a las cuentas recomendadas puede ser un riesgo para la seguridad. El estado recomendado para esta configuración es incluir: Invitados.
+
+Justificación:
+
+Las cuentas que tienen el derecho de usuario Iniciar sesión como trabajo por lotes podrían utilizarse para programar trabajos que consuman recursos de la computadora de manera excesiva y causen una condición de denegación de servicio (DoS).
+
+Impacto:
+
+Si asigna el derecho de usuario Denegar el inicio de sesión como trabajo por lotes a otras cuentas, podría denegar a los usuarios asignados a roles administrativos específicos la capacidad de realizar sus actividades laborales requeridas. Debería confirmar que las tareas delegadas no se vean afectadas adversamente. Por ejemplo, si asigna este derecho de usuario a la cuenta IWAM_(NombreDeComputadora), el Punto de administración de MSM fallará. En una computadora recién instalada que ejecuta Windows Server 2003, esta cuenta no pertenece al grupo de Invitados, pero en una computadora que se actualizó desde Windows 2000, esta cuenta es miembro del grupo de Invitados. Por lo tanto, es importante que comprenda qué cuentas pertenecen a los grupos a los que asigna el derecho de usuario Denegar el inicio de sesión como trabajo por lotes.
+
+#SeDenyServiceLogonRight
+Descripción:
+
+Esta configuración de seguridad determina qué cuentas de servicio se evitan de registrar un proceso como un servicio. Este derecho de usuario prevalece sobre el derecho de usuario Iniciar sesión como servicio si una cuenta está sujeta a ambas políticas. El estado recomendado para esta configuración es incluir: Invitados.
+
+Nota:
+
+Esta configuración de seguridad no se aplica a las cuentas System, Local Service o Network Service.
+
+Justificación:
+
+Las cuentas que pueden iniciar sesión como servicio podrían utilizarse para configurar y iniciar nuevos servicios no autorizados, como un keylogger u otro software malicioso. El beneficio de la contramedida especificada se ve algo reducido por el hecho de que solo los usuarios con privilegios administrativos pueden instalar y configurar servicios, y un atacante que ya haya obtenido ese nivel de acceso podría configurar el servicio para que se ejecute con la cuenta System.
+
+Impacto:
+
+Si asigna el derecho de usuario Denegar el inicio de sesión como servicio a cuentas específicas, los servicios pueden no poder iniciarse y podría resultar en una condición de denegación de servicio (DoS).
+
+#SeDenyInteractiveLogonRight
+Descripción:
+
+Esta configuración de seguridad determina qué usuarios se evitan de iniciar sesión en la computadora. Esta configuración de política prevalece sobre la configuración de política Permitir el inicio de sesión local si una cuenta está sujeta a ambas políticas. El estado recomendado para esta configuración es incluir: Invitados.
+
+Importante:
+
+Si aplica esta política de seguridad al grupo de Todos, nadie podrá iniciar sesión localmente.
+
+Justificación:
+
+Cualquier cuenta con la capacidad de iniciar sesión localmente podría utilizarse para iniciar sesión en la consola de la computadora. Si este derecho de usuario no está restringido a usuarios legítimos que necesiten iniciar sesión en la consola de la computadora, los usuarios no autorizados podrían descargar y ejecutar software malicioso que eleve sus privilegios.
+
+Impacto:
+
+Si asigna el derecho de usuario Denegar el inicio de sesión local a cuentas adicionales, podría limitar las capacidades de los usuarios asignados a roles específicos en su entorno. Sin embargo, este derecho de usuario debe asignarse explícitamente a la cuenta ASPNET en computadoras que ejecuten IIS 6.0. Debería confirmar que las actividades delegadas no se vean afectadas adversamente.
+
+#SeDenyRemoteInteractiveLogonRight
+Descripción:
+
+Esta configuración de política determina si los usuarios pueden iniciar sesión como clientes de Escritorio remoto. Este derecho de usuario prevalece sobre el derecho de usuario Permitir el inicio de sesión a través de los Servicios de Escritorio remoto si una cuenta está sujeta a ambas políticas. El estado recomendado para esta configuración es incluir: Invitados.
+
+Nota:
+
+En todas las versiones de Windows anteriores a Windows 7, los Servicios de Escritorio remoto se conocían como Servicios de Terminal, por lo que debería sustituir el término anterior si lo está comparando con un sistema operativo más antiguo.
+
+Justificación:
+
+Cualquier cuenta con el derecho de iniciar sesión a través de los Servicios de Escritorio remoto podría utilizarse para iniciar sesión en la consola remota de la computadora. Si este derecho de usuario no se restringe a usuarios legítimos que necesiten iniciar sesión en la consola de la computadora, los usuarios no autorizados podrían descargar y ejecutar software malicioso que eleve sus privilegios.
+
+Impacto:
+
+Si asigna el derecho de usuario Denegar el inicio de sesión a través de los Servicios de Escritorio remoto a otros grupos, podría limitar las capacidades de los usuarios asignados a roles administrativos específicos en su entorno. Las cuentas que tienen este derecho de usuario no podrán conectarse a la computadora ni a través de los Servicios de Escritorio remoto ni de la Asistencia remota. Debería confirmar que las tareas delegadas no se vean afectadas negativamente.
+
+#SeEnableDelegationPrivilege
+Descripción:
+
+Esta configuración de política permite a los usuarios cambiar el ajuste de Confianza para delegación en un objeto de computadora en Active Directory. El abuso de este privilegio podría permitir que usuarios no autorizados se hagan pasar por otros usuarios en la red. El estado recomendado para esta configuración es: Nadie.
+
+Nota:
+
+Este derecho de usuario se considera un "privilegio sensible" para fines de auditoría.
+
+Justificación:
+
+El mal uso del derecho de usuario Habilitar que las cuentas de equipo y usuario sean confiables para la delegación podría permitir que usuarios no autorizados se hagan pasar por otros usuarios en la red. Un atacante podría explotar este privilegio para obtener acceso a recursos de red y dificultar la determinación de lo que ha sucedido después de un incidente de seguridad.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+#SeRemoteShutdownPrivilege
+Descripción:
+
+Esta configuración de política permite a los usuarios apagar computadoras con Windows Vista o más recientes desde ubicaciones remotas en la red. Cualquier persona a la que se le haya asignado este derecho de usuario puede causar una condición de denegación de servicio (DoS), lo que haría que la computadora no esté disponible para atender solicitudes de usuario. Por lo tanto, se recomienda que solo se asignen este derecho de usuario a administradores altamente confiables. El estado recomendado para esta configuración es: Administradores.
+
+Justificación:
+
+Cualquier usuario que pueda apagar una computadora podría provocar una condición de denegación de servicio (DoS). Por lo tanto, este derecho de usuario debe estar restringido de manera estricta.
+
+Impacto:
+
+Si elimina el derecho de usuario Forzar apagado desde un sistema remoto del grupo de Operadores de servidor, podría limitar las capacidades de los usuarios asignados a roles administrativos específicos en su entorno. Debería confirmar que las actividades delegadas no se vean afectadas negativamente.
+
+#SeAuditPrivilege
+Descripción:
+
+Esta configuración de política determina qué usuarios o procesos pueden generar registros de auditoría en el registro de seguridad. El estado recomendado para esta configuración es: LOCAL SERVICE, NETWORK SERVICE.
+
+Nota:
+
+Este derecho de usuario se considera un "privilegio sensible" para fines de auditoría.
+
+Justificación:
+
+Un atacante podría utilizar esta capacidad para crear un gran número de eventos auditados, lo que dificultaría que un administrador del sistema localizara cualquier actividad ilícita. Además, si el registro de eventos está configurado para sobrescribir eventos según sea necesario, cualquier evidencia de actividades no autorizadas podría ser sobrescrita por un gran número de eventos no relacionados.
+
+Impacto:
+
+En la mayoría de las computadoras, esta es la configuración predeterminada y no habrá impacto negativo. Sin embargo, si ha instalado un Servidor Web (IIS), necesitará permitir que el o los grupos de aplicaciones de IIS reciban este derecho de usuario.
+
+#SeImpersonatePrivilege
+
+Descripción:
+
+Esta configuración de política permite a los programas que se ejecutan en nombre de un usuario suplantar a ese usuario (o a otra cuenta especificada) para que puedan actuar en nombre del usuario. Si este derecho de usuario es necesario para este tipo de suplantación, un usuario no autorizado no podrá convencer a un cliente para que se conecte, por ejemplo, mediante llamadas de procedimiento remoto (RPC) o tuberías nombradas, a un servicio que hayan creado para suplantar a ese cliente, lo que podría elevar los permisos del usuario no autorizado a niveles administrativos o del sistema. Los servicios que son iniciados por el Administrador de control de servicios tienen el grupo de Servicio incorporado agregado por defecto a sus tokens de acceso. Los servidores COM que son iniciados por la infraestructura COM y configurados para ejecutarse bajo una cuenta específica también tienen el grupo de Servicio agregado a sus tokens de acceso. Como resultado, estos procesos reciben este derecho de usuario cuando se inician. Además, un usuario puede suplantar un token de acceso si se cumplen cualquiera de las siguientes condiciones: • El token de acceso que se está suplantando es para este usuario. • El usuario, en esta sesión de inicio de sesión, se conectó a la red con credenciales explícitas para crear el token de acceso. • El nivel solicitado es menor que Suplantar, como Anónimo o Identificar. Un atacante con el derecho de usuario Suplantar un cliente después de la autenticación podría crear un servicio, engañar a un cliente para que se conecte al servicio y luego suplantar a ese cliente para elevar el nivel de acceso del atacante al del cliente. El estado recomendado para esta configuración es: Administradores, SERVICIO LOCAL, SERVICIO DE RED, SERVICIO.
+
+Nota:
+
+Este derecho de usuario se considera un "privilegio sensible" para fines de auditoría.
+
+Justificación:
+
+Un atacante con el derecho de usuario Suplantar un cliente después de la autenticación podría crear un servicio, engañar a un cliente para que se conecte al servicio y luego suplantar a ese cliente para elevar el nivel de acceso del atacante al del cliente.
+
+Impacto:
+
+En la mayoría de los casos, esta configuración no tendrá impacto. Si ha instalado un Servidor Web (IIS), también necesitará asignar el derecho de usuario a IIS_IUSRS.
+
+#SeIncreaseBasePriorityPrivilege
+Descripción:
+
+Esta configuración de política determina si los usuarios pueden aumentar la clase de prioridad base de un proceso. (No es una operación privilegiada aumentar la prioridad relativa dentro de una clase de prioridad). Este derecho de usuario no es requerido por las herramientas administrativas suministradas con el sistema operativo pero podría ser requerido por herramientas de desarrollo de software. El estado recomendado para esta configuración es: Administradores, Grupo Window Manager\Window Manager.
+
+Justificación:
+
+Un usuario al que se le asigna este derecho de usuario podría aumentar la prioridad de planificación de un proceso a Tiempo Real, lo que dejaría poco tiempo de procesamiento para todos los demás procesos y podría llevar a una condición de denegación de servicio (DoS).
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#SeLoadDriverPrivilege
+Descripción:
+
+Esta configuración de política permite a los usuarios cargar dinámicamente un nuevo controlador de dispositivo en un sistema. Un atacante podría potencialmente utilizar esta capacidad para instalar código malicioso que aparenta ser un controlador de dispositivo. Este derecho de usuario es necesario para que los usuarios agreguen impresoras locales o controladores de impresoras en Windows Vista. El estado recomendado para esta configuración es: Administradores.
+
+Nota:
+
+Este derecho de usuario se considera un "privilegio sensible" para fines de auditoría.
+
+Justificación:
+
+Los controladores de dispositivos se ejecutan como código altamente privilegiado. Un usuario que tenga el derecho de usuario Cargar y descargar controladores de dispositivo podría instalar inadvertidamente código malicioso que se hace pasar por un controlador de dispositivo. Los administradores deben tener un cuidado mayor e instalar solo controladores con firmas digitales verificadas.
+
+Impacto:
+
+Si elimina el derecho de usuario Cargar y descargar controladores de dispositivo del grupo Operadores de impresión u otras cuentas, podría limitar las capacidades de los usuarios asignados a roles administrativos específicos en su entorno. Debería asegurarse de que las tareas delegadas no se vean afectadas negativamente.
+
+#SeLockMemoryPrivilege
+Descripción:
+
+Esta configuración de política permite que un proceso mantenga los datos en la memoria física, lo que evita que el sistema pagine los datos a la memoria virtual en el disco. Si se asigna este derecho de usuario, puede ocurrir una degradación significativa del rendimiento del sistema. El estado recomendado para esta configuración es: Nadie.
+
+Justificación:
+
+Los usuarios con el derecho de usuario Bloquear páginas en memoria podrían asignar memoria física a varios procesos, lo que podría dejar poco o ningún RAM para otros procesos y resultar en una condición de denegación de servicio (DoS).
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+#SeBatchLogonRight
+Descripción:
+
+Esta configuración de política permite que las cuentas inicien sesión usando el servicio Programador de tareas. Dado que el Programador de tareas a menudo se utiliza con fines administrativos, puede ser necesario en entornos empresariales. Sin embargo, su uso debería restringirse en entornos de alta seguridad para prevenir el mal uso de los recursos del sistema o para evitar que los atacantes utilicen el derecho para ejecutar código malicioso después de obtener acceso de nivel de usuario a una computadora. El estado recomendado para esta configuración es: Administradores.
+
+Justificación:
+
+El derecho de usuario Iniciar sesión como tarea por lotes presenta una vulnerabilidad de bajo riesgo. Para la mayoría de las organizaciones, los valores predeterminados son suficientes.
+
+Impacto:
+
+Si configura la configuración de Iniciar sesión como tarea por lotes a través de las Directivas de grupo basadas en dominio, la computadora no podrá asignar el derecho de usuario a las cuentas que se utilizan para trabajos programados en el Programador de tareas. Si instala componentes opcionales como ASP.NET o IIS, es posible que necesite asignar este derecho de usuario a cuentas adicionales que sean requeridas por esos componentes. Por ejemplo, IIS requiere la asignación de este derecho de usuario al grupo IIS_WPG y a las cuentas IUSR_(NombreDeLaComputadora), ASPNET e IWAM_(NombreDeLaComputadora). Si este derecho de usuario no se asigna a este grupo y a estas cuentas, IIS no podrá ejecutar algunos objetos COM que son necesarios para su funcionamiento adecuado.
+
+#SeBatchLogonRight
+Descripción:
+
+Esta configuración de política permite que las cuentas inicien servicios de red o registren un proceso como un servicio que se ejecuta en el sistema. Este derecho de usuario debería restringirse en cualquier computadora en un entorno de alta seguridad, pero debido a que muchas aplicaciones pueden requerir este privilegio, debería evaluarse y probarse cuidadosamente antes de configurarlo en un entorno empresarial. En computadoras basadas en Windows Vista (o más nuevas), ningún usuario o grupo tiene este privilegio de forma predeterminada. El estado recomendado para esta configuración es: Nadie o (cuando se instala la función Hyper-V) NT VIRTUAL MACHINE\Virtual Machines o (cuando se utiliza Windows Defender Application Guard, como en el perfil de Seguridad de Windows Next Generation) WDAGUtilityAccount.
+
+Nota:
+
+La función Hyper-V se introdujo por primera vez en estaciones de trabajo con la versión de 64 bits de Windows 8.0, por lo que la opción NT VIRTUAL MACHINE\Virtual Machines no se aplica a las versiones de Windows 7 (o anteriores) de Windows. Los sistemas operativos más antiguos solo deben configurarse para Nadie.
+
+Nota #2:
+
+La función Windows Defender Application Guard se introdujo por primera vez en estaciones de trabajo con la versión de 64 bits de Windows 10, por lo que la opción WDAGUtilityAccount no se aplica a versiones de 32 bits de Windows.
+
+Justificación:
+
+Iniciar sesión como servicio es un derecho de usuario poderoso porque permite que las cuentas inicien servicios de red o servicios que se ejecuten continuamente en una computadora, incluso cuando nadie está conectado a la consola. El riesgo se reduce por el hecho de que solo los usuarios con privilegios administrativos pueden instalar y configurar servicios. Un atacante que ya haya alcanzado ese nivel de acceso podría configurar el servicio para ejecutarse con la cuenta del Sistema Local.
+
+Impacto:
+
+Si ha instalado componentes opcionales como ASP.NET o IIS, es posible que necesite asignar el derecho de usuario Iniciar sesión como servicio a cuentas adicionales que sean requeridas por esos componentes. IIS requiere que este derecho de usuario se otorgue explícitamente a la cuenta de usuario ASPNET. En estaciones de trabajo de Windows con la función Hyper-V instalada, este derecho de usuario también debería otorgarse al grupo especial NT VIRTUAL MACHINE\Virtual Machines.
+
+#SeSecurityPrivilege
+Descripción:
+
+Esta configuración de política determina qué usuarios pueden cambiar las opciones de auditoría para archivos y directorios y limpiar el registro de seguridad. El estado recomendado para esta configuración es: Administradores.
+
+Nota:
+
+Este derecho de usuario se considera un "privilegio sensible" para fines de auditoría.
+
+Justificación:
+
+La capacidad de gestionar el registro de eventos de seguridad es un derecho de usuario poderoso y debe ser custodiado de cerca. Cualquier persona con este derecho de usuario puede limpiar el registro de seguridad para borrar pruebas importantes de actividad no autorizada.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#SeRelabelPrivilege
+Descripción:
+
+Este privilegio determina qué cuentas de usuario pueden modificar la etiqueta de integridad de objetos, como archivos, claves de registro o procesos propiedad de otros usuarios. Los procesos en ejecución bajo una cuenta de usuario pueden modificar la etiqueta de un objeto propiedad de ese usuario a un nivel más bajo sin este privilegio. El estado recomendado para esta configuración es: Nadie.
+
+Justificación:
+
+Al modificar la etiqueta de integridad de un objeto propiedad de otro usuario, un usuario malintencionado puede hacer que ejecuten código a un nivel de privilegio más alto de lo previsto.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#SeSystemEnvironmentPrivilege
+Descripción:
+
+Esta configuración de política permite a los usuarios configurar las variables de entorno del sistema que afectan la configuración del hardware. Esta información se almacena típicamente en la Última Configuración Buena Conocida. La modificación de estos valores podría provocar una falla de hardware que resultaría en una condición de denegación de servicio. El estado recomendado para esta configuración es: Administradores.
+
+Justificación:
+
+Cualquier persona a la que se le asigne el derecho de usuario Modificar los valores del entorno del firmware podría configurar los ajustes de un componente de hardware para provocar su falla, lo que podría conducir a la corrupción de datos o una condición de denegación de servicio.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#SeManageVolumePrivilege
+Descripción:
+
+Esta configuración de política permite a los usuarios administrar la configuración de volumen o disco del sistema, lo que podría permitir a un usuario eliminar un volumen y causar pérdida de datos, así como una condición de denegación de servicio. El estado recomendado para esta configuración es: Administradores.
+
+Justificación:
+
+Un usuario al que se le asigne el derecho de usuario Realizar tareas de mantenimiento de volumen podría eliminar un volumen, lo que podría resultar en la pérdida de datos o una condición de denegación de servicio.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#SeProfileSingleProcessPrivilege
+Descripción:
+
+Esta configuración de política determina qué usuarios pueden utilizar herramientas para monitorear el rendimiento de procesos que no son del sistema. Por lo general, no es necesario configurar este derecho de usuario para usar el complemento Performance de la Consola de Administración de Microsoft (MMC). Sin embargo, se necesita este derecho de usuario si se configura Monitor del Sistema para recopilar datos utilizando Instrumentación de Administración de Windows (WMI). Restringir el derecho de usuario de Perfil de un solo proceso evita que los intrusos obtengan información adicional que podría usarse para lanzar un ataque contra el sistema. El estado recomendado para esta configuración es: Administradores.
+
+Justificación:
+
+El derecho de usuario de Perfil de un solo proceso presenta una vulnerabilidad moderada. Un atacante con este derecho de usuario podría monitorear el rendimiento de una computadora para ayudar a identificar procesos críticos que podrían querer atacar directamente. El atacante también podría determinar qué procesos se ejecutan en la computadora para identificar contramedidas que puedan necesitar evitar, como software antivirus, un sistema de detección de intrusos o qué otros usuarios están conectados a una computadora.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#SeSystemProfilePrivilege
+Descripción:
+
+Esta configuración de política permite a los usuarios utilizar herramientas para ver el rendimiento de diferentes procesos del sistema, lo que podría ser utilizado de manera abusiva por atacantes para determinar los procesos activos de un sistema y proporcionar información sobre la superficie de ataque potencial de la computadora. El estado recomendado para esta configuración es: Administradores, NT SERVICE\WdiServiceHost.
+
+Justificación:
+
+El derecho de usuario Perfil de rendimiento del sistema representa una vulnerabilidad moderada. Los atacantes con este derecho de usuario podrían monitorear el rendimiento de una computadora para ayudar a identificar procesos críticos que podrían querer atacar directamente. Los atacantes también podrían determinar qué procesos están activos en la computadora para identificar contramedidas que puedan necesitar evitar, como software antivirus o un sistema de detección de intrusiones.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#SeShutdownPrivilege
+Descripción:
+
+Esta configuración de política determina qué usuarios que hayan iniciado sesión localmente en las computadoras de su entorno pueden apagar el sistema operativo con el comando Apagar. El uso indebido de este derecho de usuario puede provocar una condición de denegación de servicio. El estado recomendado para esta configuración es: Administradores, Usuarios.
+
+Justificación:
+
+La capacidad de apagar una estación de trabajo debería estar disponible generalmente para administradores y usuarios autorizados de esa estación de trabajo, pero no permitida para invitados o usuarios no autorizados, para evitar un ataque de denegación de servicio.
+
+Impacto:
+
+El impacto de eliminar estos grupos predeterminados del derecho de usuario Apagar el sistema podría limitar las capacidades delegadas de los roles asignados en su entorno. Debe confirmar que las actividades delegadas no se verán afectadas adversamente.
+
+#SeTakeOwnershipPrivilege
+Descripción:
+
+Esta configuración de política permite a los usuarios tomar posesión de archivos, carpetas, claves del registro, procesos o subprocesos. Este derecho de usuario omite cualquier permiso que esté vigente para proteger objetos y otorga la propiedad al usuario especificado. El estado recomendado para esta configuración es: Administradores.
+
+Justificación:
+
+Cualquier usuario con el derecho de usuario Tomar posesión de archivos u otros objetos puede tomar el control de cualquier objeto, independientemente de los permisos en ese objeto, y luego realizar los cambios que deseen en ese objeto. Tales cambios podrían resultar en la exposición de datos, corrupción de datos o una condición de denegación de servicio.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
