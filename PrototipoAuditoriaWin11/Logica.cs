@@ -973,7 +973,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Crear vínculos simbólicos";
             string clave = "SeCreateSymbolicLinkPrivilege";
-            string recomendacion = "Administradores y (cuando la función Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines.";
+            string recomendacion = @"Administradores y (cuando la función Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1018,7 +1018,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Depurar programas";
             string clave = "SeDebugPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1051,7 +1051,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Denegar el acceso desde la red a este equipo\r\n";
             string clave = "SeDenyNetworkLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Invitados";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1084,7 +1084,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Denegar el inicio de sesión como trabajo por lotes";
             string clave = "SeDenyBatchLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Invitados";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1117,7 +1117,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Denegar el inicio de sesión como servicio";
             string clave = "SeDenyServiceLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Invitados";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1150,7 +1150,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Denegar el inicio de sesión localmente";
             string clave = "SeDenyInteractiveLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Invitados";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1183,7 +1183,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Denegar inicio de sesión a través de Servicios de Escritorio remoto";
             string clave = "SeDenyRemoteInteractiveLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Invitados";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1216,7 +1216,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Habilitar confianza con el equipo y las cuentas de usuario para delegación";
             string clave = "SeEnableDelegationPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Nadie";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1238,7 +1238,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Forzar cierre desde un sistema remoto";
             string clave = "SeRemoteShutdownPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1271,7 +1271,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Generar auditorías de seguridad";
             string clave = "SeAuditPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "SERVICIO LOCAL, SERVICIO DE RED.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1304,7 +1304,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Suplantar a un cliente tras la autenticación";
             string clave = "SeImpersonatePrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, SERVICIO LOCAL, SERVICIO DE RED, SERVICIO. ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1337,7 +1337,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Aumentar prioridad de programación";
             string clave = "SeIncreaseBasePriorityPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, Gestor de Ventanas Grupo Gestor de Ventanas.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1370,7 +1370,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cargar y descargar controladores de dispositivo";
             string clave = "SeLoadDriverPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1403,7 +1403,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Bloquear páginas en la memoria";
             string clave = "SeLockMemoryPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Nadie";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1425,7 +1425,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Iniciar sesión como proceso por lotes";
             string clave = "SeBatchLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1458,7 +1458,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Iniciar sesión como servicio";
             string clave = "SeBatchLogonRight";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Nadie (cuando la característica Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines o (cuando se utiliza Windows Defender Application Guard, como en el perfil Next Generation Windows Security) WDAGUtilityAccount. ";
 
             if (!configuraciones.ContainsKey(clave))
             {
@@ -1492,7 +1492,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Administrar registro de seguridad y auditoría";
             string clave = "SeSecurityPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1525,7 +1525,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Modificar la etiqueta de un objeto";
             string clave = "SeRelabelPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Nadie";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1547,7 +1547,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Modificar valores de entorno firmware";
             string clave = "SeSystemEnvironmentPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1580,7 +1580,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Realizar tareas de mantenimiento del volumen";
             string clave = "SeManageVolumePrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1613,7 +1613,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Generar perfiles de un solo proceso\r\n";
             string clave = "SeProfileSingleProcessPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1646,7 +1646,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Generar perfiles del rendimiento del sistema";
             string clave = "SeSystemProfilePrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Administradores, NT SERVICE\WdiServiceHost.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1687,7 +1687,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Apagar el sistema";
             string clave = "SeShutdownPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores, usuarios";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1720,7 +1720,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Tomar posesión de archivos y otros objetos";
             string clave = "SeTakeOwnershipPrivilege";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Administradores";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1748,7 +1748,7 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 2.2.39 TAKE OWNERSHIP OF FILES OR OTHER OBJECTS
 
 
-        // n2.3.1.1 ACCOUNTS: BLOCK MICROSOFT ACCOUNTS -------------------------
+        // 2.3.1.1 ACCOUNTS: BLOCK MICROSOFT ACCOUNTS -------------------------
         public void Analizar_Accounts__Block_Microsoft_accounts()
         {
             string politica = "Cuentas: bloquear cuentas de Microsoft";
