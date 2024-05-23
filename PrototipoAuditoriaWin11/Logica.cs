@@ -973,7 +973,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Crear vínculos simbólicos";
             string clave = "SeCreateSymbolicLinkPrivilege";
-            string recomendacion = "Administradores y (cuando la función Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines.";
+            string recomendacion = @"Administradores y (cuando la función Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1458,7 +1458,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Iniciar sesión como servicio";
             string clave = "SeBatchLogonRight";
-            string recomendacion = "Nadie (cuando la característica Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines o (cuando se utiliza Windows Defender Application Guard, como en el perfil Next Generation Windows Security) WDAGUtilityAccount. ";
+            string recomendacion = @"Nadie (cuando la característica Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines o (cuando se utiliza Windows Defender Application Guard, como en el perfil Next Generation Windows Security) WDAGUtilityAccount. ";
 
             if (!configuraciones.ContainsKey(clave))
             {
@@ -1646,7 +1646,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Generar perfiles del rendimiento del sistema";
             string clave = "SeSystemProfilePrivilege";
-            string recomendacion = "Administradores, NT SERVICE\WdiServiceHost.";
+            string recomendacion = @"Administradores, NT SERVICE\WdiServiceHost.";
 
             if (configuraciones.ContainsKey(clave))
             {
