@@ -1753,7 +1753,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: bloquear cuentas de Microsoft";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\NoConnectedUser";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Los usuarios no pueden añadir o iniciar sesión con cuentas de Microsoft";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1784,7 +1784,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: estado de la cuenta de invitado";
             string clave = "EnableGuestAccount";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1814,7 +1814,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: limitar el uso de cuentas locales con contraseña en blanco solo para iniciar sesión en la consola";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Habiltado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1844,7 +1844,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: cambiar el nombre de la cuenta de administrador";
             string clave = "NewAdministratorName";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Renombrar cuenta Administrador";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1874,7 +1874,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: cambiar el nombre de cuenta de invitado";
             string clave = "NewGuestName";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Renombrar cuenta Invitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1904,7 +1904,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Auditoría: forzar que la configuración de subcategoría de directiva de auditoría (Windows Vista o posterior) invalide la configuración de categoría de directiva de auditoría.";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1934,7 +1934,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Auditoría: apagar el sistema de inmediato si no se pueden registrar las auditorías de seguridad";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\CrashOnAuditFail";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1964,7 +1964,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Dispositivos: impedir que los usuarios instalen controladores de impresora cuando se conecten a impresoras compartidas";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Print\\Providers\\LanMan Print Services\\Servers\\AddPrinterDrivers";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1994,7 +1994,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: no requerir Ctrl+Alt+Supr";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DisableCAD";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2024,7 +2024,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: No mostrar último inicio de sesión";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DontDisplayLastUserName";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2054,7 +2054,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: umbral de la cuenta de la máquina.";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\MaxDevicePasswordFailedAttempts";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "10 o menos intentos de inicio de sesión no válidos, pero no 0.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2086,7 +2086,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: límite de inactividad de equipo.";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "900 segundos o menos, pero no 0.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2117,7 +2117,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: texto del mensaje para los usuarios que intentan iniciar una sesión";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeText";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Mostrar un mensaje de advertencia antes de iniciar sesión";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2147,7 +2147,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: título del mensaje para los usuarios que intentan iniciar una sesión";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeCaption";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Mostrar un título de advertencia antes de iniciar sesión";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2177,7 +2177,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: pedir al usuario que cambie la contraseña antes de que expire";
             string clave = "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\PasswordExpiryWarning";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Entre 5 y 14 días.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2207,8 +2207,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Interactive_logon__Smart_card_removal__behavior()
         {
             string politica = "Inicio de sesión interactivo: comportamiento de extracción de tarjeta inteligente";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption";
+            string recomendacion = @"Bloquear estación de trabajo. Configurar este ajuste para Forzar cierre de sesión o Desconectar si una sesión de Servicios de Escritorio Remoto también se ajusta al punto de referencia. ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2237,8 +2237,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_client__Digitally_sign_communications__always()
         {
             string politica = "Cliente de red de Microsoft: firma digital de comunicaciones (siempre)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature";
+            string recomendacion = @"Habiltado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2267,8 +2267,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_client__Digitally_sign_communications__if_server_agrees__()
         {
             string politica = "Cliente de red de Microsoft: firma digital de comunicaciones (si el servidor está de acuerdo)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2297,8 +2297,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_client__Send_unencrypted_password_to_third__party_SMB_servers()
         {
             string politica = "Cliente de redes de Microsoft: enviar contraseña sin cifrar para conectar con servidores SMB de terceros\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2327,8 +2327,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_server__Amount_of_idle_time_required_before_suspending_session()
         {
             string politica = "Servidor de red Microsoft: tiempo de inactividad requerido antes de suspender la sesión";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\AutoDisconnect";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\AutoDisconnect";
+            string recomendacion = @"15 minutos o menos.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2358,8 +2358,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_server__Digitally_sign_communications__always()
         {
             string politica = "Servidor de red de Microsoft: firma digital de comunicaciones (siempre)\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RequireSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RequireSecuritySignature";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2388,8 +2388,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_server__Digitally_sign_communications__if_client_agrees__()
         {
             string politica = "Servidor de red de Microsoft: firma digital de comunicaciones (si el cliente está de acuerdo)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableSecuritySignature";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2418,8 +2418,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_server__Disconnect_clients_when_logon_hours_expire()
         {
             string politica = "Servidor de red Microsoft: desconectar a los clientes cuando expiren las horas de inicio de sesión";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableForcedLogOff";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableForcedLogOff";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2444,12 +2444,12 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 2.3.9.4 MICROSOFT NETWORK SERVER: DISCONNECT CLIENTS WHEN LOGON HOURS EXPIRE 
 
 
-        // 2.3.8.8 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL -------------------------
+        // 2.3.9.5 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL -------------------------
         public void Analizar_Microsoft_network_server__Server_SPN_target_name_validation_level()
         {
             string politica = "Servidor de red Microsoft: nivel de validación de nombres de destino SPN del servidor\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\SmbServerNameHardeningLevel";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\SmbServerNameHardeningLevel";
+            string recomendacion = @"Aceptar si lo proporciona el cliente. Configurar este parámetro como Requerido del cliente también se ajusta a la referencia";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2471,15 +2471,15 @@ namespace PrototipoAuditoriaWin11
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
-        // ------------------------- 2.3.8.8 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL 
+        // ------------------------- 2.3.9.5 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL 
 
 
         // 2.3.10.1 NETWORK ACCESS: ALLOW ANONYMOUS SID/NAME TRANSLATION -------------------------
         public void Analizar_Network_access__Allow_anonymous__SID__Name_translation()
         {
             string politica = "Acceso de red: permitir traducción SID-nombre anónima";
-            string clave = "LSAAnonymousNameLookup";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"LSAAnonymousNameLookup";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2508,8 +2508,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Do_not_allow_anonymous__enumeration_of_SAM_accounts()
         {
             string politica = "Acceso a redes: no permitir enumeraciones anónimas de cuentas SAM";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2538,8 +2538,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Do_not_allow_anonymous__enumeration_of_SAM_accounts_and_shares()
         {
             string politica = "Acceso a redes: no permitir enumeraciones anónimas de cuentas y recursos compartidos SAM";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2568,8 +2568,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Do_not_allow_storage_of_passwords_and_credentials_for_network_authentication()
         {
             string politica = "Acceso a redes: no permitir el almacenamiento de contraseñas y credenciales para la autenticación de la red";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\DisableDomainCreds";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\DisableDomainCreds";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2598,8 +2598,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Let_Everyone_permissions_apply_to_anonymous_users()
         {
             string politica = "Acceso a redes: permitir la aplicación de los permisos Todos a los usuarios anónimos";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2628,8 +2628,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Named_Pipes_that_can_be_accessed_anonymously()
         {
             string politica = "Acceso a redes: canalizaciones con nombre accesibles anónimamente";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionPipes";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionPipes";
+            string recomendacion = @"<en blanco> (es decir, Ninguno)";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2658,8 +2658,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Remotely_accessible_registry_paths()
         {
             string politica = "Acceso a redes: rutas del Registro accesibles remotamente";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedExactPaths\\Machine";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedExactPaths\\Machine";
+            string recomendacion = @"System\CurrentControlSet\Control\ProductOptions System\CurrentControlSet\Control\Server Applications Software\Microsoft\Windows NT\CurrentVersion ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2693,8 +2693,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Remotely_accessible_registry_paths_and_sub__paths()
         {
             string politica = "Acceso de red: rutas y subrutas de Registro accesibles remotamente\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedPaths\\Machine";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedPaths\\Machine";
+            string recomendacion = @"System\CurrentControlSet\Control\Print\Printers System\CurrentControlSet\Services\Eventlog Software\Microsoft\OLAP Server Software\Microsoft\Windows NT\CurrentVersion\Print Software\Microsoft\Windows NT\CurrentVersion\Windows System\CurrentControlSet\Control\ContentIndex System\CurrentControlSet\Control\Terminal Server System\CurrentControlSet\Control\Terminal Server\UserConfig System\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration Software\Microsoft\Windows NT\CurrentVersion\Perflib System\CurrentControlSet\Services\SysmonLog ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2728,8 +2728,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Restrict_anonymous__access_to_Named_Pipes_and_Shares()
         {
             string politica = "Acceso a redes: restringir acceso anónimo a canalizaciones con nombre y recursos compartidos";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2758,8 +2758,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Restrict_clients_allowed_to_make_remote_calls_to_SAM()
         {
             string politica = "Acceso de red: evitar que los clientes con permiso realicen llamadas remotas a SAM";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM";
+            string recomendacion = @"Administradores: Acceso Remoto: Permitir";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2788,8 +2788,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Shares_that_can_be_accessed_anonymously()
         {
             string politica = "Acceso a redes: recursos compartidos accesibles anónimamente";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionShares";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionShares";
+            string recomendacion = @"<en blanco> (es decir, Ninguno).";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2818,8 +2818,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Sharing_and_security_model_for_local_accounts()
         {
             string politica = "Acceso a redes: modelo de seguridad y uso compartido para cuentas locales";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\ForceGuest";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\ForceGuest";
+            string recomendacion = @"Clásico: los usuarios locales se autentican como ellos mismos.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2848,8 +2848,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Allow_Local_System_to_use_computer_identity_for_NTLM()
         {
             string politica = "Seguridad de red: permitir que LocalSystem use la identidad del PC para NTLM\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2878,8 +2878,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Allow_LocalSystem_NULL_session_fallback()
         {
             string politica = "Seguridad de red: permitir retroceso a sesión NULL de LocalSystem ";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2908,8 +2908,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_Security__Allow_PKU2U_authentication_requests_to_this_computer_to_use_online_identities()
         {
             string politica = "Seguridad de red: Permite las solicitudes de autenticación PKU2U a este equipo para usar identidades en línea.";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\pku2u\\AllowOnlineID";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\pku2u\\AllowOnlineID";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2938,8 +2938,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Configure_encryption_types_allowed_for_Kerberos()
         {
             string politica = "Seguridad de red: configurar tipos de cifrado permitidos para Kerberos\r\n";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters\\SupportedEncryptionTypes";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters\\SupportedEncryptionTypes";
+            string recomendacion = @"AES128_HMAC_SHA1, AES256_HMAC_SHA1, Futuros tipos de cifrado.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2968,8 +2968,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Do_not_store_LAN_Manager_hash_value_on_next_password_change()
         {
             string politica = "Seguridad de red: no almacenar valor de hash de LAN Manager en el próximo cambio de contraseña";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2998,8 +2998,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Force_logoff_when_logon_hours_expire()
         {
             string politica = "Seguridad de red: forzar el cierre de sesión cuando expire la hora de inicio de sesión";
-            string clave = "ForceLogoffWhenHourExpire";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"ForceLogoffWhenHourExpire";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3028,8 +3028,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__LAN_Manager__authentication_level()
         {
             string politica = "Seguridad de red: nivel de autenticación de LAN Manager";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel";
+            string recomendacion = @"MÁQUINA\NSistema\NActualControlSet\NControl\NLsa\NNNNNivel de compatibilidad con Lm";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3058,8 +3058,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__LDAP_client_signing_requirements()
         {
             string politica = "Seguridad de red: requisitos de firma de cliente LDAP";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity";
+            string recomendacion = @"Negociar firma. Configurar este parámetro en Requerir firma también se ajusta a la referencia.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3088,8 +3088,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Minimum_session_security_for_NTLM_SSP_based__including_secure_RPC__clients()
         {
             string politica = "Seguridad de red: seguridad de sesión mínima para clientes NTLM basados en SSP (incluida RPC segura)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec";
+            string recomendacion = @"Requiere seguridad de sesión NTLMv2, Requiere encriptación de 128 bits. ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3118,8 +3118,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Minimum_session__security_for_NTLM_SSP_based__including_secure_RPC__servers()
         {
             string politica = "Seguridad de red: seguridad de sesión mínima para servidores NTLM basados en SSP (incluida RPC segura)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec";
+            string recomendacion = @"Requerir seguridad de sesión NTLMv2, Requerir encriptación de 128 bits.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3148,8 +3148,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_System_cryptography__Force_strong_key_protection_for_user_keys_stored_on_the_computer()
         {
             string politica = "Criptografía de sistema: forzar la protección con claves seguras para las claves de usuario almacenadas en el equipo";
-            string clave = "MACHINE\\Software\\Policies\\Microsoft\\Cryptography\\ForceKeyProtection";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Policies\\Microsoft\\Cryptography\\ForceKeyProtection";
+            string recomendacion = @"Se pregunta al usuario cuando se utiliza la llave por primera vez. Configurar esta opción como El usuario debe introducir una contraseña cada vez que utiliza una llave también se ajusta a la norma.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3178,8 +3178,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_System_objects__Require_case_insensitivity_for_non__Windows_subsystems()
         {
             string politica = "Objetos de sistema: requerir no distinguir mayúsculas de minúsculas para subsistemas que no sean de Windows";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3208,8 +3208,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_System_objects__Strengthen_default_permissions_of_internal_system_objects__e__g___Symbolic_Links__()
         {
             string politica = "Objetos de sistema: reforzar los permisos predeterminados de los objetos internos del sistema (por ejemplo, vínculos simbólicos)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3238,8 +3238,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Admin_Approval_Mode_for_the_Built__in_Administrator_account()
         {
             string politica = "Control de cuentas de usuario: usar Modo de aprobación de administrador para la cuenta predefinida Administrador";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3268,8 +3268,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Behavior_of_the_elevation_prompt_for_administrators_in_Admin_Approval_Mode()
         {
             string politica = "Control de cuentas de usuario: comportamiento de la petición de elevación para los administradores en Modo de aprobación de administrador\r\n";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin";
+            string recomendacion = @"Solicitar consentimiento en el escritorio seguro. Configurar este parámetro como Solicitar credenciales en el escritorio seguro también se ajusta a la referencia. ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3298,8 +3298,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Behavior_of_the_elevation_prompt_for_standard_users()
         {
             string politica = "Control de cuentas de usuario: comportamiento de la petición de elevación para los usuarios estándar";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser";
+            string recomendacion = @" Denegar automáticamente las solicitudes de elevación.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3328,8 +3328,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Detect_application_installations_and_prompt_for_elevation()
         {
             string politica = "Control de cuentas de usuario: detectar instalaciones de aplicaciones y pedir confirmación de elevación";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3358,8 +3358,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Only_elevate_UIAccess_applications_that_are_installed_in_secure_locations()
         {
             string politica = "Control de cuentas de usuario: elevar solo aplicaciones UIAccess instaladas en ubicaciones seguras";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3389,7 +3389,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Control de cuentas de usuario: activar el Modo de aprobación de administrador.\r\n";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3418,8 +3418,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Switch_to_the_secure_desktop_when_prompting_for_elevation()
         {
             string politica = "Control de cuentas de usuario: cambiar al escritorio seguro cuando se pida confirmación de elevación";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\PromptOnSecureDesktop";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\PromptOnSecureDesktop";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3448,8 +3448,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Virtualize_file_and_registry_write_failures_to_per__user_locations()
         {
             string politica = "Control de cuentas de usuario: virtualizar los errores de escritura de archivo y del Registro a ubicaciones por usuario";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
