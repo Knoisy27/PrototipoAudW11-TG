@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using System.IO;
-using YamlDotNet.Serialization;
-using Newtonsoft.Json;
 using System.Text;
 
 namespace PrototipoAuditoriaWin11
@@ -17,9 +15,8 @@ namespace PrototipoAuditoriaWin11
         public List<bool> condicionMetodos = new List<bool>();
         private List<Configuracion> configuracionesPendientes = new List<Configuracion>();
 
-        public Logica(/*Panel panel, */DataGridView dataGridView)
+        public Logica(DataGridView dataGridView)
         {
-            //panelDinamicoResultados = panel;
             dgvRec = dataGridView;
             configuraciones = new Dictionary<string, string>();
             GuardarDatosCFG();
@@ -58,11 +55,9 @@ namespace PrototipoAuditoriaWin11
                     {
                         string clave = partes[0].Trim();
                         string valor = partes[1].Trim();
-                        //Console.WriteLine($"{clave} {valor}");
 
                         // Almacena la configuración en el diccionario
                         configuraciones[clave] = valor;
-                        //Console.WriteLine(configuraciones[clave]);
                     }
                 }
 
@@ -241,7 +236,6 @@ namespace PrototipoAuditoriaWin11
             string politica = "Exigir historial de contraseñas";
             string clave = "PasswordHistorySize";
             string recomendacion = "24 o más contraseñas";
-            //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);
@@ -270,7 +264,6 @@ namespace PrototipoAuditoriaWin11
             string clave = "MaximumPasswordAge";
             string politica = "Vigencia máxima de la contraseña";
             string recomendacion = "365 días o menos, pero no 0";
-            //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);
@@ -298,7 +291,6 @@ namespace PrototipoAuditoriaWin11
             string politica = "Vigencia mínima de la contraseña";
             string clave = "MinimumPasswordAge";
             string recomendacion = "1 o más días";
-            //GuardarDatosCFG();
             if (configuraciones.ContainsKey("MinimumPasswordAge"))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);

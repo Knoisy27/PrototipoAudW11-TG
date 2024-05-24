@@ -4,10 +4,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using LiveCharts;
-using LiveCharts.Wpf;
-using LiveCharts.WinForms;
-
 namespace PrototipoAuditoriaWin11
 {
     public partial class FormVentanaPrincipal : Form
@@ -29,7 +25,9 @@ namespace PrototipoAuditoriaWin11
             controlRecomendaciones = new ControlRecomendaciones();
             controlGrafRec = new ControlGrafRec();
             logica = new Logica(ventanaAnalisis.DgvResultados);
+
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
+
             // Agregar VentanaAnalisis al formulario principal
             ventanaAnalisis.Dock = DockStyle.Fill;
             this.Controls.Add(ventanaAnalisis);
@@ -141,7 +139,7 @@ namespace PrototipoAuditoriaWin11
 
 
 
-
+        // MOSTRAR ESPECIFICACIONES -------------------------
         private void MostrarEspecificacionesEquipo()
         {
             string especificaciones = "";
@@ -167,8 +165,10 @@ namespace PrototipoAuditoriaWin11
             // Agregar las especificaciones al TextBox
             txtEspecs.Text = especificaciones;
         }
+        // ------------------------- MOSTRAR ESPECIFICACIONES
 
 
+        // BOTÓN ANALIZAR -------------------------
         private void btnAnalizar_MouseLeave(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
@@ -207,8 +207,10 @@ namespace PrototipoAuditoriaWin11
             }               
             
         }
+        // ------------------------- BOTÓN ANALIZAR
 
 
+        // FUNCIONES PARA HACER RESPONSIVE EL PROGRAMA -------------------------
         private void AjustarVentanaAnalisis()
         {
             if (ventanaAnalisis != null && ventanaAnalisis.Visible)
@@ -277,6 +279,8 @@ namespace PrototipoAuditoriaWin11
             AjustarControlRecomendaciones();
             AjustarControlGrafRec();
         }
+        // ------------------------- FUNCIONES PARA HACER RESPONSIVE EL PROGRAMA
+
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {

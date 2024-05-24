@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PrototipoAuditoriaWin11
@@ -13,7 +10,6 @@ namespace PrototipoAuditoriaWin11
         // GENERAR EL ARCHIVO SECURITY.CFG -------------------------
         private static void GenerarArchivoCFG()
         {
-            //Console.WriteLine("El archivo no existe. Continúa con tu proceso.");
             string command = @"C:\Windows\System32\secedit";
             string arguments = @"/export /cfg C:\Windows\Temp\security.cfg";
 
@@ -29,7 +25,6 @@ namespace PrototipoAuditoriaWin11
 
                 // Lee la salida del comando (opcional)
                 string output = process.StandardOutput.ReadToEnd();
-                //Console.WriteLine(output);
 
                 process.WaitForExit();
             }
