@@ -3807,7 +3807,7 @@ namespace PrototipoAuditoriaWin11
         // 5.12 MICROSOFT ISCSI INITIATOR SERVICE (MSISCSI) ------------------------- soidfghvisdjfnvijsdfnbvoifdnboifnboifdsgnbogfdinbodifognbfdigjnb
         public void Analizar_Microsoft_iSCSI_Initiator_Service__MSiSCSI__()
         {
-            string politica = "Politica";
+            string politica = "Servicio del iniciador iSCSI de Microsoft";
             string clave = @"SYSTEM\CurrentControlSet\Services\MSiSCSI:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
@@ -4822,7 +4822,6 @@ namespace PrototipoAuditoriaWin11
             }
         }
         // ------------------------- 5.45 XBOX LIVE NETWORKING SERVICE (XBOXNETAPISVC)
-
 
 
 
