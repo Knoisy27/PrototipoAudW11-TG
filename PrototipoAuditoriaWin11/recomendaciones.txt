@@ -674,3 +674,868 @@ Cualquier usuario con el derecho de usuario Tomar posesión de archivos u otros 
 Impacto:
 
 Ninguno - este es el comportamiento predeterminado.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\NoConnectedUser
+Description:
+
+Esta configuración de política impide que los usuarios agreguen nuevas cuentas de Microsoft en esta computadora. El estado recomendado para esta configuración es: Los usuarios no pueden agregar ni iniciar sesión con cuentas de Microsoft.
+
+Justificación:
+
+Las organizaciones que desean implementar políticas de gestión de identidad de manera efectiva y mantener un control estricto sobre las cuentas utilizadas para iniciar sesión en sus computadoras probablemente querrán bloquear las cuentas de Microsoft. Las organizaciones también pueden necesitar bloquear las cuentas de Microsoft para cumplir con los estándares de cumplimiento que se aplican a sus sistemas de información.
+
+Impacto:
+
+Los usuarios no podrán iniciar sesión en la computadora con su cuenta de Microsoft.
+
+#EnableGuestAccount
+Descripción:
+
+Esta configuración de política determina si la cuenta de Invitado está habilitada o deshabilitada. La cuenta de Invitado permite a los usuarios de la red no autenticados acceder al sistema. El estado recomendado para esta configuración es: Deshabilitado.
+
+Nota: Esta configuración no tendrá impacto cuando se aplique a la unidad organizativa de Controladores de Dominio a través de la política de grupo porque los Controladores de Dominio no tienen una base de datos de cuentas local. Se puede configurar a nivel de dominio mediante la política de grupo, similar a la configuración de bloqueo de cuenta y de política de contraseñas.
+
+Justificación:
+
+La cuenta de Invitado predeterminada permite a los usuarios de la red no autenticados iniciar sesión como Invitado sin contraseña. Estos usuarios no autorizados podrían acceder a cualquier recurso accesible para la cuenta de Invitado a través de la red. Esta capacidad significa que cualquier recurso compartido en la red con permisos que permitan el acceso a la cuenta de Invitado, al grupo Invitados o al grupo Todos será accesible a través de la red, lo que podría llevar a la exposición o corrupción de datos.
+
+Impacto:
+
+Todos los usuarios de la red necesitarán autenticarse antes de poder acceder a recursos compartidos. Si deshabilita la cuenta de Invitado y la opción del Modelo de Seguridad y Compartición de Acceso a la Red está configurada en Solo Invitado, los inicios de sesión de red, como los realizados por el Servidor de Red de Microsoft (Servicio SMB), fallarán. Esta configuración de política debería tener poco impacto en la mayoría de las organizaciones porque es la configuración predeterminada en Microsoft Windows 2000, Windows XP y Windows Server™ 2003.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse
+Descripción:
+
+Esta configuración de política determina si las cuentas locales que no tienen contraseñas protegidas pueden usarse para iniciar sesión desde ubicaciones distintas a la consola física de la computadora. Si habilita esta configuración de política, las cuentas locales que tienen contraseñas en blanco no podrán iniciar sesión en la red desde computadoras cliente remotas. Dichas cuentas solo podrán iniciar sesión en el teclado de la computadora. El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+Las contraseñas en blanco son una amenaza seria para la seguridad informática y deben ser prohibidas tanto a través de la política organizativa como de medidas técnicas adecuadas. De hecho, las configuraciones predeterminadas para los dominios de Active Directory requieren contraseñas complejas de al menos siete caracteres. Sin embargo, si los usuarios con la capacidad de crear nuevas cuentas evaden sus políticas de contraseñas basadas en el dominio, podrían crear cuentas con contraseñas en blanco. Por ejemplo, un usuario podría construir una computadora independiente, crear una o más cuentas con contraseñas en blanco y luego unir la computadora al dominio. Las cuentas locales con contraseñas en blanco seguirían funcionando. Cualquiera que conozca el nombre de una de estas cuentas no protegidas podría usarla para iniciar sesión.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#NewAdministratorName
+Descripción:
+
+La cuenta de administrador local incorporada es un nombre de cuenta bien conocido que los atacantes pueden apuntar. Se recomienda elegir otro nombre para esta cuenta y evitar nombres que denoten cuentas con acceso administrativo o elevado. Asegúrese también de cambiar la descripción predeterminada para el administrador local (a través de la consola de Administración de Computadoras).
+
+Justificación:
+
+La cuenta de Administrador existe en todas las computadoras que ejecutan sistemas operativos Windows 2000 o más nuevos. Si renombra esta cuenta, es ligeramente más difícil para las personas no autorizadas adivinar esta combinación de nombre de usuario y contraseña privilegiada. La cuenta de Administrador incorporada no puede ser bloqueada, independientemente de cuántas veces un atacante use una contraseña incorrecta. Esta capacidad convierte a la cuenta de Administrador en un objetivo popular para los ataques de fuerza bruta que intentan adivinar contraseñas. El valor de esta contramedida se reduce porque esta cuenta tiene un SID bien conocido, y existen herramientas de terceros que permiten la autenticación utilizando el SID en lugar del nombre de la cuenta. Por lo tanto, incluso si renombra la cuenta de Administrador, un atacante podría lanzar un ataque de fuerza bruta utilizando el SID para iniciar sesión.
+
+Impacto:
+
+Deberá informar a los usuarios que están autorizados a usar esta cuenta del nuevo nombre de la cuenta. (La guía para esta configuración asume que la cuenta de Administrador no fue deshabilitada, lo cual se recomendó anteriormente).
+
+#NewGuestName
+Descripción:
+
+La cuenta de invitado local incorporada es otro nombre bien conocido para los atacantes. Se recomienda cambiar el nombre de esta cuenta a algo que no indique su propósito. Incluso si deshabilita esta cuenta, lo cual es recomendado, asegúrese de renombrarla para mayor seguridad.
+
+Justificación:
+
+La cuenta de Invitado existe en todas las computadoras que ejecutan sistemas operativos Windows 2000 o más nuevos. Si renombra esta cuenta, es ligeramente más difícil para las personas no autorizadas adivinar esta combinación de nombre de usuario y contraseña privilegiada.
+
+Impacto:
+
+Debería haber poco impacto, ya que la cuenta de Invitado está deshabilitada por defecto.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy
+Descripción:
+
+Esta configuración de política permite a los administradores habilitar las capacidades de auditoría más precisas presentes en Windows Vista. Las configuraciones de la Política de Auditoría disponibles en Windows Server 2003 Active Directory aún no contienen configuraciones para administrar las nuevas subcategorías de auditoría. Para aplicar correctamente las políticas de auditoría prescritas en esta línea base, es necesario configurar la opción "Forzar configuraciones de subcategorías de política de auditoría (Windows Vista o posterior) para anular las configuraciones de categorías de política de auditoría" en Habilitado. El estado recomendado para esta configuración es: Habilitado.
+
+Importante:
+
+Tenga mucho cuidado con las configuraciones de auditoría que pueden generar un gran volumen de tráfico. Por ejemplo, si habilita la auditoría de éxito o fracaso para todas las subcategorías de Uso de Privilegios, el alto volumen de eventos de auditoría generados puede dificultar la búsqueda de otros tipos de entradas en el registro de Seguridad. Tal configuración también podría tener un impacto significativo en el rendimiento del sistema.
+
+Justificación:
+
+Antes de la introducción de subcategorías de auditoría en Windows Vista, era difícil rastrear eventos a nivel de sistema o de usuario. Las categorías de eventos más grandes creaban demasiados eventos y la información clave que necesitaba ser auditada era difícil de encontrar.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\CrashOnAuditFail
+Descripción:
+
+Esta configuración de política determina si el sistema se apaga si no puede registrar eventos de seguridad. Es un requisito para los criterios de evaluación de sistemas de computadora de confianza (TCSEC)-C2 y la certificación de Criterios Comunes evitar que ocurran eventos auditables si el sistema de auditoría no puede registrarlos. Microsoft ha optado por cumplir con este requisito deteniendo el sistema y mostrando un mensaje de detención si el sistema de auditoría experimenta una falla. Cuando esta configuración de política está habilitada, el sistema se apagará si una auditoría de seguridad no se puede registrar por cualquier motivo. Si la configuración "Audit: Shut down system immediately if unable to log security audits" está habilitada, pueden ocurrir fallas no planificadas del sistema. La carga administrativa puede ser significativa, especialmente si también configura el método de retención del registro de seguridad en "No sobrescribir eventos (borrar registro manualmente)". Esta configuración convierte una amenaza de repudio (un operador de respaldo podría negar que respaldó o restauró datos) en una vulnerabilidad de denegación de servicio (DoS), porque un servidor podría ser forzado a apagarse si se ve abrumado con eventos de inicio de sesión y otros eventos de seguridad que se escriben en el registro de seguridad. Además, dado que el apagado no es ordenado, es posible que se produzcan daños irreparables en el sistema operativo, las aplicaciones o los datos. Aunque el sistema de archivos NTFS garantiza su integridad cuando ocurre un apagado no ordenado de la computadora, no puede garantizar que todos los archivos de datos para cada aplicación estén en una forma utilizable cuando la computadora se reinicie. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Si la computadora no puede registrar eventos en el registro de seguridad, puede que no esté disponible evidencia crítica o información importante para la solución de problemas después de un incidente de seguridad. Además, un atacante podría generar un gran volumen de eventos de registro de seguridad para forzar intencionalmente un apagado de la computadora.
+
+Impacto:
+
+Ninguno - este es el comportamiento predeterminado.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Print\\Providers\\LanMan Print Services\\Servers\\AddPrinterDrivers
+Descripción:
+
+Para que una computadora pueda imprimir en una impresora compartida, el controlador de esa impresora compartida debe estar instalado en la computadora local. Esta configuración de seguridad determina quién tiene permitido instalar un controlador de impresora como parte de la conexión a una impresora compartida. El estado recomendado para esta configuración es: Habilitado. Nota: Esta configuración no afecta la capacidad de agregar una impresora local. Esta configuración no afecta a los administradores.
+
+Justificación:
+
+Puede ser apropiado en algunas organizaciones permitir que los usuarios instalen controladores de impresora en sus propias estaciones de trabajo. Sin embargo, en un entorno de alta seguridad, solo se debe permitir que los administradores realicen esta tarea, ya que la instalación de controladores de impresora puede causar que la computadora se vuelva menos estable. Un usuario malintencionado podría instalar controladores de impresora inapropiados en un intento deliberado de dañar la computadora, o un usuario podría accidentalmente instalar software malicioso que se haga pasar por un controlador de impresora. Es factible que un atacante disimule un programa troyano como un controlador de impresora. El programa puede parecer a los usuarios como si tuvieran que usarlo para imprimir, pero dicho programa podría liberar código malicioso en la red de su computadora.
+
+Impacto:
+
+Solo los administradores podrán instalar un controlador de impresora como parte de la conexión a una impresora compartida. La capacidad de agregar una impresora local no se verá afectada.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DisableCAD
+Descripción:
+
+Esta configuración de política determina si los usuarios deben presionar CTRL+ALT+SUPR antes de iniciar sesión. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Microsoft desarrolló esta función para facilitar a los usuarios con ciertos tipos de discapacidades físicas el inicio de sesión en computadoras que ejecutan Windows. Si no se requiere que los usuarios presionen CTRL+ALT+SUPR, son susceptibles a ataques que intentan interceptar sus contraseñas. Si se requiere CTRL+ALT+SUPR antes de iniciar sesión, las contraseñas de los usuarios se comunican a través de un camino confiable. Un atacante podría instalar un programa troyano que se asemeje al cuadro de diálogo de inicio de sesión estándar de Windows y capturar la contraseña del usuario. El atacante podría entonces iniciar sesión en la cuenta comprometida con el nivel de privilegio que tenga ese usuario.
+
+Impacto:
+
+Los usuarios deben presionar CTRL+ALT+SUPR antes de iniciar sesión en Windows a menos que usen una tarjeta inteligente para iniciar sesión en Windows. Una tarjeta inteligente es un dispositivo a prueba de manipulaciones que almacena información de seguridad.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DontDisplayLastUserName
+Descripción:
+
+Esta configuración de directiva controla si se mostrará el nombre de cuenta del último usuario que inició sesión en las computadoras cliente en la pantalla de inicio de sesión de Windows. Habilitar esta directiva previene que posibles intrusos recolecten visualmente nombres de cuenta desde las pantallas de escritorio o portátiles en su organización. El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+Mostrar el nombre de cuenta del último usuario que inició sesión puede representar un riesgo de seguridad, especialmente en entornos donde es posible el acceso físico o remoto a las computadoras. Los atacantes podrían usar esta información para lanzar ataques de suplantación de contraseña, ataques de diccionario o ataques de fuerza bruta para obtener acceso no autorizado al sistema. Habilitar esta directiva ayuda a mitigar este riesgo al ocultar el nombre de cuenta del último usuario de la pantalla de inicio de sesión.
+
+Impacto:
+
+Habilitar esta directiva evitará que se muestre el nombre del último usuario que inició sesión en la pantalla de inicio de sesión de Windows. Este cambio ayuda a mejorar la seguridad al reducir la probabilidad de intentos de acceso no autorizado basados en nombres de cuenta recolectados visualmente.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\MaxDevicePasswordFailedAttempts
+Descripción:
+
+Esta configuración de seguridad determina el número de intentos de inicio de sesión fallidos que causan el bloqueo de la máquina. Los intentos de contraseña fallidos contra estaciones de trabajo o servidores miembros que hayan sido bloqueados utilizando CTRL+ALT+SUPR o protectores de pantalla protegidos con contraseña se cuentan como intentos de inicio de sesión fallidos. La política de bloqueo de la máquina se aplica solo en aquellas máquinas que tengan habilitado BitLocker para proteger los volúmenes del sistema operativo. Asegúrese de que estén habilitadas las políticas adecuadas de copia de seguridad de contraseñas de recuperación.
+
+Justificación:
+
+Si una máquina se pierde o es robada, o si existe una amenaza interna que intenta un ataque de fuerza bruta contra la contraseña de la computadora, es importante asegurarse de que BitLocker bloquee la computadora y, por lo tanto, evite un ataque exitoso. Especificar un umbral de bloqueo razonable garantiza que la seguridad del sistema se mantenga incluso en caso de pérdida o robo del dispositivo.
+
+Nota:
+
+Un valor de 0 deshabilita el umbral de bloqueo de la cuenta de máquina y no cumple con las recomendaciones de seguridad. Se recomienda configurar un valor de 10 o menos para garantizar una protección adecuada contra ataques de fuerza bruta. Valores entre 1 y 3 serán interpretados como 4.
+
+Impacto:
+
+Configurar un valor apropiado para el umbral de bloqueo de la máquina asegura que se tomarán medidas para proteger el dispositivo después de un número específico de intentos de inicio de sesión fallidos. Esto puede ayudar a prevenir ataques de fuerza bruta y garantizar la integridad de los datos en caso de pérdida o robo del dispositivo.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs
+Descripción:
+
+Windows detecta la inactividad de una sesión de inicio de sesión y, si el tiempo de inactividad supera el límite de inactividad, se ejecutará el protector de pantalla, bloqueando la sesión.
+
+Justificación:
+
+Si un usuario olvida bloquear su computadora cuando se aleja, es posible que alguien la utilice sin autorización. Establecer un límite de inactividad garantiza que, si un usuario se aleja de su computadora por un período prolongado, se activará el protector de pantalla y se bloqueará la sesión para proteger la seguridad de los datos y la privacidad del usuario.
+
+Impacto:
+
+El protector de pantalla se activará automáticamente cuando la computadora haya estado desatendida durante el tiempo especificado. El impacto debería ser mínimo ya que el protector de pantalla está habilitado de forma predeterminada.
+
+Nota:
+
+Un valor de 0 deshabilita el límite de inactividad de la máquina y no cumple con las recomendaciones de seguridad. Se recomienda configurar un valor de 900 segundos o menos para garantizar una protección adecuada contra el uso no autorizado de la computadora debido a la inactividad del usuario.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeText
+Descripción:
+
+Esta configuración de directiva especifica un mensaje de texto que se muestra a los usuarios cuando inician sesión.
+
+Justificación:
+
+Mostrar un mensaje de advertencia antes de iniciar sesión puede ayudar a prevenir un ataque al alertar al atacante sobre las consecuencias de su conducta antes de que ocurra. También puede ayudar a reforzar la política corporativa al notificar a los empleados sobre la política adecuada durante el proceso de inicio de sesión. Este texto a menudo se utiliza por razones legales, por ejemplo, para advertir a los usuarios sobre las ramificaciones del mal uso de la información de la empresa o para informarles que sus acciones pueden ser auditadas.
+
+Nota:
+Cualquier advertencia que se muestre debe ser aprobada primero por los representantes legales y de recursos humanos de su organización.
+
+Impacto:
+
+Los usuarios deberán confirmar un cuadro de diálogo que contiene el texto configurado antes de poder iniciar sesión en la computadora.
+
+Nota:
+Windows Vista y Windows XP Professional admiten mensajes de inicio de sesión que pueden exceder los 512 caracteres de longitud y que también pueden contener secuencias de retorno de carro y avance de línea. Sin embargo, los clientes basados en Windows 2000 no pueden interpretar y mostrar estos mensajes. Debe utilizar una computadora basada en Windows 2000 para crear una política de mensaje de inicio de sesión que se aplique a las computadoras basadas en Windows 2000.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeCaption
+Descripción:
+
+Esta configuración de directiva especifica el texto mostrado en la barra de título de la ventana que los usuarios ven al iniciar sesión en el sistema.
+
+Justificación:
+
+Mostrar un mensaje de advertencia antes de iniciar sesión puede ayudar a prevenir un ataque al alertar al atacante sobre las consecuencias de su conducta antes de que ocurra. También puede ayudar a reforzar la política corporativa al notificar a los empleados sobre la política adecuada durante el proceso de inicio de sesión.
+
+Impacto:
+
+Los usuarios deberán confirmar un cuadro de diálogo con el título configurado antes de poder iniciar sesión en la computadora.
+
+#MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\PasswordExpiryWarning
+Descripción:
+
+Esta configuración de directiva determina con cuánta antelación se advierte a los usuarios que su contraseña está a punto de caducar. Se recomienda configurar esta directiva para que al menos sea de 5 días pero no más de 14 días para advertir suficientemente a los usuarios cuando sus contraseñas estén a punto de caducar.
+
+Justificación:
+
+Los usuarios necesitarán ser advertidos de que sus contraseñas están a punto de caducar, o de lo contrario podrían ser bloqueados inadvertidamente de la computadora cuando sus contraseñas caduquen. Esta condición podría provocar confusión para los usuarios que acceden a la red localmente, o hacer imposible que los usuarios accedan a la red de su organización a través de conexiones de acceso telefónico o de red privada virtual (VPN).
+
+Impacto:
+
+Los usuarios verán un cuadro de diálogo para cambiar su contraseña cada vez que inicien sesión en el dominio cuando su contraseña esté configurada para caducar entre 5 y 14 días.
+
+#MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption
+Descripción:
+
+Esta configuración de directiva determina qué sucede cuando se retira la tarjeta inteligente del lector de tarjetas inteligentes para un usuario que ha iniciado sesión. El estado recomendado para esta configuración es: Bloquear la estación de trabajo. Configurar esta configuración para Forzar cierre de sesión o Desconectar si una sesión de Servicios de Escritorio Remoto también cumple con el estándar de referencia.
+
+Justificación:
+
+A veces, los usuarios olvidan bloquear sus estaciones de trabajo cuando se alejan de ellas, lo que permite la posibilidad de que usuarios malintencionados accedan a sus computadoras. Si se utilizan tarjetas inteligentes para la autenticación, la computadora debe bloquearse automáticamente cuando se retire la tarjeta para garantizar que solo el usuario con la tarjeta inteligente esté accediendo a los recursos utilizando esas credenciales.
+
+Impacto:
+
+- Si selecciona Bloquear estación de trabajo, la estación de trabajo se bloquea cuando se retira la tarjeta inteligente, lo que permite a los usuarios salir del área, llevarse su tarjeta inteligente y mantener una sesión protegida.
+
+- Si selecciona Forzar cierre de sesión, los usuarios son cerrados automáticamente cuando se retira su tarjeta inteligente.
+
+- Si selecciona Desconectar si una sesión de Servicios de Escritorio Remoto, la remoción de la tarjeta inteligente desconecta la sesión sin cerrar la sesión de los usuarios. Esto permite al usuario insertar la tarjeta inteligente y reanudar la sesión más tarde, o en otra computadora equipada con lector de tarjetas inteligentes, sin tener que iniciar sesión nuevamente.
+
+Aplicar esta configuración en computadoras utilizadas por personas que deben iniciar sesión en varias computadoras para realizar sus tareas podría ser frustrante y reducir la productividad. Por ejemplo, si los administradores de red están limitados a una sola cuenta pero necesitan iniciar sesión en varias computadoras simultáneamente para administrar eficazmente la red, forzar esta configuración los limitará a iniciar sesión en una computadora a la vez. Por estas razones, se recomienda que esta configuración solo se aplique en estaciones de trabajo utilizadas para fines comúnmente asociados con usuarios típicos, como la creación de documentos y el correo electrónico.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature
+Descripción:
+
+Esta configuración de directiva determina si la firma de paquetes es requerida por el componente cliente SMB (Server Message Block). La firma de paquetes autentica tanto a los usuarios como a los servidores que alojan los datos, lo que previene ataques de secuestro de sesión y admite la autenticación de mensajes para prevenir ataques de intermediarios.
+
+Justificación:
+
+El secuestro de sesión utiliza herramientas que permiten a los atacantes interrumpir, finalizar o robar una sesión en progreso, potencialmente interceptando y modificando paquetes SMB no firmados para realizar acciones indeseables en el servidor o en el cliente. La firma de paquetes SMB autentica tanto a los usuarios como a los servidores que alojan los datos. Si alguna de las partes falla en el proceso de autenticación, la transmisión de datos no se llevará a cabo.
+
+Impacto:
+
+El cliente de red de Microsoft no se comunicará con un servidor de red de Microsoft a menos que ese servidor acepte realizar la firma de paquetes SMB. La implementación de la firma de paquetes SMB puede afectar negativamente el rendimiento, ya que cada paquete necesita ser firmado y verificado. Esto puede ralentizar el rendimiento, especialmente en servidores que realizan múltiples roles. Además, si se configuran los equipos para ignorar todas las comunicaciones SMB no firmadas, las aplicaciones y sistemas operativos más antiguos no podrán conectarse. Sin embargo, si se desactiva por completo la firma SMB, los equipos serán vulnerables a ataques de secuestro de sesión.
+
+Es importante asegurarse de que esta configuración esté sincronizada con su configuración complementaria en los servidores para garantizar la seguridad de las comunicaciones SMB.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature
+Descripción:
+
+Esta configuración de directiva determina si el cliente SMB intentará negociar la firma de paquetes SMB. Habilitar esta configuración en los clientes SMB de su red los hace completamente efectivos para la firma de paquetes con todos los clientes y servidores en su entorno.
+
+Justificación:
+
+El secuestro de sesión utiliza herramientas que permiten a los atacantes que tienen acceso a la misma red que el cliente o servidor interrumpir, finalizar o robar una sesión en progreso. Los atacantes pueden interceptar y modificar paquetes SMB no firmados y luego modificar el tráfico para que el servidor realice acciones indeseables. La firma de paquetes SMB autentica tanto a los usuarios como a los servidores que alojan los datos, previniendo ataques de secuestro de sesión y admitiendo la autenticación de mensajes para prevenir ataques de intermediarios.
+
+Impacto:
+
+La habilitación de esta configuración no tiene impacto, ya que es el comportamiento predeterminado. La implementación de la firma de paquetes SMB puede afectar negativamente el rendimiento, ya que cada paquete necesita ser firmado y verificado. Esto puede ralentizar el rendimiento, especialmente en servidores que realizan múltiples roles. Además, si se configuran los equipos para ignorar todas las comunicaciones SMB no firmadas, las aplicaciones y sistemas operativos más antiguos no podrán conectarse. Sin embargo, si se desactiva por completo la firma SMB, los equipos serán vulnerables a ataques de secuestro de sesión. Es importante considerar la posible ralentización del rendimiento y el impacto en la compatibilidad con aplicaciones y sistemas operativos más antiguos al habilitar esta configuración.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature
+Descripción:
+
+Esta configuración de directiva determina si el redireccionador SMB enviará contraseñas en texto plano durante la autenticación a servidores SMB de terceros que no admiten el cifrado de contraseñas. Se recomienda deshabilitar esta configuración de directiva a menos que haya un sólido motivo comercial para habilitarla. Si esta configuración de directiva está habilitada, se permitirán contraseñas no cifradas a través de la red.
+
+Justificación:
+
+Si habilita esta configuración de directiva, el servidor puede transmitir contraseñas en texto plano a través de la red a otros equipos que ofrecen servicios SMB, lo que representa un riesgo de seguridad significativo. Estos otros equipos pueden no utilizar ninguno de los mecanismos de seguridad SMB incluidos con Windows Server 2003.
+
+Impacto:
+
+La habilitación de esta configuración no tiene impacto, ya que es el comportamiento predeterminado. Sin embargo, algunas aplicaciones y sistemas operativos muy antiguos, como MS-DOS, Windows para grupos de trabajo 3.11 y Windows 95a, pueden no poder comunicarse con los servidores en su organización mediante el protocolo SMB si esta configuración está deshabilitada. Es importante tener en cuenta la posible incompatibilidad con aplicaciones y sistemas operativos más antiguos al deshabilitar esta configuración.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\AutoDisconnect
+Descripción:
+
+Esta configuración de directiva te permite especificar la cantidad de tiempo de inactividad continua que debe transcurrir en una sesión SMB antes de que la sesión se suspenda debido a la inactividad. Los administradores pueden utilizar esta configuración de directiva para controlar cuándo una computadora suspende una sesión SMB inactiva. Si la actividad del cliente se reanuda, la sesión se restablece automáticamente. El valor máximo es 99999, que equivale a más de 69 días; en efecto, este valor deshabilita la configuración.
+
+Justificación:
+
+Cada sesión SMB consume recursos del servidor, y numerosas sesiones nulas pueden ralentizar el servidor o incluso hacer que falle. Un atacante podría establecer repetidamente sesiones SMB hasta que los servicios SMB del servidor se vuelvan lentos o no respondan. Controlar el tiempo de inactividad de las sesiones SMB ayuda a evitar este tipo de ataques y a mantener un rendimiento óptimo del servidor.
+
+Impacto:
+
+Habrá poco impacto porque las sesiones SMB se restablecerán automáticamente si el cliente reanuda la actividad. Sin embargo, establecer un tiempo de inactividad demasiado corto puede afectar la experiencia del usuario si las sesiones se cierran con demasiada frecuencia, especialmente en entornos donde los usuarios realizan tareas que requieren períodos prolongados de inactividad en la red. Se recomienda ajustar este valor según las necesidades específicas de tu entorno.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RequireSecuritySignature
+Descripción:
+
+Esta configuración de política determina si se requiere la firma de paquetes por parte del componente del servidor SMB. Habilita esta configuración de política en un entorno mixto para evitar que los clientes downstream utilicen la estación de trabajo como un servidor de red. El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+El secuestro de sesiones utiliza herramientas que permiten a los atacantes que tienen acceso a la misma red que el cliente o servidor interrumpir, finalizar o robar una sesión en progreso. Los atacantes pueden interceptar y modificar potencialmente paquetes SMB no firmados y luego modificar el tráfico y reenviarlo para que el servidor realice acciones no deseadas. Alternativamente, el atacante podría hacerse pasar por el servidor o cliente después de la autenticación legítima y obtener acceso no autorizado a datos. Las firmas SMB autentican tanto a los usuarios como a los servidores que alojan los datos. Si uno de los lados falla en el proceso de autenticación, no se llevará a cabo la transmisión de datos.
+
+Impacto:
+
+El servidor de red de Microsoft no se comunicará con un cliente de red de Microsoft a menos que ese cliente acepte realizar la firma de paquetes SMB. La implementación de la firma SMB puede afectar negativamente el rendimiento, ya que cada paquete debe ser firmado y verificado. Si estas configuraciones están habilitadas en un servidor que desempeña múltiples roles, como un servidor para pequeñas empresas que actúa como controlador de dominio, servidor de archivos, servidor de impresión y servidor de aplicaciones, el rendimiento puede disminuir considerablemente. Además, si configuras las computadoras para ignorar todas las comunicaciones SMB no firmadas, las aplicaciones y sistemas operativos más antiguos no podrán conectarse. Sin embargo, si deshabilitas por completo todas las firmas SMB, las computadoras serán vulnerables a ataques de secuestro de sesiones.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableSecuritySignature
+Descripción:
+
+Esta configuración de directiva determina si el servidor SMB negociará la firma de paquetes SMB con los clientes que lo soliciten. Si no hay ninguna solicitud de firma por parte del cliente, se permitirá una conexión sin firma si la configuración Microsoft network server: Digitally sign communications (always) no está habilitada. Nota: Habilita esta configuración de directiva en los clientes SMB de tu red para que sean completamente efectivos para la firma de paquetes con todos los clientes y servidores en tu entorno. El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+El secuestro de sesiones utiliza herramientas que permiten a los atacantes que tienen acceso a la misma red que el cliente o servidor interrumpir, finalizar o robar una sesión en progreso. Los atacantes pueden interceptar y modificar potencialmente paquetes SMB no firmados y luego modificar el tráfico y reenviarlo para que el servidor realice acciones no deseadas. Alternativamente, el atacante podría hacerse pasar por el servidor o cliente después de la autenticación legítima y obtener acceso no autorizado a datos. Las firmas SMB autentican tanto a los usuarios como a los servidores que alojan los datos. Si uno de los lados falla en el proceso de autenticación, no se llevará a cabo la transmisión de datos.
+
+Impacto:
+
+El servidor de red de Microsoft negociará la firma de paquetes SMB según lo solicitado por el cliente. Es decir, si la firma de paquetes ha sido habilitada en el cliente, se negociará la firma de paquetes. La implementación de la firma SMB puede afectar negativamente el rendimiento, ya que cada paquete debe ser firmado y verificado. Si estas configuraciones están habilitadas en un servidor que desempeña múltiples roles, como un servidor para pequeñas empresas que actúa como controlador de dominio, servidor de archivos, servidor de impresión y servidor de aplicaciones, el rendimiento puede disminuir considerablemente. Además, si configuras las computadoras para ignorar todas las comunicaciones SMB no firmadas, las aplicaciones y sistemas operativos más antiguos no podrán conectarse. Sin embargo, si deshabilitas por completo todas las firmas SMB, las computadoras serán vulnerables a ataques de secuestro de sesiones. Cuando las políticas de firma SMB están habilitadas en Controladores de Dominio que ejecutan Windows Server 2003 y en computadoras miembro que ejecutan Windows Vista SP1 o Windows Server 2008, el procesamiento de políticas de grupo fallará. Microsoft ofrece un hotfix que resuelve este problema; consulta el artículo de la Base de Conocimientos de Microsoft 950876 para más detalles: No se aplican las configuraciones de la Directiva de Grupo en computadoras miembro que ejecutan Windows Server 2008 o Windows Vista SP1 cuando ciertas políticas de firma SMB están habilitadas.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableForcedLogOff
+Descripción:
+
+Esta configuración de seguridad determina si se debe desconectar a los usuarios que están conectados al equipo local fuera de las horas de inicio de sesión válidas de su cuenta de usuario. Esta configuración afecta al componente Server Message Block (SMB). Si habilitas esta configuración de directiva, también debes habilitar Network security: Force logoff when logon hours expire (Regla 2.3.11.6). Si tu organización configura las horas de inicio de sesión para los usuarios, esta configuración de directiva es necesaria para garantizar que sean efectivas. El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+Si tu organización configura las horas de inicio de sesión para los usuarios, entonces tiene sentido habilitar esta configuración de directiva. De lo contrario, los usuarios que no deberían tener acceso a los recursos de red fuera de sus horas de inicio de sesión podrían seguir utilizando esos recursos con sesiones que se establecieron durante las horas permitidas.
+
+Impacto:
+
+Ninguno, ya que este es el comportamiento predeterminado. Si las horas de inicio de sesión no se utilizan en tu organización, esta configuración de directiva no tendrá ningún impacto. Si se utilizan las horas de inicio de sesión, las sesiones de usuario existentes se terminarán de forma forzada cuando expiren sus horas de inicio de sesión.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\SmbServerNameHardeningLevel
+Descripción:
+
+Esta configuración de directiva controla el nivel de validación que realiza una computadora con carpetas o impresoras compartidas (el servidor) en el nombre principal del servicio (SPN, por sus siglas en inglés) proporcionado por la computadora cliente cuando establece una sesión utilizando el protocolo Server Message Block (SMB). El protocolo Server Message Block (SMB) proporciona la base para compartir archivos e impresoras y otras operaciones de red, como la administración remota de Windows. El protocolo SMB admite la validación del nombre principal del servicio (SPN) del servidor SMB dentro del paquete de autenticación proporcionado por un cliente SMB para evitar una clase de ataques contra servidores SMB conocidos como ataques de relevo de SMB. Esta configuración afectará tanto a SMB1 como a SMB2. El estado recomendado para esta configuración es: Aceptar si es proporcionado por el cliente. Configurar esta configuración como Requerido desde el cliente también cumple con el estándar.
+
+Justificación:
+
+La identidad de una computadora puede ser suplantada para obtener acceso no autorizado a recursos de red.
+
+Impacto:
+
+Todos los sistemas operativos Windows admiten tanto un componente SMB del lado del cliente como un componente SMB del lado del servidor. Esta configuración afecta al comportamiento del servidor SMB, y su implementación debe ser evaluada y probada cuidadosamente para evitar interrupciones en las capacidades de compartir archivos e impresoras. Si se configura como Aceptar si es proporcionado por el cliente, el servidor SMB aceptará y validará el SPN proporcionado por el cliente SMB y permitirá establecer una sesión si coincide con la lista de SPN del servidor SMB para sí mismo. Si el SPN NO coincide, la solicitud de sesión para ese cliente SMB será denegada. Si se configura como Requerido desde el cliente, el cliente SMB DEBE enviar un nombre SPN en la configuración de sesión, y el nombre SPN proporcionado DEBE coincidir con el servidor SMB al que se solicita establecer una conexión. Si el cliente no proporciona ningún SPN, o si el SPN proporcionado no coincide, se deniega la sesión.
+
+#LSAAnonymousNameLookup
+Descripción:
+
+Esta configuración de directiva determina si un usuario anónimo puede solicitar atributos de identificador de seguridad (SID) para otro usuario, o usar un SID para obtener su nombre de usuario correspondiente. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Si esta configuración de directiva está habilitada, un usuario con acceso local podría usar el SID del Administrador conocido para conocer el nombre real de la cuenta de Administrador incorporada, incluso si se ha cambiado el nombre. Esa persona podría luego usar el nombre de la cuenta para iniciar un ataque de adivinación de contraseña.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM
+Descripción:
+
+Esta configuración de directiva controla la capacidad de los usuarios anónimos para enumerar las cuentas en el Administrador de Cuentas de Seguridad (SAM). Si habilita esta configuración de directiva, los usuarios con conexiones anónimas no podrán enumerar los nombres de usuario de las cuentas de dominio en los sistemas de su entorno. Esta configuración de directiva también permite restricciones adicionales en las conexiones anónimas. El estado recomendado para esta configuración es: Habilitado. Nota: Esta política no tiene efecto en los Controladores de Dominio.
+
+Justificación:
+
+Un usuario no autorizado podría listar de forma anónima nombres de cuenta y usar la información para intentar adivinar contraseñas o realizar ataques de ingeniería social. (Los ataques de ingeniería social intentan engañar a los usuarios de alguna manera para obtener contraseñas o algún tipo de información de seguridad.)
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado. Será imposible establecer confianzas con dominios basados en Windows NT 4.0. Además, los equipos cliente que ejecutan versiones más antiguas del sistema operativo Windows, como Windows NT 3.51 y Windows 95, experimentarán problemas cuando intenten usar recursos en el servidor.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous
+Descripción:
+
+Esta configuración de directiva controla la capacidad de los usuarios anónimos para enumerar cuentas SAM, así como recursos compartidos. Si habilita esta configuración de directiva, los usuarios anónimos no podrán enumerar nombres de usuario de cuentas de dominio y nombres de recursos compartidos de red en los sistemas de su entorno. Esta configuración de directiva también permite restricciones adicionales en las conexiones anónimas. El estado recomendado para esta configuración es: Habilitado. Nota: Esta política no tiene efecto en los Controladores de Dominio.
+
+Justificación:
+
+Un usuario no autorizado podría listar de forma anónima nombres de cuenta y recursos compartidos de red y usar la información para intentar adivinar contraseñas o realizar ataques de ingeniería social. (Los ataques de ingeniería social intentan engañar a los usuarios de alguna manera para obtener contraseñas o algún tipo de información de seguridad.)
+
+Impacto:
+
+Será imposible establecer confianzas con dominios basados en Windows NT 4.0. Además, los equipos cliente que ejecutan versiones más antiguas del sistema operativo Windows, como Windows NT 3.51 y Windows 95, experimentarán problemas cuando intenten usar recursos en el servidor. Los usuarios que accedan a servidores de archivos e impresión de forma anónima no podrán listar los recursos de red compartidos en esos servidores; los usuarios deberán autenticarse antes de poder ver las listas de carpetas y impresoras compartidas. Sin embargo, incluso con esta configuración de directiva habilitada, los usuarios anónimos tendrán acceso a recursos con permisos que incluyan explícitamente al grupo integrado, INICIO DE SESIÓN ANÓNIMO.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\DisableDomainCreds
+Descripción:
+
+Esta configuración de directiva determina si el Administrador de Credenciales (anteriormente llamado Nombres de usuario y contraseñas almacenados) guarda contraseñas o credenciales para su uso posterior cuando obtiene autenticación de dominio. El estado recomendado para esta configuración es: Habilitado. Nota: Los cambios en esta configuración no tendrán efecto hasta que Windows se reinicie.
+
+Justificación:
+
+Las contraseñas que se almacenan en caché pueden ser accedidas por el usuario cuando está conectado al equipo. Aunque esta información puede parecer obvia, puede surgir un problema si el usuario ejecuta código hostil sin saberlo, que lee las contraseñas y las envía a otro usuario no autorizado.
+
+Impacto:
+
+El Administrador de Credenciales no almacenará contraseñas y credenciales en el equipo. Los usuarios se verán obligados a ingresar contraseñas cada vez que inicien sesión en su cuenta de Passport u otros recursos de red que no sean accesibles para su cuenta de dominio. Las pruebas han demostrado que los clientes que ejecutan Windows Vista o Windows Server 2008 no podrán conectarse a recursos compartidos de Sistema de Archivos Distribuidos (DFS) en dominios no confiables. Habilitar esta configuración también hace imposible especificar credenciales alternativas para tareas programadas, lo que puede causar una variedad de problemas. Por ejemplo, algunos productos de copia de seguridad de terceros dejarán de funcionar. Esta configuración de directiva no debería tener impacto en los usuarios que acceden a recursos de red que están configurados para permitir el acceso con su cuenta de dominio basada en Active Directory.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous
+Descripción:
+
+Esta configuración de directiva determina qué permisos adicionales se asignan para las conexiones anónimas al equipo. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Un usuario no autorizado podría enumerar nombres de cuentas y recursos compartidos de forma anónima y usar la información para intentar adivinar contraseñas, realizar ataques de ingeniería social o lanzar ataques de denegación de servicio (DoS).
+
+Impacto:
+
+Ninguno, este es el comportamiento predeterminado.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionPipes
+Descripción:
+
+Esta configuración de directiva determina qué sesiones de comunicación, o pipes, tendrán atributos y permisos que permitan el acceso anónimo. El estado recomendado para esta configuración es: <en blanco> (es decir, Ninguno).
+
+Justificación:
+
+Limitar los named pipes que pueden ser accedidos de forma anónima reducirá la superficie de ataque del sistema.
+
+Impacto:
+
+Esta configuración deshabilitará el acceso de sesión nula a través de named pipes, y las aplicaciones que dependen de esta función o del acceso no autenticado a named pipes dejarán de funcionar.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedExactPaths\\Machine
+Descripción:
+
+Esta configuración de directiva determina qué rutas de registro serán accesibles a través de la red, independientemente de los usuarios o grupos listados en la lista de control de acceso (ACL) de la clave de registro winreg.
+
+Nota: Esta configuración no existe en Windows XP. Existía una configuración con ese nombre en Windows XP, pero en Windows Server 2003, Windows Vista y Windows Server 2008 (no R2) se llama "Acceso de red: Rutas y subrutas de registro accesibles de forma remota".
+
+Nota #2: Cuando configura esta directiva, especifica una lista de uno o más objetos. El delimitador utilizado al ingresar la lista es un salto de línea o un retorno de carro, es decir, escriba el primer objeto en la lista, presione el botón Enter, escriba el siguiente objeto, presione Enter nuevamente, etc. El valor de la configuración se almacena como una lista delimitada por comas en plantillas de seguridad de directivas de grupo. También se representa como una lista delimitada por comas en el panel de visualización del Editor de directivas de grupo y en la consola de Conjunto de directivas resultante. Se registra en el registro como una lista delimitada por saltos de línea en un valor REG_MULTI_SZ.
+
+El estado recomendado para esta configuración es:
+
+System\CurrentControlSet\Control\ProductOptions
+System\CurrentControlSet\Control\Server Applications
+Software\Microsoft\Windows NT\CurrentVersion
+Justificación:
+
+El registro es una base de datos que contiene información de configuración de la computadora, y mucha de la información es sensible. Un atacante podría usar esta información para facilitar actividades no autorizadas. Para reducir el riesgo de dicho ataque, se asignan ACL adecuadas en todo el registro para ayudar a protegerlo del acceso por parte de usuarios no autorizados.
+
+Impacto:
+
+Ninguno; este es el comportamiento predeterminado. Sin embargo, si elimina las rutas de registro predeterminadas de la lista de accesibles, las herramientas de gestión remota como el Analizador de seguridad básico de Microsoft y Microsoft Systems Management Server podrían fallar, ya que requieren acceso remoto al registro para monitorear y administrar correctamente las computadoras.
+
+Nota: Si desea permitir el acceso remoto, también debe habilitar el servicio Registro remoto.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedPaths\\Machine
+Descripción:
+
+Esta configuración de directiva determina qué rutas y subrutas de registro serán accesibles a través de la red, independientemente de los usuarios o grupos listados en la lista de control de acceso (ACL) de la clave de registro winreg.
+
+Nota: En Windows XP, esta configuración se llama "Acceso de red: Rutas de registro accesibles de forma remota". La configuración con ese mismo nombre en Windows Vista, Windows Server 2008 (no R2) y Windows Server 2003 no existe en Windows XP.
+
+Nota #2: Al configurar esta configuración, especifica una lista de uno o más objetos. El delimitador utilizado al ingresar la lista es un salto de línea o un retorno de carro, es decir, escriba el primer objeto en la lista, presione el botón Enter, escriba el siguiente objeto, presione Enter nuevamente, etc. El valor de la configuración se almacena como una lista delimitada por comas en plantillas de seguridad de directivas de grupo. También se representa como una lista delimitada por comas en el panel de visualización del Editor de directivas de grupo y en la consola de Conjunto de directivas resultante. Se registra en el registro como una lista delimitada por saltos de línea en un valor REG_MULTI_SZ.
+
+El estado recomendado para esta configuración es:
+
+System\CurrentControlSet\Control\Print\Printers
+System\CurrentControlSet\Services\Eventlog
+Software\Microsoft\OLAP Server
+Software\Microsoft\Windows NT\CurrentVersion\Print
+Software\Microsoft\Windows NT\CurrentVersion\Windows
+System\CurrentControlSet\Control\ContentIndex
+System\CurrentControlSet\Control\Terminal Server
+System\CurrentControlSet\Control\Terminal Server\UserConfig
+System\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration
+Software\Microsoft\Windows NT\CurrentVersion\Perflib
+System\CurrentControlSet\Services\SysmonLog
+Justificación:
+
+El registro contiene información de configuración sensible de la computadora que podría ser utilizada por un atacante para facilitar actividades no autorizadas. El hecho de que las ACL predeterminadas asignadas en todo el registro sean bastante restrictivas y ayuden a proteger el registro del acceso por parte de usuarios no autorizados reduce el riesgo de dicho ataque.
+
+Impacto:
+
+Ninguno; este es el comportamiento predeterminado. Sin embargo, si elimina las rutas de registro predeterminadas de la lista de accesibles, las herramientas de gestión remota como el Analizador de seguridad básico de Microsoft y Microsoft Systems Management Server podrían fallar, ya que requieren acceso remoto al registro para monitorear y administrar correctamente las computadoras.
+
+Nota: Si desea permitir el acceso remoto, también debe habilitar el servicio Registro remoto.
+
+#Descripción:
+
+Cuando se habilita esta configuración de directiva, restringe el acceso anónimo solo a aquellas comparticiones y tuberías que estén nombradas en las configuraciones de "Acceso de red: Tuberías con nombre que pueden ser accesibles de forma anónima" y "Acceso de red: Comparticiones que pueden ser accesibles de forma anónima". Esta configuración de directiva controla el acceso de sesión nula a las comparticiones en sus computadoras mediante la adición de "RestrictNullSessAccess" con el valor 1 en la clave de registro "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters". Este valor de registro activa o desactiva las comparticiones de sesión nula para controlar si el servicio del servidor restringe el acceso de clientes no autenticados a recursos nombrados.
+
+El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+Las sesiones nulas son una debilidad que puede ser explotada a través de las comparticiones (incluidas las comparticiones predeterminadas) en las computadoras de su entorno.
+
+Impacto:
+
+Ninguno; este es el comportamiento predeterminado. Si elige habilitar esta configuración y está soportando dominios de Windows NT 4.0, debe verificar si alguna de las tuberías con nombre son necesarias para mantener relaciones de confianza entre los dominios, y luego agregar la tubería a la lista de "Acceso de red: Tuberías con nombre que pueden ser accesibles de forma anónima":
+
+- COMNAP: Acceso a sesiones de SNA
+- COMNODE: Acceso a sesiones de SNA
+- SQL\QUERY: Acceso a instancia SQL
+- SPOOLSS: Servicio de cola de impresión
+- LLSRPC: Servicio de registro de licencias
+- NETLOGON: Servicio de registro de red
+- LSARPC: Acceso a LSA
+- SAMR: Acceso remoto a objetos SAM
+- BROWSER: Servicio de Navegador de equipos
+
+Antes del lanzamiento de Windows Server 2003 con Service Pack 1 (SP1), estas tuberías con nombre permitían acceso anónimo de forma predeterminada, pero con el aumento de seguridad en Windows Server 2003 con SP1, estas tuberías deben ser agregadas explícitamente si son necesarias.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM
+Description:
+
+Esta configuración de directiva te permite restringir las conexiones RPC remotas al SAM (Security Account Manager). El estado recomendado para esta configuración es: Administradores: Acceso Remoto: Permitir.
+
+Nota: Se requiere un sistema operativo Windows 10 R1607, Server 2016 o más reciente para acceder y establecer este valor en la Directiva de Grupo.
+
+Nota #2: Originalmente, esta configuración solo era compatible con Windows 10 R1607 y versiones más nuevas, luego se agregó soporte para Windows 7 y versiones más nuevas a través de los parches de seguridad de marzo de 2017.
+
+Nota #3: Si tu organización está utilizando Azure Advanced Threat Protection (APT), la cuenta de servicio "AATP Service" deberá ser agregada a la configuración recomendada. Para obtener más información sobre cómo agregar la cuenta de servicio "AATP Service", consulta Configure SAM-R to enable lateral movement path detection in Microsoft Defender for Identity | Microsoft Docs.
+
+Justificación:
+
+Se debe restringir el acceso remoto al SAM para garantizar que un usuario no autorizado no pueda enumerar de forma anónima nombres de cuentas o grupos locales y usar la información para intentar adivinar contraseñas o realizar ataques de ingeniería social.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionShares
+Description:
+
+Esta configuración de directiva determina qué recursos compartidos de red pueden ser accedidos por usuarios anónimos. La configuración predeterminada para esta directiva tiene poco efecto porque todos los usuarios deben autenticarse antes de poder acceder a los recursos compartidos en el servidor. El estado recomendado para esta configuración es: <en blanco> (es decir, Ninguno).
+
+Justificación:
+
+Es muy peligroso permitir cualquier valor en esta configuración. Cualquier recurso compartido que se liste puede ser accedido por cualquier usuario de la red, lo que podría llevar a la exposición o corrupción de datos sensibles.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\ForceGuest
+Description:
+
+Esta configuración de directiva determina cómo se autentican los inicios de sesión en red que utilizan cuentas locales. La opción "Clásica" permite un control preciso sobre el acceso a los recursos, incluida la capacidad de asignar diferentes tipos de acceso a diferentes usuarios para el mismo recurso. La opción "Solo invitado" le permite tratar a todos los usuarios por igual. En este contexto, todos los usuarios se autentican únicamente como invitados para recibir el mismo nivel de acceso a un recurso determinado. El estado recomendado para esta configuración es: Clásico: los usuarios locales se autentican como ellos mismos.
+
+Justificación:
+
+Con el modelo Solo invitado, cualquier usuario que pueda autenticarse en su computadora a través de la red lo hace con privilegios de invitado, lo que probablemente significa que no tendrán acceso de escritura a los recursos compartidos en esa computadora. Aunque esta restricción aumenta la seguridad, dificulta que los usuarios autorizados accedan a los recursos compartidos en esas computadoras porque las ACL en esos recursos deben incluir entradas de control de acceso (ACE) para la cuenta de invitado. Con el modelo Clásico, las cuentas locales deben estar protegidas con contraseña. De lo contrario, si se habilita el acceso de invitado, cualquier persona puede usar esas cuentas de usuario para acceder a los recursos del sistema compartidos.
+
+Impacto:
+
+Ninguno: esta es la configuración predeterminada para las computadoras unidas a un dominio.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId
+Description:
+
+Esta configuración de directiva determina si los servicios del Sistema Local que utilizan Negociar al revertir a la autenticación NTLM pueden usar la identidad del equipo. Esta directiva es compatible con al menos Windows 7 o Windows Server 2008 R2. El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+Cuando se conecta a computadoras que ejecutan versiones de Windows anteriores a Windows Vista o Windows Server 2008 (no R2), los servicios que se ejecutan como Sistema Local y usan SPNEGO (Negociar) y luego rechazan NTLM utilizan la identidad del equipo. En Windows 7, si se está conectando a una computadora que ejecuta Windows Server 2008 o Windows Vista, entonces un servicio del sistema utiliza tanto la identidad del equipo como una sesión nula. Cuando se conecta con una sesión nula, se crea una clave de sesión generada por el sistema, que no proporciona protección pero permite que las aplicaciones firmen y cifren datos sin errores. Al conectarse con la identidad del equipo, se admite tanto la firma como el cifrado para proporcionar protección de datos.
+
+Impacto:
+
+Los servicios que se ejecutan como Sistema Local y que utilizan Negociar al revertir a la autenticación NTLM usarán la identidad del equipo. Esto podría causar que algunas solicitudes de autenticación entre sistemas operativos Windows fallen y registren un error.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback
+Description:
+
+Esta configuración de directiva determina si se permite que NTLM retroceda a una sesión NULL cuando se utiliza con LocalSystem. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Las sesiones NULL son menos seguras porque, por definición, no están autenticadas. Permitir que NTLM retroceda a una sesión NULL podría exponer el sistema a vulnerabilidades de seguridad.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado. Sin embargo, cualquier aplicación que requiera sesiones NULL para LocalSystem no funcionará como se espera si se deshabilita esta configuración.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\pku2u\\AllowOnlineID
+Description:
+
+Esta configuración determina si las identidades en línea pueden autenticarse en esta computadora. El protocolo de Usuario a Usuario basado en Criptografía de Clave Pública (PKU2U) introducido en Windows 7 y Windows Server 2008 R2 se implementa como un proveedor de soporte de seguridad (SSP, por sus siglas en inglés). El SSP permite la autenticación punto a punto, especialmente a través de la función de intercambio de archivos y medios de Windows 7 llamada Grupo Hogar, que permite compartir entre computadoras que no son miembros de un dominio. Con PKU2U, se introdujo una nueva extensión al paquete de autenticación Negotiate, Spnego.dll. En versiones anteriores de Windows, Negotiate decidía si usar Kerberos o NTLM para la autenticación. El SSP de extensión para Negotiate, Negoexts.dll, que es tratado como un protocolo de autenticación por Windows, admite SSPs de Microsoft, incluido PKU2U. Cuando las computadoras están configuradas para aceptar solicitudes de autenticación mediante IDs en línea, Negoexts.dll llama al SSP de PKU2U en la computadora que se utiliza para iniciar sesión. El SSP de PKU2U obtiene un certificado local e intercambia la política entre las computadoras pares. Cuando se valida en la computadora par, el certificado dentro de los metadatos se envía al par de inicio de sesión para su validación y asocia el certificado del usuario a un token de seguridad y el proceso de inicio de sesión se completa.
+
+Justificación:
+
+El protocolo PKU2U es un protocolo de autenticación punto a punto; la autenticación debería ser gestionada de forma centralizada en la mayoría de las redes gestionadas.
+
+Impacto:
+
+Ninguno: este es el estado predeterminado de configuración para computadoras unidas a dominio.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters\\SupportedEncryptionTypes
+Description:
+
+Esta configuración de directiva te permite establecer los tipos de cifrado que Kerberos puede usar. El estado recomendado para esta configuración es: AES128_HMAC_SHA1, AES256_HMAC_SHA1, Tipos de cifrado futuros.
+
+Justificación:
+
+La fortaleza de cada algoritmo de cifrado varía de uno a otro. Elegir algoritmos más fuertes reducirá el riesgo de compromiso; sin embargo, hacerlo puede causar problemas cuando la computadora intenta autenticarse con sistemas que no los admiten.
+
+Impacto:
+
+Si no se selecciona, el tipo de cifrado no será permitido. Esta configuración puede afectar la compatibilidad con computadoras cliente o servicios y aplicaciones. Se permiten selecciones múltiples.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash
+Description:
+
+Esta configuración de directiva determina si se almacena el valor hash de LAN Manager (LM) para la nueva contraseña cuando se cambia la contraseña. El hash LM es relativamente débil y propenso a ataques en comparación con el hash de Windows NT de criptográficamente más fuerte. Dado que los hashes LM se almacenan en la computadora local en la base de datos de seguridad, las contraseñas pueden comprometerse fácilmente si la base de datos es atacada.
+
+Nota: Los sistemas operativos más antiguos y algunas aplicaciones de terceros pueden fallar cuando esta configuración de directiva está habilitada. Además, tenga en cuenta que será necesario cambiar la contraseña en todas las cuentas después de habilitar esta configuración para obtener el beneficio adecuado.
+
+Justificación:
+
+El archivo SAM puede ser objetivo de atacantes que buscan acceder a los hashes de nombre de usuario y contraseña. Estos ataques utilizan herramientas especiales para descifrar contraseñas, que luego pueden ser utilizadas para suplantar usuarios y obtener acceso a recursos en su red. Estos tipos de ataques no serán prevenidos si habilita esta configuración de directiva, pero será mucho más difícil que tengan éxito.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado. Los sistemas operativos anteriores como Windows 95, Windows 98 y Windows ME, así como algunas aplicaciones de terceros, fallarán.
+
+#ForceLogoffWhenHourExpire
+Description:
+
+Esta configuración de directiva determina si se desconectan los usuarios que están conectados al equipo local fuera de las horas de inicio de sesión válidas de su cuenta de usuario. Esta configuración afecta al componente del Protocolo de bloque de mensajes del servidor (SMB). Si habilita esta configuración de directiva, también debe habilitar Servidor de red de Microsoft: Desconectar clientes cuando las horas de inicio de sesión expiren (Regla 2.3.9.4).
+
+Estado recomendado para esta configuración:
+Habilitado.
+
+Justificación:
+
+Si esta configuración está deshabilitada, un usuario podría permanecer conectado al equipo fuera de las horas asignadas para iniciar sesión. Esto podría representar un riesgo de seguridad y una violación de las políticas de acceso a recursos.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel
+Description:
+
+El nivel de autenticación de LAN Manager (LM) fue una familia de software cliente/servidor temprano de Microsoft (anterior a Windows NT) que permitía a los usuarios vincular computadoras personales en una sola red. Las capacidades de red de LM incluían compartir archivos e impresoras de manera transparente, características de seguridad de usuario y herramientas de administración de red. En los dominios de Active Directory, el protocolo Kerberos es el protocolo de autenticación predeterminado. Sin embargo, si por alguna razón no se negocia el protocolo Kerberos, Active Directory usará LM, NTLM o NTLMv2. La autenticación de LAN Manager incluye las variantes LM, NTLM y NTLM versión 2 (NTLMv2), y es el protocolo que se utiliza para autenticar a todos los clientes de Windows cuando realizan las siguientes operaciones: • Unirse a un dominio • Autenticarse entre bosques de Active Directory • Autenticarse en dominios de versiones anteriores • Autenticarse en computadoras que no ejecutan Windows 2000, Windows Server 2003 o Windows XP • Autenticarse en computadoras que no están en el dominio La configuración de Seguridad de red: Nivel de autenticación de LAN Manager determina qué protocolo de autenticación de desafío/respuesta se utiliza para los inicios de sesión en red. Esta elección afecta el nivel de protocolo de autenticación utilizado por los clientes, el nivel de seguridad de sesión negociado y el nivel de autenticación aceptado por los servidores.
+
+Estado recomendado para esta configuración:
+Enviar solo respuesta NTLMv2. Rechazar LM y NTLM.
+
+Justificación:
+
+Los clientes de Windows 2000 y Windows XP estaban configurados de forma predeterminada para enviar respuestas de autenticación LM y NTLM (los clientes basados en Windows 95 y Windows 98 solo envían LM). La configuración predeterminada en sistemas operativos anteriores a Windows Vista / Windows Server 2008 (no R2) permitía que todos los clientes se autenticaran con servidores y usaran sus recursos. Sin embargo, esto significaba que las respuestas LM, la forma más débil de respuesta de autenticación, se enviaban por la red, y era potencialmente posible que los atacantes husmearan ese tráfico para reproducir más fácilmente la contraseña del usuario. Los sistemas operativos Windows 95, Windows 98 y Windows NT no pueden usar el protocolo de autenticación Kerberos versión 5. Por esta razón, en un dominio de Windows Server 2003, estas computadoras se autentican de forma predeterminada con los protocolos LM y NTLM para la autenticación de red. Puede hacer cumplir un protocolo de autenticación más seguro para Windows 95, Windows 98 y Windows NT mediante el uso de NTLMv2. Para el proceso de inicio de sesión, NTLMv2 utiliza un canal seguro para proteger el proceso de autenticación. Incluso si usa NTLMv2 para clientes y servidores más antiguos, los clientes y servidores basados en Windows que son miembros del dominio utilizarán el protocolo de autenticación Kerberos para autenticarse con los Controladores de dominio de Windows Server 2003 o posteriores. Por estas razones, es preferible restringir el uso de LM y NTLM (no v2) tanto como sea posible.
+
+Impacto:
+
+Los clientes utilizan solo la autenticación NTLMv2 y utilizan la seguridad de sesión NTLMv2 si el servidor la admite; los Controladores de dominio rechazan LM y NTLM (aceptan solo la autenticación NTLMv2). Los clientes que no admiten la autenticación NTLMv2 no podrán autenticarse en el dominio y acceder a los recursos del dominio mediante LM y NTLM.
+
+#MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity
+Description:
+
+Esta configuración de directiva determina el nivel de firma de datos que se solicita en nombre de los clientes que emiten solicitudes LDAP BIND.
+
+Estado recomendado para esta configuración:
+Negociar la firma. Configurar esta opción como Requerir firma también se ajusta al benchmark.
+
+Justificación:
+
+El tráfico de red no firmado es susceptible a ataques de intermediarios en los que un intruso captura los paquetes entre el cliente y el servidor, los modifica y luego los reenvía al servidor. Para un servidor LDAP, esta susceptibilidad significa que un atacante podría hacer que un servidor tome decisiones basadas en datos falsos o alterados de las consultas LDAP. Para reducir este riesgo en su red, puede implementar medidas de seguridad física sólidas para proteger la infraestructura de red. Además, puede hacer extremadamente difícil todos los tipos de ataques de intermediarios si requiere firmas digitales en todos los paquetes de red mediante encabezados de autenticación de IPsec.
+
+Impacto:
+
+Ninguno; este es el comportamiento predeterminado. Sin embargo, si elige configurar el servidor para requerir firmas LDAP, también debe configurar el cliente. Si no configura el cliente, no podrá comunicarse con el servidor, lo que podría causar que muchas funciones fallen, incluida la autenticación de usuarios, la directiva de grupo y los scripts de inicio de sesión, porque al solicitante se le informará que la solicitud de comando de BIND de LDAP falló.
+
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec
+Description:
+
+Esta configuración de directiva determina qué comportamientos están permitidos por los clientes para las aplicaciones que utilizan el Proveedor de Soporte de Seguridad NTLM (SSP). La Interfaz de Proveedor de Soporte de Seguridad (SSPI) se utiliza en aplicaciones que necesitan servicios de autenticación. La configuración no modifica cómo funciona la secuencia de autenticación, sino que requiere ciertos comportamientos en las aplicaciones que utilizan el SSPI.
+
+Estado recomendado para esta configuración:
+Requerir seguridad de sesión NTLMv2, Requerir encriptación de 128 bits.
+
+Justificación:
+
+Puede habilitar ambas opciones para esta configuración de directiva para ayudar a proteger el tráfico de red que utiliza el Proveedor de Soporte de Seguridad NTLM (NTLM SSP) de ser expuesto o manipulado por un atacante que haya ganado acceso a la misma red. En otras palabras, estas opciones ayudan a proteger contra ataques de intermediarios.
+
+Impacto:
+
+Las conexiones NTLM fallarán si no se negocian tanto el protocolo NTLMv2 como la encriptación sólida (de 128 bits). Las aplicaciones cliente que hacen cumplir estas configuraciones no podrán comunicarse con servidores más antiguos que no las admitan.
+
+#Description:
+
+Esta configuración de directiva determina qué comportamientos están permitidos por los servidores para las aplicaciones que utilizan el Proveedor de Soporte de Seguridad NTLM (SSP). La Interfaz de Proveedor de Soporte de Seguridad (SSPI) se utiliza en aplicaciones que necesitan servicios de autenticación. La configuración no modifica cómo funciona la secuencia de autenticación, sino que requiere ciertos comportamientos en las aplicaciones que utilizan el SSPI.
+
+
+Justificación:
+
+Puede habilitar todas las opciones para esta configuración de directiva para ayudar a proteger el tráfico de red que utiliza el Proveedor de Soporte de Seguridad NTLM (NTLM SSP) de ser expuesto o manipulado por un atacante que haya ganado acceso a la misma red. Es decir, estas opciones ayudan a proteger contra ataques de intermediarios.
+
+Impacto:
+
+Las conexiones NTLM fallarán si no se negocian tanto el protocolo NTLMv2 como la encriptación sólida (de 128 bits). Las aplicaciones de servidor que hacen cumplir estas configuraciones no podrán comunicarse con servidores más antiguos que no las admitan.
+
+#MACHINE\\Software\\Policies\\Microsoft\\Cryptography\\ForceKeyProtection
+Description:
+
+Esta configuración de directiva determina si las claves privadas de los usuarios (como sus claves S/MIME) requieren una contraseña para ser utilizadas.
+
+Estado recomendado para esta configuración:
+Se solicita al usuario la contraseña cuando la clave se utiliza por primera vez. Configurar esta opción para que el usuario deba ingresar una contraseña cada vez que utilice una clave también cumple con el estándar.
+
+Justificación:
+
+Si la cuenta de un usuario se ve comprometida o su computadora se deja inadvertidamente sin seguridad, el usuario malintencionado puede utilizar las claves almacenadas para acceder a recursos protegidos. Puede configurar esta configuración de directiva para que los usuarios deban proporcionar una contraseña distinta de su contraseña de dominio cada vez que utilicen una clave. Esta configuración dificulta que un atacante acceda a las claves de usuario almacenadas localmente, incluso si el atacante toma el control de la computadora del usuario y determina su contraseña de inicio de sesión.
+
+Impacto:
+
+Los usuarios deberán ingresar su contraseña la primera vez que accedan a una clave almacenada en su computadora. Por ejemplo, si los usuarios utilizan un certificado S/MIME para firmar digitalmente sus correos electrónicos, se les pedirá que ingresen la contraseña de ese certificado la primera vez que envíen un mensaje de correo electrónico firmado. Para una seguridad aún más sólida, se puede establecer el valor de que el usuario debe ingresar una contraseña cada vez que utilice una clave, pero el impacto que implica utilizar esta configuración puede ser demasiado alto para algunas organizaciones. Microsoft no recomienda aplicar esta configuración en servidores debido al impacto significativo en la administración. Por ejemplo, es posible que no pueda configurar los Servicios de Escritorio Remoto para que utilicen certificados SSL.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive
+Description:
+
+Esta configuración de directiva determina si se aplica la insensibilidad a mayúsculas y minúsculas para todos los subsistemas. El subsistema Microsoft Win32 es insensible a mayúsculas y minúsculas. Sin embargo, el kernel admite la sensibilidad a mayúsculas y minúsculas para otros subsistemas, como la Interfaz de Sistema Operativo Portátil para UNIX (POSIX). Debido a que Windows es insensible a mayúsculas y minúsculas (pero el subsistema POSIX admitirá la sensibilidad a mayúsculas y minúsculas), si no se aplica esta configuración de directiva, un usuario del subsistema POSIX podría crear un archivo con el mismo nombre que otro archivo utilizando una combinación de mayúsculas y minúsculas diferente para nombrarlo. Tal situación puede bloquear el acceso a estos archivos por parte de otro usuario que utilice herramientas típicas de Win32, porque solo uno de los archivos estará disponible.
+
+Justificación:
+
+Debido a que Windows es insensible a mayúsculas y minúsculas pero el subsistema POSIX admitirá la sensibilidad a mayúsculas y minúsculas, no habilitar esta configuración de directiva haría posible que un usuario de ese subsistema cree un archivo con el mismo nombre que otro archivo pero con una combinación diferente de letras mayúsculas y minúsculas. Tal situación podría confundir a los usuarios cuando intenten acceder a dichos archivos desde herramientas normales de Win32 porque solo uno de los archivos estará disponible.
+
+Impacto:
+
+Ninguno, este es el comportamiento predeterminado.
+
+#MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode
+Description:
+
+Esta configuración de directiva determina la fuerza de la lista de control de acceso discrecional (DACL) predeterminada para objetos. Active Directory mantiene una lista global de recursos del sistema compartidos, como nombres de dispositivos DOS, mutex y semáforos. De esta manera, los objetos pueden ubicarse y compartirse entre procesos. Cada tipo de objeto se crea con una DACL predeterminada que especifica quién puede acceder a los objetos y qué permisos se otorgan.
+
+Justificación:
+
+Esta configuración determina la fuerza de la DACL predeterminada para objetos. Windows mantiene una lista global de recursos informáticos compartidos para que los objetos puedan ubicarse y compartirse entre procesos. Cada tipo de objeto se crea con una DACL predeterminada que especifica quién puede acceder a los objetos y qué permisos se otorgan.
+
+Impacto:
+
+Ninguno, este es el comportamiento predeterminado.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken
+Description:
+
+Esta configuración de directiva controla el comportamiento del Modo de Aprobación de Administrador para la cuenta de Administrador integrada. El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+Uno de los riesgos que la característica Control de cuentas de usuario (UAC) introdujo con Windows Vista intenta mitigar es el de software malicioso que se ejecuta con credenciales elevadas sin que el usuario o el administrador sean conscientes de su actividad. Un vector de ataque para estos programas era descubrir la contraseña de la cuenta llamada "Administrador" porque esta cuenta de usuario se creaba para todas las instalaciones de Windows. Para abordar este riesgo, en Windows Vista o posterior, la cuenta de Administrador integrada ahora está deshabilitada de forma predeterminada. En una instalación predeterminada de un nuevo equipo, las cuentas con control administrativo sobre el equipo se configuran inicialmente de dos maneras:
+
+- Si el equipo no está unido a un dominio, la primera cuenta de usuario que cree tiene permisos equivalentes a un administrador local.
+- Si el equipo está unido a un dominio, no se crean cuentas de administrador locales. El Administrador de empresa o de dominio debe iniciar sesión en el equipo y crear uno si se justifica una cuenta de administrador local. Una vez instalado Windows, la cuenta de Administrador integrada puede habilitarse manualmente, pero recomendamos encarecidamente que esta cuenta permanezca deshabilitada.
+
+Impacto:
+
+La cuenta de Administrador integrada utiliza el Modo de Aprobación de Administrador. Los usuarios que inician sesión utilizando la cuenta de Administrador local serán solicitados para obtener consentimiento cada vez que un programa solicite una elevación de privilegios, al igual que cualquier otro usuario.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin
+Description:
+
+Esta configuración de directiva controla el comportamiento del cuadro de diálogo de elevación para administradores. El estado recomendado para esta configuración es: Solicitar consentimiento en el escritorio seguro.
+
+Justificación:
+
+Uno de los riesgos que la característica Control de cuentas de usuario (UAC) introdujo con Windows Vista intenta mitigar es el de software malicioso que se ejecuta con credenciales elevadas sin que el usuario o el administrador sean conscientes de su actividad. Esta configuración aumenta la conciencia del administrador sobre las operaciones de privilegios elevados y permite al administrador evitar que un programa malicioso eleve su privilegio cuando intenta hacerlo.
+
+Impacto:
+
+Cuando una operación (incluida la ejecución de un binario de Windows) requiere la elevación de privilegios, al usuario se le solicita en el escritorio seguro que seleccione Permitir o Denegar. Si el usuario selecciona Permitir, la operación continúa con el privilegio más alto disponible del usuario.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser
+Description:
+
+Esta configuración de directiva controla el comportamiento del cuadro de diálogo de elevación para usuarios estándar. El estado recomendado para esta configuración es: Denegar automáticamente las solicitudes de elevación.
+
+Justificación:
+
+Uno de los riesgos que la característica Control de cuentas de usuario (UAC) introdujo con Windows Vista intenta mitigar es el de programas maliciosos que se ejecutan con credenciales elevadas sin que el usuario o el administrador sean conscientes de su actividad. Esta configuración aumenta la conciencia del usuario sobre los programas que requieren el uso de operaciones con privilegios elevados y requiere que el usuario pueda suministrar credenciales administrativas para que el programa se ejecute.
+
+Impacto:
+
+Cuando una operación requiere la elevación de privilegios, se muestra un mensaje de error de acceso denegado configurable. Una empresa que ejecute equipos de escritorio como usuario estándar puede elegir esta configuración para reducir las llamadas al servicio de asistencia técnica. Nota: Con esta configuración configurada como se recomienda, el mensaje de error predeterminado que se muestra cuando un usuario intenta realizar una operación o ejecutar un programa que requiere elevación de privilegios (sin derechos de administrador) es "Este programa no se ejecutará. Este programa está bloqueado por directiva de grupo. Para obtener más información, póngase en contacto con su administrador del sistema." Algunos usuarios que no están acostumbrados a ver este mensaje pueden creer que la operación o el programa que intentaron ejecutar están específicamente bloqueados por la directiva de grupo, ya que eso es lo que parece implicar el mensaje. Este mensaje, por lo tanto, puede resultar en preguntas de los usuarios sobre por qué se bloquea esa operación/programa específico, cuando de hecho, el problema es que necesitan realizar la operación o ejecutar el programa con una cuenta de administrador (o "Ejecutar como administrador" si ya es una cuenta de administrador), y no lo están haciendo.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection
+Description:
+
+Esta configuración de directiva controla el comportamiento de la detección de la instalación de aplicaciones para el equipo. El estado recomendado para esta configuración es: Habilitado.
+
+Justificación:
+
+Algunos programas maliciosos intentarán instalarse después de recibir permiso para ejecutarse. Por ejemplo, programas maliciosos con una interfaz de aplicación de confianza. El usuario puede haber dado permiso para que el programa se ejecute porque el programa es de confianza, pero si luego se le solicita la instalación de un componente desconocido, esto proporciona otra forma de atrapar el software antes de que pueda causar daño.
+
+Impacto:
+
+Cuando se detecta un paquete de instalación de la aplicación que requiere elevación de privilegios, se le solicita al usuario que ingrese un nombre de usuario y una contraseña de administrador. Si el usuario ingresa credenciales válidas, la operación continúa con el privilegio correspondiente.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths
+Description:
+
+Esta configuración de directiva controla si las aplicaciones que solicitan ejecutarse con un nivel de integridad de Acceso a la Interfaz de Usuario (UIAccess) deben residir en una ubicación segura en el sistema de archivos. Las ubicaciones seguras se limitan a las siguientes:
+
+... \ Archivos de programa , incluidas las subcarpetas
+... \ Windows \ System32 \
+... \ Archivos de programa (x86) , incluidas las subcarpetas (para versiones de 64 bits de Windows)
+
+Justificación:
+
+La integridad de UIAccess permite que una aplicación evite las restricciones de Aislamiento de Privilegios de Interfaz de Usuario (UIPI) cuando una aplicación se eleva en privilegio de un usuario estándar a un administrador. Esto es necesario para admitir funciones de accesibilidad como lectores de pantalla que transmiten interfaces de usuario a formas alternativas. Un proceso que se inicia con derechos de UIAccess tiene las siguientes capacidades:
+
+- Establecer la ventana en primer plano.
+- Controlar cualquier ventana de aplicación utilizando la función SendInput.
+- Utilizar la entrada de lectura para todos los niveles de integridad mediante ganchos de bajo nivel, entrada sin procesar, GetKeyState, GetAsyncKeyState y GetKeyboardInput.
+- Establecer ganchos de diario.
+-Utilizar AttachThreadInput para adjuntar un hilo a una cola de entrada de mayor integridad.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA
+Descripción:
+
+Esta configuración de directiva controla el comportamiento de todas las configuraciones de directiva de Control de Cuentas de Usuario (UAC) para la computadora. Si cambia esta configuración de directiva, debe reiniciar su computadora.
+
+Justificación:
+
+Esta es la configuración que activa o desactiva UAC. Si esta configuración está desactivada, UAC no se utilizará y cualquier beneficio de seguridad y mitigaciones de riesgos que dependan de UAC no estarán presentes en el sistema.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado. Los usuarios y administradores deberán aprender a trabajar con los mensajes de UAC y ajustar sus hábitos de trabajo para utilizar operaciones con el menor privilegio posible.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\PromptOnSecureDesktop
+Descripción:
+
+Esta configuración de directiva controla si la solicitud de elevación se muestra en el escritorio interactivo del usuario o en el escritorio seguro.
+
+Justificación:
+
+Las cajas de diálogo estándar de solicitud de elevación pueden ser falsificadas, lo que puede hacer que los usuarios revelen sus contraseñas a software malicioso. El escritorio seguro presenta una apariencia muy distintiva al solicitar la elevación, donde el escritorio del usuario se oscurece y la interfaz de usuario de la solicitud de elevación es más prominente. Esto aumenta la probabilidad de que los usuarios que se acostumbren al escritorio seguro reconozcan una caja de diálogo de solicitud de elevación falsificada y no caigan en el truco.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+#MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization
+Descripción:
+
+Esta configuración de directiva controla si las fallas de escritura de aplicaciones se redirigen a ubicaciones definidas en el registro y el sistema de archivos. Esta configuración de directiva mitiga las aplicaciones que se ejecutan como administrador y escriben datos de aplicación en tiempo de ejecución en:
+
+- %ProgramFiles%
+- %windir%
+- %windir%\System32
+- HKEY_LOCAL_MACHINE\SOFTWARE
+
+Justificación:
+
+Esta configuración reduce las vulnerabilidades al garantizar que las aplicaciones heredadas solo escriban datos en ubicaciones permitidas.
+
+Impacto:
+
+Ninguno: este es el comportamiento predeterminado.
+
+
+
+
+
+
+
+
+
+
+
