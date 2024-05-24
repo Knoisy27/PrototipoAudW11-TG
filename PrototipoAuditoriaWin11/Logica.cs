@@ -973,7 +973,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Crear vínculos simbólicos";
             string clave = "SeCreateSymbolicLinkPrivilege";
-            string recomendacion = "Administradores y (cuando la función Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines.";
+            string recomendacion = @"Administradores y (cuando la función Hyper-V está instalada) NT VIRTUAL MACHINE\Virtual Machines.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3714,11 +3714,1114 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 5.8 INTERNET CONNECTION SHARING (ICS) (SHAREDACCESS) 
 
 
+        // 5.9 LINK-LAYER TOPOLOGY DISCOVERY MAPPER (LLTDSVC) -------------------------
+        public void Analizar_Link_Layer_Topology_Discovery_Mapper__lltdsvc__()
+        {
+            string politica = "Asignador de detección de topologías de nivel de vínculo";
+            string clave = @"SYSTEM\CurrentControlSet\Services\lltdsvc:Start";
+            string recomendacion = @"Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.9 LINK-LAYER TOPOLOGY DISCOVERY MAPPER (LLTDSVC) 
 
 
+        // 5.10 LXSSMANAGER (LXSSMANAGER) -------------------------
+        public void Analizar_LxssManager__LxssManager__()
+        {
+            string politica = "LXSSMANAGER";
+            string clave = @"SYSTEM\CurrentControlSet\Services\LxssManager:Start";
+            string recomendacion = @"Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.10 LXSSMANAGER (LXSSMANAGER) 
 
 
+        // 5.11 MICROSOFT FTP SERVICE (FTPSVC) -------------------------
+        public void Analizar_Microsoft_FTP_Service__FTPSVC__()
+        {
+            string politica = "Servicio FTP de Microsof";
+            string clave = @"SYSTEM\CurrentControlSet\Services\FTPSVC:Start";
+            string recomendacion = @"Comentario_Recomendacion_Aqui";
 
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.11 MICROSOFT FTP SERVICE (FTPSVC) 
+
+
+        // 5.12 MICROSOFT ISCSI INITIATOR SERVICE (MSISCSI) ------------------------- soidfghvisdjfnvijsdfnbvoifdnboifnboifdsgnbogfdinbodifognbfdigjnb
+        public void Analizar_Microsoft_iSCSI_Initiator_Service__MSiSCSI__()
+        {
+            string politica = "Politica";
+            string clave = @"SYSTEM\CurrentControlSet\Services\MSiSCSI:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.12 MICROSOFT ISCSI INITIATOR SERVICE (MSISCSI) 
+
+
+        // 5.13 OPENSSH SSH SERVER (SSHD) -------------------------
+        public void Analizar_OpenSSH_SSH_Server__sshd__()
+        {
+            string politica = "OpenSSH Authentication Agent";
+            string clave = @"SYSTEM\CurrentControlSet\Services\sshd:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.13 OPENSSH SSH SERVER (SSHD) 
+
+
+        // 5.14 PEER NAME RESOLUTION PROTOCOL (PNRPSVC) -------------------------
+        public void Analizar_Peer_Name_Resolution_Protocol__PNRPsvc__()
+        {
+            string politica = "Protocolo de resolución de nombres de mismo nivel";
+            string clave = @"SYSTEM\CurrentControlSet\Services\PNRPsvc:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.14 PEER NAME RESOLUTION PROTOCOL (PNRPSVC) 
+
+
+        // 5.15 PEER NETWORKING GROUPING (P2PSVC) -------------------------
+        public void Analizar_Peer_Networking_Grouping__p2psvc__()
+        {
+            string politica = "Agrupación de red del mismo nivel";
+            string clave = @"SYSTEM\CurrentControlSet\Services\p2psvc:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.15 PEER NETWORKING GROUPING (P2PSVC) 
+
+
+        // 5.16 PEER NETWORKING IDENTITY MANAGER (P2PIMSVC) -------------------------
+        public void Analizar_Peer_Networking_Identity_Manager__p2pimsvc__()
+        {
+            string politica = "Identity Manager de redes de mismo nivel";
+            string clave = @"SYSTEM\CurrentControlSet\Services\p2pimsvc:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.16 PEER NETWORKING IDENTITY MANAGER (P2PIMSVC) 
+
+
+        // 5.17 PNRP MACHINE NAME PUBLICATION SERVICE (PNRPAUTOREG) -------------------------
+        public void Analizar_PNRP_Machine_Name_Publication_Service__PNRPAutoReg__()
+        {
+            string politica = "Servicio de publicación de nombres de equipo PNRP";
+            string clave = @"SYSTEM\CurrentControlSet\Services\PNRPAutoReg:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.17 PNRP MACHINE NAME PUBLICATION SERVICE (PNRPAUTOREG) 
+
+
+        // 5.18 PRINT SPOOLER (SPOOLER) -------------------------
+        public void Analizar_Print_Spooler__Spooler__()
+        {
+            string politica = "Cola de impresión";
+            string clave = @"SYSTEM\CurrentControlSet\Services\Spooler:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.18 PRINT SPOOLER (SPOOLER) 
+
+
+        // 5.19 PROBLEM REPORTS AND SOLUTIONS CONTROL PANEL SUPPORT (WERCPLSUPPORT) -------------------------
+        public void Analizar_Problem_Reports_and_Solutions_Control_Panel_Support__wercplsupport__()
+        {
+            string politica = "Soporte técnico del panel de control Informes de problemas";
+            string clave = @"SYSTEM\CurrentControlSet\Services\wercplsupport:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.19 PROBLEM REPORTS AND SOLUTIONS CONTROL PANEL SUPPORT (WERCPLSUPPORT) 
+
+
+        // 5.20 REMOTE ACCESS AUTO CONNECTION MANAGER (RASAUTO) -------------------------
+        public void Analizar_Remote_Access_Auto_Connection_Manager__RasAuto__()
+        {
+            string politica = "Administrador de conexiones automáticas de acceso remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\RasAuto:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.20 REMOTE ACCESS AUTO CONNECTION MANAGER (RASAUTO) 
+
+
+        // 5.21 REMOTE DESKTOP CONFIGURATION (SESSIONENV) -------------------------
+        public void Analizar_Remote_Desktop_Configuration__SessionEnv__()
+        {
+            string politica = "Configuración de Escritorio remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\SessionEnv:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.21 REMOTE DESKTOP CONFIGURATION (SESSIONENV) 
+
+
+        // 5.22 REMOTE DESKTOP SERVICES (TERMSERVICE) -------------------------
+        public void Analizar_Remote_Desktop_Services__TermService__()
+        {
+            string politica = "Servicios de Escritorio remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\TermService:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.22 REMOTE DESKTOP SERVICES (TERMSERVICE) 
+
+
+        // 5.23 REMOTE DESKTOP SERVICES USERMODE PORT REDIRECTOR (UMRDPSERVICE) -------------------------
+        public void Analizar_Remote_Desktop_Services_UserMode_Port_Redirector__UmRdpService__()
+        {
+            string politica = "Redirector de puerto en modo usuario de Servicios de Escritorio remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\UmRdpService:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.23 REMOTE DESKTOP SERVICES USERMODE PORT REDIRECTOR (UMRDPSERVICE) 
+
+
+        // 5.24 REMOTE PROCEDURE CALL (RPC) LOCATOR (RPCLOCATOR) -------------------------
+        public void Analizar_Remote_Procedure_Call__RPC__Locator__RpcLocator__()
+        {
+            string politica = "Ubicador de llamada a procedimiento remoto (RPC)";
+            string clave = @"SYSTEM\CurrentControlSet\Services\RpcLocator:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.24 REMOTE PROCEDURE CALL (RPC) LOCATOR (RPCLOCATOR) 
+
+
+        // 5.25 REMOTE REGISTRY (REMOTEREGISTRY) -------------------------
+        public void Analizar_Remote_Registry__RemoteRegistry__()
+        {
+            string politica = "Registro remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\RemoteRegistry:Start";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.25 REMOTE REGISTRY (REMOTEREGISTRY) 
+
+
+        // 5.26 ROUTING AND REMOTE ACCESS (REMOTEACCESS) -------------------------
+        public void Analizar_Routing_and_Remote_Access__RemoteAccess__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.26 ROUTING AND REMOTE ACCESS (REMOTEACCESS) 
+
+
+        // 5.27 SERVER (LANMANSERVER) -------------------------
+        public void Analizar_Server__LanmanServer__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.27 SERVER (LANMANSERVER) 
+
+
+        // 5.28 SIMPLE TCP/IP SERVICES (SIMP_TCP) -------------------------
+        public void Analizar_Simple_TCP_IP_Services__simptcp__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.28 SIMPLE TCP/IP SERVICES (SIMP_TCP) 
+
+
+        // 5.29 SNMP SERVICE (SNMP) -------------------------
+        public void Analizar_SNMP_Service__SNMP__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.29 SNMP SERVICE (SNMP) 
+
+
+        // 5.30 SNMP SERVICE (SNMP) SPECIAL ADMINISTRATION CONSOLE HELPER (SACSVR) -------------------------
+        public void Analizar_SNMP_Service__SNMP__Special_Administration_Console_Helper__sacsvr__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.30 SNMP SERVICE (SNMP) SPECIAL ADMINISTRATION CONSOLE HELPER (SACSVR) 
+
+
+        // 5.31 SSDP DISCOVERY (SSDPSRV) -------------------------
+        public void Analizar_SSDP_Discovery__SSDPSRV__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.31 SSDP DISCOVERY (SSDPSRV) 
+
+
+        // 5.32 UPNP DEVICE HOST (UPNPHOST) -------------------------
+        public void Analizar_UPnP_Device_Host__upnphost__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.32 UPNP DEVICE HOST (UPNPHOST) 
+
+
+        // 5.33 WEB MANAGEMENT SERVICE (WMSVC) -------------------------
+        public void Analizar_Web_Management_Service__WMSvc__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.33 WEB MANAGEMENT SERVICE (WMSVC) 
+
+
+        // 5.34 WINDOWS ERROR REPORTING SERVICE (WERSVC) -------------------------
+        public void Analizar_Windows_Error_Reporting_Service__WerSvc__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.34 WINDOWS ERROR REPORTING SERVICE (WERSVC) 
+
+
+        // 5.35 WINDOWS EVENT COLLECTOR (WECSVC) -------------------------
+        public void Analizar_Windows_Event_Collector__Wecsvc__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.35 WINDOWS EVENT COLLECTOR (WECSVC) 
+
+
+        // 5.36 WINDOWS MEDIA PLAYER NETWORK SHARING SERVICE (WMPNETWORKSVC) -------------------------
+        public void Analizar_Windows_Media_Player_Network_Sharing_Service__WMPNetworkSvc__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.36 WINDOWS MEDIA PLAYER NETWORK SHARING SERVICE (WMPNETWORKSVC) 
+
+
+        // 5.37 WINDOWS MOBILE HOTSPOT SERVICE (ICSSVC) -------------------------
+        public void Analizar_Windows_Mobile_Hotspot_Service__icssvc__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.37 WINDOWS MOBILE HOTSPOT SERVICE (ICSSVC) 
+
+
+        // 5.38 WINDOWS PUSH NOTIFICATIONS SYSTEM SERVICE (WPNSERVICE) -------------------------
+        public void Analizar_Windows_Push_Notifications_System_Service__WpnService__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.38 WINDOWS PUSH NOTIFICATIONS SYSTEM SERVICE (WPNSERVICE) 
+
+
+        // 5.39 WINDOWS PUSHTOINSTALL SERVICE (PUSHTOINSTALL) -------------------------
+        public void Analizar_Windows_PushToInstall_Service__PushToInstall__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.39 WINDOWS PUSHTOINSTALL SERVICE (PUSHTOINSTALL) 
+
+
+        // 5.40 WINDOWS REMOTE MANAGEMENT (WSMANAGEMENT) (WINRM) -------------------------
+        public void Analizar_Windows_Remote_Management__WSManagement__WinRM__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.40 WINDOWS REMOTE MANAGEMENT (WSMANAGEMENT) (WINRM)
+
+
+        // 5.41 WORLD WIDE WEB PUBLISHING SERVICE (W3SVC) -------------------------
+        public void Analizar_World_Wide_Web_Publishing_Service__W3SVC__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.41 WORLD WIDE WEB PUBLISHING SERVICE (W3SVC)
+
+
+        // 5.42 XBOX ACCESSORY MANAGEMENT SERVICE (XBOXGIPSVC) -------------------------
+        public void Analizar_Xbox_Accessory_Management_Service__XboxGipSvc__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.42 XBOX ACCESSORY MANAGEMENT SERVICE (XBOXGIPSVC)
+
+
+        // 5.43 XBOX LIVE AUTH MANAGER (XBLAUTHMANAGER) -------------------------
+        public void Analizar_Xbox_Live_Auth_Manager__XblAuthManager__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.43 XBOX LIVE AUTH MANAGER (XBLAUTHMANAGER)
+
+
+        // 5.44 XBOX LIVE GAME SAVE (XBLGAMESAVE) -------------------------
+        public void Analizar_Xbox_Live_Game_Save__XblGameSave__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.44 XBOX LIVE GAME SAVE (XBLGAMESAVE)
+
+
+        // 5.45 XBOX LIVE NETWORKING SERVICE (XBOXNETAPISVC) -------------------------
+        public void Analizar_Xbox_Live_Networking_Service__XboxNetApiSvc__()
+        {
+            string politica = "Politica";
+            string clave = @"clave";
+            string recomendacion = "Comentario_Recomendacion_Aqui";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.45 XBOX LIVE NETWORKING SERVICE (XBOXNETAPISVC)
 
 
 
