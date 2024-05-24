@@ -81,7 +81,7 @@ namespace PrototipoAuditoriaWin11
             this.dgvRec.Location = new System.Drawing.Point(3, 3);
             this.dgvRec.Name = "dgvRec";
             this.dgvRec.ReadOnly = true;
-            this.dgvRec.RowHeadersWidth = 30;
+            this.dgvRec.RowHeadersWidth = 33;
             this.dgvRec.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvRec.RowTemplate.Height = 28;
             this.dgvRec.Size = new System.Drawing.Size(940, 552);

@@ -4227,8 +4227,8 @@ namespace PrototipoAuditoriaWin11
         // 5.26 ROUTING AND REMOTE ACCESS (REMOTEACCESS) -------------------------
         public void Analizar_Routing_and_Remote_Access__RemoteAccess__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Enrutamiento y acceso remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\RemoteAccess:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4257,8 +4257,8 @@ namespace PrototipoAuditoriaWin11
         // 5.27 SERVER (LANMANSERVER) -------------------------
         public void Analizar_Server__LanmanServer__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servidor";
+            string clave = @"SYSTEM\CurrentControlSet\Services\LanmanServer:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4287,8 +4287,8 @@ namespace PrototipoAuditoriaWin11
         // 5.28 SIMPLE TCP/IP SERVICES (SIMP_TCP) -------------------------
         public void Analizar_Simple_TCP_IP_Services__simptcp__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Simple TCP/IP Services";
+            string clave = @"SYSTEM\CurrentControlSet\Services\simptcp:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4317,8 +4317,8 @@ namespace PrototipoAuditoriaWin11
         // 5.29 SNMP SERVICE (SNMP) -------------------------
         public void Analizar_SNMP_Service__SNMP__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Captura de SNMP";
+            string clave = @"SYSTEM\CurrentControlSet\Services\SNMP:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4347,8 +4347,8 @@ namespace PrototipoAuditoriaWin11
         // 5.30 SNMP SERVICE (SNMP) SPECIAL ADMINISTRATION CONSOLE HELPER (SACSVR) -------------------------
         public void Analizar_SNMP_Service__SNMP__Special_Administration_Console_Helper__sacsvr__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Asistente de consola de administración especial";
+            string clave = @"SYSTEM\CurrentControlSet\Services\sacsvr:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4377,8 +4377,8 @@ namespace PrototipoAuditoriaWin11
         // 5.31 SSDP DISCOVERY (SSDPSRV) -------------------------
         public void Analizar_SSDP_Discovery__SSDPSRV__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Detección SSDP";
+            string clave = @"SYSTEM\CurrentControlSet\Services\SSDPSRV:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4407,8 +4407,8 @@ namespace PrototipoAuditoriaWin11
         // 5.32 UPNP DEVICE HOST (UPNPHOST) -------------------------
         public void Analizar_UPnP_Device_Host__upnphost__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Dispositivo host de UPnP";
+            string clave = @"SYSTEM\CurrentControlSet\Services\upnphost:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4437,8 +4437,8 @@ namespace PrototipoAuditoriaWin11
         // 5.33 WEB MANAGEMENT SERVICE (WMSVC) -------------------------
         public void Analizar_Web_Management_Service__WMSvc__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servicio de Administración Web";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WMSvc:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4467,8 +4467,8 @@ namespace PrototipoAuditoriaWin11
         // 5.34 WINDOWS ERROR REPORTING SERVICE (WERSVC) -------------------------
         public void Analizar_Windows_Error_Reporting_Service__WerSvc__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servicio de informes de errores de Windows";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WerSvc:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4497,8 +4497,8 @@ namespace PrototipoAuditoriaWin11
         // 5.35 WINDOWS EVENT COLLECTOR (WECSVC) -------------------------
         public void Analizar_Windows_Event_Collector__Wecsvc__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Recopilador de eventos de Windows";
+            string clave = @"SYSTEM\CurrentControlSet\Services\Wecsvc:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4527,8 +4527,8 @@ namespace PrototipoAuditoriaWin11
         // 5.36 WINDOWS MEDIA PLAYER NETWORK SHARING SERVICE (WMPNETWORKSVC) -------------------------
         public void Analizar_Windows_Media_Player_Network_Sharing_Service__WMPNetworkSvc__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servicio de uso compartido de red del Reproductor de Windows Media";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WMPNetworkSvc:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4557,8 +4557,8 @@ namespace PrototipoAuditoriaWin11
         // 5.37 WINDOWS MOBILE HOTSPOT SERVICE (ICSSVC) -------------------------
         public void Analizar_Windows_Mobile_Hotspot_Service__icssvc__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servicio de zona con cobertura inalámbrica móvil de Windows";
+            string clave = @"SYSTEM\CurrentControlSet\Services\icssvc:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4587,8 +4587,8 @@ namespace PrototipoAuditoriaWin11
         // 5.38 WINDOWS PUSH NOTIFICATIONS SYSTEM SERVICE (WPNSERVICE) -------------------------
         public void Analizar_Windows_Push_Notifications_System_Service__WpnService__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servicio del sistema de notificaciones de inserción de Windows";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WpnService:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4617,8 +4617,8 @@ namespace PrototipoAuditoriaWin11
         // 5.39 WINDOWS PUSHTOINSTALL SERVICE (PUSHTOINSTALL) -------------------------
         public void Analizar_Windows_PushToInstall_Service__PushToInstall__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servicio de Windows PushToInstall";
+            string clave = @"SYSTEM\CurrentControlSet\Services\PushToInstall:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4647,8 +4647,8 @@ namespace PrototipoAuditoriaWin11
         // 5.40 WINDOWS REMOTE MANAGEMENT (WSMANAGEMENT) (WINRM) -------------------------
         public void Analizar_Windows_Remote_Management__WSManagement__WinRM__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Administración remota de Windows (WS-Management)";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WinRM:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4677,8 +4677,8 @@ namespace PrototipoAuditoriaWin11
         // 5.41 WORLD WIDE WEB PUBLISHING SERVICE (W3SVC) -------------------------
         public void Analizar_World_Wide_Web_Publishing_Service__W3SVC__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servicio de publicación World Wide Web";
+            string clave = @"SYSTEM\CurrentControlSet\Services\W3SVC:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4707,8 +4707,8 @@ namespace PrototipoAuditoriaWin11
         // 5.42 XBOX ACCESSORY MANAGEMENT SERVICE (XBOXGIPSVC) -------------------------
         public void Analizar_Xbox_Accessory_Management_Service__XboxGipSvc__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Xbox Accessory Management Service";
+            string clave = @"SYSTEM\CurrentControlSet\Services\XboxGipSvc:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4737,8 +4737,8 @@ namespace PrototipoAuditoriaWin11
         // 5.43 XBOX LIVE AUTH MANAGER (XBLAUTHMANAGER) -------------------------
         public void Analizar_Xbox_Live_Auth_Manager__XblAuthManager__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Administración de autenticación de Xbox Live";
+            string clave = @"SYSTEM\CurrentControlSet\Services\XblAuthManager:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4767,8 +4767,8 @@ namespace PrototipoAuditoriaWin11
         // 5.44 XBOX LIVE GAME SAVE (XBLGAMESAVE) -------------------------
         public void Analizar_Xbox_Live_Game_Save__XblGameSave__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Partida guardada en Xbox Live";
+            string clave = @"SYSTEM\CurrentControlSet\Services\XblGameSave:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
@@ -4797,8 +4797,8 @@ namespace PrototipoAuditoriaWin11
         // 5.45 XBOX LIVE NETWORKING SERVICE (XBOXNETAPISVC) -------------------------
         public void Analizar_Xbox_Live_Networking_Service__XboxNetApiSvc__()
         {
-            string politica = "Politica";
-            string clave = @"clave";
+            string politica = "Servicio de red de Xbox Live";
+            string clave = @"SYSTEM\CurrentControlSet\Services\XboxNetApiSvc:Start";
             string recomendacion = "Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
