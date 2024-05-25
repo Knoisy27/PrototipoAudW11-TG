@@ -3471,7 +3471,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de puerta de enlace de audio de Bluetooth";
             string clave = @"SYSTEM\CurrentControlSet\Services\BTAGService:Start";
-            string recomendacion = @"Inhabilitado";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3501,7 +3501,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de compatibilidad con Bluetooth";
             string clave = @"SYSTEM\CurrentControlSet\Services\bthserv:Start";
-            string recomendacion = @"Inhabilitado";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3531,7 +3531,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Computer Browser";
             string clave = @"SYSTEM\CurrentControlSet\Services\Browser:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3561,7 +3561,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Administrador de mapas descargados";
             string clave = @"SYSTEM\CurrentControlSet\Services\MapsBroker:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3591,7 +3591,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de geolocalización";
             string clave = @"SYSTEM\CurrentControlSet\Services\lfsvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3621,7 +3621,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de Administración de IIS";
             string clave = @"SYSTEM\CurrentControlSet\Services\IISADMIN:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3651,7 +3651,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de Monitor de Infrarrojos";
             string clave = @"SYSTEM\CurrentControlSet\Services\irmon:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3681,7 +3681,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Conexión compartida a Internet";
             string clave = @"SYSTEM\CurrentControlSet\Services\SharedAccess:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3711,7 +3711,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Asignador de detección de topologías de nivel de vínculo";
             string clave = @"SYSTEM\CurrentControlSet\Services\lltdsvc:Start";
-            string recomendacion = @"Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3741,7 +3741,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "LXSSMANAGER";
             string clave = @"SYSTEM\CurrentControlSet\Services\LxssManager:Start";
-            string recomendacion = @"Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3771,7 +3771,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio FTP de Microsof";
             string clave = @"SYSTEM\CurrentControlSet\Services\FTPSVC:Start";
-            string recomendacion = @"Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3801,7 +3801,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio del iniciador iSCSI de Microsoft";
             string clave = @"SYSTEM\CurrentControlSet\Services\MSiSCSI:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3831,7 +3831,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "OpenSSH Authentication Agent";
             string clave = @"SYSTEM\CurrentControlSet\Services\sshd:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3861,7 +3861,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Protocolo de resolución de nombres de mismo nivel";
             string clave = @"SYSTEM\CurrentControlSet\Services\PNRPsvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3891,7 +3891,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Agrupación de red del mismo nivel";
             string clave = @"SYSTEM\CurrentControlSet\Services\p2psvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3921,7 +3921,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Identity Manager de redes de mismo nivel";
             string clave = @"SYSTEM\CurrentControlSet\Services\p2pimsvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3951,7 +3951,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de publicación de nombres de equipo PNRP";
             string clave = @"SYSTEM\CurrentControlSet\Services\PNRPAutoReg:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3981,7 +3981,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cola de impresión";
             string clave = @"SYSTEM\CurrentControlSet\Services\Spooler:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4011,7 +4011,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Soporte técnico del panel de control Informes de problemas";
             string clave = @"SYSTEM\CurrentControlSet\Services\wercplsupport:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4041,7 +4041,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Administrador de conexiones automáticas de acceso remoto";
             string clave = @"SYSTEM\CurrentControlSet\Services\RasAuto:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4071,7 +4071,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Configuración de Escritorio remoto";
             string clave = @"SYSTEM\CurrentControlSet\Services\SessionEnv:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4101,7 +4101,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicios de Escritorio remoto";
             string clave = @"SYSTEM\CurrentControlSet\Services\TermService:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4131,7 +4131,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Redirector de puerto en modo usuario de Servicios de Escritorio remoto";
             string clave = @"SYSTEM\CurrentControlSet\Services\UmRdpService:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4161,7 +4161,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Ubicador de llamada a procedimiento remoto (RPC)";
             string clave = @"SYSTEM\CurrentControlSet\Services\RpcLocator:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4191,7 +4191,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Registro remoto";
             string clave = @"SYSTEM\CurrentControlSet\Services\RemoteRegistry:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4221,7 +4221,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Enrutamiento y acceso remoto";
             string clave = @"SYSTEM\CurrentControlSet\Services\RemoteAccess:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4251,7 +4251,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servidor";
             string clave = @"SYSTEM\CurrentControlSet\Services\LanmanServer:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4281,7 +4281,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Simple TCP/IP Services";
             string clave = @"SYSTEM\CurrentControlSet\Services\simptcp:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o no instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4311,7 +4311,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Captura de SNMP";
             string clave = @"SYSTEM\CurrentControlSet\Services\SNMP:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4341,7 +4341,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Asistente de consola de administración especial";
             string clave = @"SYSTEM\CurrentControlSet\Services\sacsvr:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4371,7 +4371,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Detección SSDP";
             string clave = @"SYSTEM\CurrentControlSet\Services\SSDPSRV:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4401,7 +4401,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Dispositivo host de UPnP";
             string clave = @"SYSTEM\CurrentControlSet\Services\upnphost:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desahibilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4431,7 +4431,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de Administración Web";
             string clave = @"SYSTEM\CurrentControlSet\Services\WMSvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4461,7 +4461,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de informes de errores de Windows";
             string clave = @"SYSTEM\CurrentControlSet\Services\WerSvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4491,7 +4491,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Recopilador de eventos de Windows";
             string clave = @"SYSTEM\CurrentControlSet\Services\Wecsvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4521,7 +4521,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de uso compartido de red del Reproductor de Windows Media";
             string clave = @"SYSTEM\CurrentControlSet\Services\WMPNetworkSvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4551,7 +4551,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de zona con cobertura inalámbrica móvil de Windows";
             string clave = @"SYSTEM\CurrentControlSet\Services\icssvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4581,7 +4581,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio del sistema de notificaciones de inserción de Windows";
             string clave = @"SYSTEM\CurrentControlSet\Services\WpnService:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4611,7 +4611,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de Windows PushToInstall";
             string clave = @"SYSTEM\CurrentControlSet\Services\PushToInstall:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desahibilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4641,7 +4641,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Administración remota de Windows (WS-Management)";
             string clave = @"SYSTEM\CurrentControlSet\Services\WinRM:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4671,7 +4671,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de publicación World Wide Web";
             string clave = @"SYSTEM\CurrentControlSet\Services\W3SVC:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Descativado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4701,7 +4701,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Xbox Accessory Management Service";
             string clave = @"SYSTEM\CurrentControlSet\Services\XboxGipSvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4731,7 +4731,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Administración de autenticación de Xbox Live";
             string clave = @"SYSTEM\CurrentControlSet\Services\XblAuthManager:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4761,7 +4761,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Partida guardada en Xbox Live";
             string clave = @"SYSTEM\CurrentControlSet\Services\XblGameSave:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -4791,7 +4791,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de red de Xbox Live";
             string clave = @"SYSTEM\CurrentControlSet\Services\XboxNetApiSvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
