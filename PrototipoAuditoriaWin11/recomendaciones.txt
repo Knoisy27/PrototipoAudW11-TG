@@ -1529,6 +1529,28 @@ Impacto:
 
 Ninguno: este es el comportamiento predeterminado.
 
+#SYSTEM\CurrentControlSet\Services\BTAGService:Start
+Descripción:
+Servicio que soporta el rol de puerta de enlace de audio del perfil Bluetooth Handsfree.
+
+Justificación:
+La tecnología Bluetooth tiene riesgos de seguridad inherentes, especialmente antes del estándar v2.1. El tráfico inalámbrico Bluetooth no está bien cifrado (si es que lo está), por lo que en un entorno de alta seguridad no debería permitirse, a pesar del inconveniente adicional de no poder usar dispositivos Bluetooth.
+
+Impacto:
+Los dispositivos manos libres Bluetooth no funcionarán correctamente con la computadora.
+
+#SYSTEM\CurrentControlSet\Services\bthserv:Start
+Descripción:
+El servicio Bluetooth admite el descubrimiento y la asociación de dispositivos Bluetooth remotos.
+
+Justificación:
+La tecnología Bluetooth tiene riesgos de seguridad inherentes, especialmente antes del estándar v2.1. El tráfico inalámbrico Bluetooth no está bien cifrado (si es que lo está), por lo que en un entorno de alta seguridad no debería permitirse, a pesar del inconveniente adicional de no poder usar dispositivos Bluetooth.
+
+Impacto:
+Los dispositivos Bluetooth ya instalados pueden dejar de funcionar correctamente y se puede impedir que se descubran o asocien nuevos dispositivos. Si se han instalado dispositivos Bluetooth, algunos componentes de Windows, como Dispositivos e impresoras, pueden no funcionar correctamente, incluyendo colgarse o congelarse al abrirse. La solución, además de volver a habilitar este servicio, es deshabilitar o eliminar los dispositivos Bluetooth problemáticos en el Administrador de dispositivos, o deshabilitar el dispositivo por completo a través del BIOS del sistema (si es un dispositivo Bluetooth integrado).
+
+#
+
 
 
 
