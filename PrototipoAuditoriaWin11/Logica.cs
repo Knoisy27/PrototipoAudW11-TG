@@ -3471,7 +3471,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de puerta de enlace de audio de Bluetooth";
             string clave = @"SYSTEM\CurrentControlSet\Services\BTAGService:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Inhabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3501,7 +3501,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de compatibilidad con Bluetooth";
             string clave = @"SYSTEM\CurrentControlSet\Services\bthserv:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Inhabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
