@@ -1549,7 +1549,586 @@ La tecnología Bluetooth tiene riesgos de seguridad inherentes, especialmente an
 Impacto:
 Los dispositivos Bluetooth ya instalados pueden dejar de funcionar correctamente y se puede impedir que se descubran o asocien nuevos dispositivos. Si se han instalado dispositivos Bluetooth, algunos componentes de Windows, como Dispositivos e impresoras, pueden no funcionar correctamente, incluyendo colgarse o congelarse al abrirse. La solución, además de volver a habilitar este servicio, es deshabilitar o eliminar los dispositivos Bluetooth problemáticos en el Administrador de dispositivos, o deshabilitar el dispositivo por completo a través del BIOS del sistema (si es un dispositivo Bluetooth integrado).
 
-#
+#SYSTEM\CurrentControlSet\Services\Browser:Start
+Descripción:
+Mantiene una lista actualizada de computadoras en la red y suministra esta lista a las computadoras designadas como navegadores.
+
+Justificación:
+Este es un servicio heredado cuyo único propósito es mantener una lista de computadoras y sus recursos compartidos en el entorno (es decir, "Red de Microsoft"). Si está habilitado, genera mucho tráfico innecesario, incluidas "elecciones" para ver quién será el "navegador principal". Este tráfico ruidoso también podría ayudar a atacantes malintencionados a descubrir máquinas en línea, ya que el servicio también permite que cualquiera "navegue" por recursos compartidos sin ninguna autenticación. Este servicio solía estar en funcionamiento por defecto en versiones antiguas de Windows (por ejemplo, Windows XP), pero hoy en día solo permanece por compatibilidad con software muy antiguo que lo requiere.
+
+Impacto:
+La lista de computadoras y sus recursos compartidos en la red no se actualizará ni se mantendrá.
+
+#SYSTEM\CurrentControlSet\Services\MapsBroker:Start
+Descripción:
+Servicio de Windows para el acceso de aplicaciones a mapas descargados. Este servicio se inicia bajo demanda por la aplicación que accede a los mapas descargados.
+
+Justificación:
+Las tecnologías de mapeo pueden revelar involuntariamente tu ubicación a atacantes y a otros programas que recojan la información. Además, las descargas automáticas de datos desde fuentes de terceros deben minimizarse cuando no sean necesarias. Por lo tanto, este servicio no debería ser necesario en entornos de alta seguridad.
+
+Impacto:
+Se impedirá que las aplicaciones accedan a los datos de mapas.
+
+#SYSTEM\CurrentControlSet\Services\lfsvc:Start
+Descripción:
+
+Este servicio monitorea la ubicación actual del sistema y administra las geo-cercas (una ubicación geográfica con eventos asociados). El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Esta configuración afecta la función de localización (por ejemplo, GPS u otro seguimiento de ubicación). Desde una perspectiva de seguridad, no es una buena idea revelar tu ubicación al software en la mayoría de los casos, aunque hay usos legítimos, como el software de mapeo. Sin embargo, no deben usarse en entornos de alta seguridad.
+
+Impacto:
+
+Las aplicaciones no podrán usar ni recibir notificaciones para la geolocalización o geo-cercas.
+
+#SYSTEM\CurrentControlSet\Services\IISADMIN:Start
+Descripción:
+
+Habilita al servidor para administrar la metabase de IIS. La metabase de IIS almacena la configuración para los servicios SMTP y FTP. El estado recomendado para esta configuración es: Deshabilitado o No Instalado. Nota: Este servicio no está instalado por defecto. Se suministra con Windows, pero se instala habilitando una característica opcional de Windows (Servicios de Información de Internet - IIS). Nota #2: Una organización puede optar por conceder excepciones selectivas a los desarrolladores web para permitir IIS (u otro servidor web) en su estación de trabajo, con el fin de que puedan probar y desarrollar páginas web localmente. Sin embargo, la organización debe rastrear esas máquinas y asegurar que los controles de seguridad y las mitigaciones se mantengan actualizadas, para reducir el riesgo de compromiso.
+
+Justificación:
+
+Alojar un sitio web desde una estación de trabajo es un riesgo de seguridad incrementado, ya que la superficie de ataque de esa estación de trabajo se incrementa significativamente. Si no se siguen las mitigaciones de seguridad adecuadas, la probabilidad de un ataque exitoso aumenta considerablemente. Nota: Esta preocupación de seguridad se aplica a cualquier aplicación de servidor web instalada en una estación de trabajo, no solo a IIS.
+
+Impacto:
+
+IIS no funcionará, incluidos los servicios Web, SMTP o FTP.
+
+#SYSTEM\CurrentControlSet\Services\irmon:Start
+Descripción:
+
+Detecta otros dispositivos infrarrojos que están dentro del alcance y lanza la aplicación de transferencia de archivos. El estado recomendado para esta configuración es: Deshabilitado o No instalado.
+
+Justificación:
+
+Las conexiones infrarrojas pueden ser potencialmente una fuente de compromiso de datos, especialmente a través de la funcionalidad automática de "aplicación de transferencia de archivos". Los sistemas administrados por la empresa deben utilizar un método de conexión más seguro que la infrarroja.
+
+Impacto:
+
+Las transferencias de archivos infrarrojas no funcionarán.
+
+#SYSTEM\CurrentControlSet\Services\SharedAccess:Start
+Descripción:
+
+Proporciona traducción de dirección de red, resolución de nombres y/o servicios de prevención de intrusiones para una red doméstica o de pequeña oficina. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+La Compartición de Conexión a Internet (ICS) es una característica que permite "compartir" la conexión a Internet con otras máquinas en la red. Fue diseñada para entornos domésticos o de pequeñas oficinas donde solo una máquina tiene acceso a Internet, convirtiendo efectivamente esa máquina en un enrutador de Internet. Esta característica provoca la conexión de redes y probablemente eludirá otros caminos más seguros. No debería utilizarse en ningún sistema administrado por la empresa.
+
+Impacto:
+
+La Compartición de Conexión a Internet (ICS) no estará disponible. También se evitarán las conexiones inalámbricas mediante Miracast.
+
+Nota:
+
+Este servicio es un requisito previo para la función de Microsoft Defender Application Guard en Windows 10, por lo que se debe hacer una excepción a esta recomendación si se pretende utilizar Microsoft Defender Application Guard.
+
+#SYSTEM\CurrentControlSet\Services\lltdsvc:Start
+Descripción:
+
+Crea un Mapa de Red, que consiste en información de topología (conectividad) de PC y dispositivos, y metadatos que describen cada PC y dispositivo. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+La función que habilita este servicio podría potencialmente ser utilizada para descubrir y conectarse a dispositivos de red de forma no autorizada. Deshabilitar el servicio ayuda a prevenir respuestas a solicitudes de descubrimiento de topología de red en entornos de alta seguridad.
+
+Impacto:
+
+El Mapa de Red no funcionará correctamente.
+
+#SYSTEM\CurrentControlSet\Services\LxssManager:Start
+Descripción:
+
+El servicio LXSS Manager admite la ejecución de binarios ELF nativos. El servicio proporciona la infraestructura necesaria para que los binarios ELF se ejecuten en Windows. El estado recomendado para esta configuración es: Deshabilitado o No Instalado.
+
+Justificación:
+
+El Administrador del Subsistema Linux (LXSS) permite el acceso completo al sistema para aplicaciones de Linux en Windows, incluido el sistema de archivos. Si bien esto puede tener ciertos beneficios de funcionalidad y rendimiento para ejecutar esas aplicaciones, también crea nuevos riesgos de seguridad en caso de que un hacker inyecte código malicioso en una aplicación de Linux. Para obtener la mejor seguridad, es preferible ejecutar aplicaciones de Linux en Linux y aplicaciones de Windows en Windows.
+
+Impacto:
+
+El Subsistema Linux no estará disponible y los binarios ELF nativos ya no se ejecutarán.
+
+#Descripción:
+
+Permite que el servidor sea un servidor de Protocolo de Transferencia de Archivos (FTP, por sus siglas en inglés). El estado recomendado para esta configuración es: Deshabilitado o No instalado. Nota: Este servicio no está instalado por defecto. Se suministra con Windows, pero se instala al habilitar una característica opcional de Windows (Servidor FTP de Servicios de Información de Internet).
+
+Justificación:
+
+Hospedar un servidor FTP (especialmente un servidor FTP no seguro) desde una estación de trabajo aumenta significativamente el riesgo de seguridad, ya que la superficie de ataque de esa estación de trabajo se incrementa considerablemente. Nota: Esta preocupación de seguridad se aplica a cualquier aplicación de servidor FTP instalada en una estación de trabajo, no solo a IIS.
+
+Impacto:
+
+La computadora no funcionará como un servidor FTP
+
+#SYSTEM\CurrentControlSet\Services\MSiSCSI:Start
+Descripción:
+
+Administra sesiones de Internet SCSI (iSCSI) desde esta computadora a dispositivos de destino remotos. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Este servicio es críticamente necesario para conectarse directamente a un dispositivo iSCSI. Sin embargo, iSCSI en sí mismo utiliza un protocolo de autenticación muy débil (CHAP), lo que significa que las contraseñas para la comunicación iSCSI son fácilmente expuestas, a menos que todo el tráfico esté aislado y/o encriptado utilizando otra tecnología como IPsec. Este servicio es generalmente más apropiado para servidores en un entorno controlado que en estaciones de trabajo que requieren alta seguridad.
+
+Impacto:
+
+La computadora no podrá iniciar sesión directamente ni acceder a los destinos iSCSI.
+
+#SYSTEM\CurrentControlSet\Services\sshd:Start
+Descripción:
+
+Servicio basado en el protocolo SSH para proporcionar comunicaciones cifradas seguras entre dos hosts no confiables sobre una red insegura. El estado recomendado para esta configuración es: Deshabilitado o No instalado. Nota: Este servicio no está instalado por defecto. Se suministra con Windows, pero se instala al habilitar una característica opcional de Windows (Servidor OpenSSH).
+
+Justificación:
+
+Hospedar un servidor SSH desde una estación de trabajo aumenta significativamente el riesgo de seguridad, ya que la superficie de ataque de esa estación de trabajo se incrementa considerablemente. Nota: Esta preocupación de seguridad se aplica a cualquier aplicación de servidor SSH instalada en una estación de trabajo, no solo a la suministrada con Windows.
+
+Impacto:
+
+La estación de trabajo no podrá actuar como servidor host SSH.
+
+#SYSTEM\CurrentControlSet\Services\PNRPsvc:Start
+Descripción:
+
+Habilita la resolución de nombres de pares sin servidor a través de Internet utilizando el Protocolo de Resolución de Nombres de Pares (PNRP, por sus siglas en inglés). El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+El Protocolo de Resolución de Nombres de Pares es una forma distribuida (y en su mayoría) sin servidor de manejar la resolución de nombres de clientes entre sí. En un entorno de alta seguridad, es más seguro depender de métodos de resolución de nombres centralizados mantenidos por personal autorizado.
+
+Impacto:
+
+Algunas aplicaciones peer-to-peer y colaborativas, como la Asistencia Remota, pueden no funcionar.
+
+#SYSTEM\CurrentControlSet\Services\p2psvc:Start
+Descripción:
+
+Permite la comunicación de múltiples partes usando Agrupamiento de Par-a-Par. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+El Protocolo de Resolución de Nombres de Pares es una forma distribuida (y en su mayoría) sin servidor de manejar la resolución de nombres de clientes entre sí. En un entorno de alta seguridad, es más seguro depender de métodos de resolución de nombres centralizados mantenidos por personal autorizado.
+
+Impacto:
+
+Algunas aplicaciones, como HomeGroup, pueden no funcionar.
+
+#SYSTEM\CurrentControlSet\Services\p2pimsvc:Start
+Descripción:
+
+Proporciona servicios de identidad para el Protocolo de Resolución de Nombres de Pares (PNRP, por sus siglas en inglés) y los servicios de Agrupamiento de Par-a-Par. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+El Protocolo de Resolución de Nombres de Pares es una forma distribuida (y en su mayoría) sin servidor de manejar la resolución de nombres de clientes entre sí. En un entorno de alta seguridad, es más seguro depender de métodos de resolución de nombres centralizados mantenidos por personal autorizado.
+
+Impacto:
+
+Los servicios de Protocolo de Resolución de Nombres de Pares (PNRP) y Agrupamiento de Par-a-Par pueden no funcionar correctamente, y algunas aplicaciones, como HomeGroup y Asistencia Remota, pueden no funcionar correctamente.
+
+#SYSTEM\CurrentControlSet\Services\PNRPAutoReg:Start
+Descripción:
+
+Este servicio publica un nombre de máquina utilizando el Protocolo de Resolución de Nombres de Pares. La configuración se gestiona a través del contexto netsh 'p2p pnrp peer'. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+El Protocolo de Resolución de Nombres de Pares es una forma distribuida (y en su mayoría) sin servidor de manejar la resolución de nombres de clientes entre sí. En un entorno de alta seguridad, es más seguro depender de métodos de resolución de nombres centralizados mantenidos por personal autorizado.
+
+Impacto:
+
+Algunas aplicaciones peer-to-peer y colaborativas, como la Asistencia Remota, pueden no funcionar.
+
+#SYSTEM\CurrentControlSet\Services\Spooler:Start
+Descripción:
+
+Este servicio encola trabajos de impresión y maneja la interacción con las impresoras. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+En un entorno de alta seguridad, se deben desactivar los servicios innecesarios, especialmente aquellos con vulnerabilidades conocidas. Deshabilitar el servicio de Cola de Impresión (Spooler) mitiga la vulnerabilidad PrintNightmare (CVE-2021-34527) y otros ataques contra el servicio.
+
+Impacto:
+
+Los usuarios no podrán imprimir, incluida la impresión a archivos (como Adobe Portable Document Format (PDF)) que utiliza el servicio de Cola de Impresión.
+
+#SYSTEM\CurrentControlSet\Services\wercplsupport:Start
+Descripción:
+
+Este servicio proporciona soporte para ver, enviar y eliminar informes de problemas a nivel del sistema para el panel de control de Informes y Soluciones de Problemas. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Este servicio está involucrado en el proceso de visualización y reporte de problemas y soluciones hacia/desde Microsoft. En un entorno de alta seguridad, evitar que esta información se envíe puede ayudar a reducir las preocupaciones de privacidad para información corporativa sensible.
+
+Impacto:
+
+El envío y visualización de informes y soluciones de problemas a nivel del sistema hacia/desde Microsoft pueden dejar de funcionar.
+
+#SYSTEM\CurrentControlSet\Services\RasAuto:Start
+Descripción:
+
+Crea una conexión a una red remota cada vez que un programa hace referencia a un nombre o dirección DNS o NetBIOS remota. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+La función de este servicio es proporcionar una funcionalidad tipo "dial demand". En un entorno de alta seguridad, es preferible que cualquier conexión remota "dial" (ya sea POTS de marcado directo o VPN) sea iniciada por el usuario, no automáticamente por el sistema.
+
+Impacto:
+
+La funcionalidad de "marcar bajo demanda" dejará de operar: las conexiones remotas de marcado directo (POTS) y VPN deben ser iniciadas manualmente por el usuario.
+
+#SYSTEM\CurrentControlSet\Services\SessionEnv:Start
+Descripción:
+
+El servicio de Configuración de Escritorio Remoto (RDCS, por sus siglas en inglés) es responsable de todas las actividades de configuración relacionadas con el Escritorio Remoto y el mantenimiento de sesiones que requieren contexto del SISTEMA. Estas incluyen carpetas temporales por sesión, temas de RD y certificados de RD. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+En un entorno de alta seguridad, el acceso al Escritorio Remoto representa un riesgo de seguridad aumentado. Para estos entornos, solo se debería permitir el acceso local a la consola.
+
+Impacto:
+
+Los usuarios no podrán utilizar la Asistencia Remota.
+
+#SYSTEM\CurrentControlSet\Services\TermService:Start
+Descripción:
+
+Permite a los usuarios conectarse de forma interactiva a una computadora remota. El servicio de Escritorio Remoto y el Servidor de Host de Sesión de Escritorio Remoto dependen de este servicio. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+En un entorno de alta seguridad, el acceso al Escritorio Remoto representa un riesgo de seguridad aumentado. Para estos entornos, solo se debería permitir el acceso local a la consola.
+
+Impacto:
+
+Los Servicios de Escritorio Remoto no estarán disponibles en la computadora.
+
+#SYSTEM\CurrentControlSet\Services\UmRdpService:Start
+Descripción:
+
+Permite la redirección de Impresoras/Unidades/Puertos para conexiones RDP. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+En un entorno sensible a la seguridad, es deseable reducir la posible superficie de ataque; prevenir la redirección de puertos COM, LPT y PnP reducirá el número de vías inesperadas para la exfiltración de datos y/o transferencia de código malicioso dentro de una sesión RDP.
+
+Impacto:
+
+Las impresoras, unidades y puertos (COM, LPT, PnP, etc.) no podrán ser redirigidos dentro de las sesiones RDP.
+
+#SYSTEM\CurrentControlSet\Services\RpcLocator:Start
+Descripción:
+
+En Windows 2003 y versiones anteriores de Windows, el servicio de Localizador de Procedimientos Remotos (RPC) administra la base de datos de servicios de nombres RPC. En Windows Vista o versiones más nuevas de Windows, este servicio no proporciona ninguna funcionalidad y está presente para la compatibilidad con aplicaciones. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Este es un servicio heredado que no tiene ningún valor o propósito aparte de la compatibilidad con aplicaciones muy antiguas. Debería deshabilitarse a menos que haya una aplicación antigua específica aún en uso en el sistema que lo requiera.
+
+Impacto:
+
+No hay impacto, a menos que una aplicación antigua y heredada lo requiera.
+
+#SYSTEM\CurrentControlSet\Services\RemoteRegistry:Start
+Descripción:
+
+Permite a usuarios remotos ver y modificar configuraciones del registro en esta computadora. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+En un entorno de alta seguridad, exponer el registro al acceso remoto aumenta el riesgo de seguridad.
+
+Impacto:
+
+El registro solo puede ser visto y modificado por usuarios en la computadora. Nota: Muchas herramientas de administración remota, como System Center Configuration Manager (SCCM), requieren que el servicio de Registro Remoto esté operativo para la gestión remota. Además, muchos escáneres de vulnerabilidades utilizan este servicio para acceder al registro de forma remota.
+
+#SYSTEM\CurrentControlSet\Services\RemoteAccess:Start
+Descripción:
+
+Ofrece servicios de enrutamiento a empresas en entornos de redes de área local y de área amplia. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+El propósito principal de este servicio es proporcionar funcionalidad de enrutador de Windows; esto no es un uso apropiado de estaciones de trabajo en un entorno gestionado por la empresa.
+
+Impacto:
+
+La computadora no podrá ser configurada como un enrutador de Windows entre diferentes conexiones.
+
+#SYSTEM\CurrentControlSet\Services\LanmanServer:Start
+Descripción:
+
+Soporta el uso compartido de archivos, impresión y tuberías con nombre a través de la red para esta computadora. Si este servicio se detiene, estas funciones no estarán disponibles. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+En un entorno de alta seguridad, una estación de trabajo segura solo debería ser un cliente, no un servidor. Compartir recursos de estación de trabajo para acceso remoto aumenta el riesgo de seguridad, ya que la superficie de ataque es notablemente mayor.
+
+Impacto:
+
+Las funciones de uso compartido de archivos, impresión y tuberías con nombre no estarán disponibles desde esta máquina a través de la red. 
+
+Nota: 
+
+Muchas herramientas de administración remota, como System Center Configuration Manager (SCCM), requieren que el servicio de Servidor esté operativo para la gestión remota. Además, muchos escáneres de vulnerabilidades utilizan este servicio para escanear el sistema de archivos de forma remota.
+
+#SYSTEM\CurrentControlSet\Services\simptcp:Start
+Descripción:
+
+Soporta los siguientes servicios TCP/IP: Generador de Caracteres, Hora del Día, Descartar, Eco y Cita del Día. El estado recomendado para esta configuración es: Deshabilitado o No instalado.
+
+Justificación:
+
+Los Servicios TCP/IP Simples tienen muy poco propósito en un entorno empresarial moderno; permitirlos podría aumentar la exposición y el riesgo de ataques.
+
+Impacto:
+
+Los servicios TCP/IP Simples (Generador de Caracteres, Hora del Día, Descartar, Eco y Cita del Día) no estarán disponibles.
+
+#SYSTEM\CurrentControlSet\Services\SNMP:Start
+Descripción:
+
+Permite que las solicitudes del Protocolo Simple de Administración de Red (SNMP) sean procesadas por esta computadora. El estado recomendado para esta configuración es: Deshabilitado o No instalado.
+
+Justificación:
+
+Las características que permiten conexiones de red entrantes aumentan la superficie de ataque. En un entorno de alta seguridad, la gestión de estaciones de trabajo seguras debería ser manejada localmente.
+
+Impacto:
+
+La computadora no podrá procesar solicitudes SNMP.
+
+#SYSTEM\CurrentControlSet\Services\sacsvr:Start
+Descripción:
+
+Este servicio permite a los administradores acceder de forma remota a un símbolo del sistema utilizando los Servicios de Gestión de Emergencias. El estado recomendado para esta configuración es: Deshabilitado o No instalado.
+
+Justificación:
+
+Permitir el uso de un símbolo del sistema accesible de forma remota que proporciona la capacidad de realizar tareas de gestión remota en una computadora es un riesgo de seguridad.
+
+Impacto:
+
+Los usuarios no tendrán acceso a un símbolo del sistema remoto utilizando los Servicios de Gestión de Emergencias.
+
+#SYSTEM\CurrentControlSet\Services\SSDPSRV:Start
+Descripción:
+
+Descubre dispositivos y servicios de red que utilizan el protocolo de descubrimiento SSDP, como dispositivos UPnP. También anuncia dispositivos y servicios SSDP que se ejecutan en la computadora local. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Universal Plug n Play (UPnP) es un verdadero riesgo de seguridad: permite el descubrimiento automático y la conexión a dispositivos de red. Es importante destacar que UPnP es diferente del Plug and Play (PnP) regular. Las estaciones de trabajo no deben anunciar sus servicios (ni descubrir y conectarse automáticamente a servicios de red) en un entorno gestionado por la empresa y consciente de la seguridad.
+
+Impacto:
+
+Los dispositivos basados en SSDP no serán descubiertos.
+
+#SYSTEM\CurrentControlSet\Services\upnphost:Start
+Descripción:
+
+Permite que los dispositivos UPnP se alojen en esta computadora. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Universal Plug n Play (UPnP) es un verdadero riesgo de seguridad, ya que permite el descubrimiento automático y la conexión a dispositivos de red. Es importante destacar que UPnP es diferente del Plug and Play (PnP) regular. Las estaciones de trabajo no deben anunciar sus servicios (ni descubrir y conectarse automáticamente a servicios de red) en un entorno gestionado por la empresa y consciente de la seguridad.
+
+Impacto:
+
+Cualquier dispositivo UPnP alojado dejará de funcionar y no se podrán agregar dispositivos adicionales alojados.
+
+#SYSTEM\CurrentControlSet\Services\WMSvc:Start
+Descripción:
+
+El Servicio de Gestión Web habilita capacidades de gestión remota y delegada para que los administradores administren el servidor web, sitios y aplicaciones presentes en la máquina. El estado recomendado para esta configuración es: Deshabilitado o No instalado.
+
+Justificación:
+
+La administración web remota de IIS en una estación de trabajo aumenta notablemente el riesgo de seguridad, ya que aumenta la superficie de ataque de esa estación de trabajo. Si no se siguen las mitigaciones de seguridad adecuadas, aumenta significativamente la probabilidad de un ataque exitoso.
+
+Impacto:
+
+La gestión web remota de IIS no estará disponible.
+
+#SYSTEM\CurrentControlSet\Services\WerSvc:Start
+Descripción:
+
+Permite que se informen errores cuando los programas dejan de funcionar o responder, y permite la entrega de soluciones existentes. También permite generar registros para servicios de diagnóstico y reparación. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Si ocurre un error de Windows en un entorno seguro y gestionado por la empresa, el error debe informarse directamente al personal de IT para su resolución y solución. No hay beneficio para la corporación al informar estos errores directamente a Microsoft, y existe cierto riesgo de exponer inadvertidamente datos sensibles como parte del error.
+
+Impacto:
+
+Si este servicio se detiene, es posible que el informe de errores no funcione correctamente y que los resultados de los servicios de diagnóstico y reparación no se muestren.
+
+#SYSTEM\CurrentControlSet\Services\Wecsvc:Start
+Descripción:
+
+Este servicio gestiona suscripciones persistentes a eventos desde fuentes remotas que admiten el protocolo WS-Management. Esto incluye registros de eventos de Windows Vista, hardware y fuentes de eventos habilitadas para IPMI. El servicio almacena eventos reenviados en un registro de eventos local. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+En un entorno de alta seguridad, las conexiones remotas a estaciones de trabajo seguras deben minimizarse, y las funciones de gestión deben realizarse localmente.
+
+Impacto:
+
+Si este servicio se detiene o deshabilita, no se pueden crear suscripciones a eventos y no se pueden aceptar eventos reenviados. 
+
+Nota: 
+
+Muchas herramientas de gestión remota y herramientas de auditoría de seguridad de terceros dependen de este servicio.
+
+#SYSTEM\CurrentControlSet\Services\WMPNetworkSvc:Start
+Descripción:
+
+Comparte las bibliotecas de Windows Media Player a otros reproductores y dispositivos multimedia de red utilizando Universal Plug and Play. El estado recomendado para esta configuración es: Deshabilitado o No instalado.
+
+Justificación:
+
+El uso compartido de medios de red desde Media Player no tiene cabida en un entorno gestionado por la empresa.
+
+Impacto:
+
+Las bibliotecas de Windows Media Player no se compartirán por la red con otros dispositivos y sistemas.
+
+#SYSTEM\CurrentControlSet\Services\icssvc:Start
+Descripción:
+
+Proporciona la capacidad de compartir una conexión de datos celular con otro dispositivo. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+La capacidad de ejecutar un punto de acceso móvil desde una computadora conectada a un dominio podría exponer fácilmente la red interna a wardrivers u otros hackers.
+
+Impacto:
+
+La función de Punto de Acceso Móvil de Windows no estará disponible.
+
+#SYSTEM\CurrentControlSet\Services\WpnService:Start
+Descripción:
+
+Este servicio se ejecuta en la sesión 0 y alberga la plataforma de notificaciones y el proveedor de conexión que maneja la conexión entre el dispositivo y el servidor WNS. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Los Servicios de Notificación Push de Windows (WNS) son un mecanismo para recibir notificaciones y actualizaciones de terceros desde la nube/Internet. En un entorno de alta seguridad, los sistemas externos, especialmente aquellos alojados fuera de la organización, deben ser impedidos de tener un impacto en las estaciones de trabajo seguras.
+
+Impacto:
+
+Los Live Tiles y otras funciones no recibirán actualizaciones en tiempo real.
+
+#SYSTEM\CurrentControlSet\Services\PushToInstall:Start
+Descripción:
+
+Este servicio gestiona las aplicaciones que se envían al dispositivo desde la aplicación de Microsoft Store que se ejecuta en otros dispositivos o en la web. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+En un entorno de alta seguridad gestionado, las instalaciones de aplicaciones deben ser gestionadas centralmente por el personal de IT, no por los usuarios finales.
+
+Impacto:
+
+Los usuarios no podrán enviar aplicaciones a este dispositivo desde la tienda de Microsoft que se ejecuta en otros dispositivos o en la web.
+
+#SYSTEM\CurrentControlSet\Services\WinRM:Start
+Descripción:
+
+El servicio de Windows Remote Management (WinRM) implementa el protocolo WS-Management para la gestión remota. WS-Management es un protocolo estándar de servicios web utilizado para la gestión remota de software y hardware. El servicio WinRM escucha en la red las solicitudes de WS-Management y las procesa. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Las características que permiten conexiones de red entrantes aumentan la superficie de ataque. En un entorno de alta seguridad, la gestión de estaciones de trabajo seguras debe manejarse localmente.
+
+Impacto:
+
+Se perderá la capacidad de gestionar el sistema de forma remota con WinRM. 
+
+Nota:
+
+Muchas herramientas de administración remota, como System Center Configuration Manager (SCCM), pueden requerir que el servicio WinRM esté operativo para la gestión remota.
+
+#SYSTEM\CurrentControlSet\Services\W3SVC:Start
+Descripción:
+
+Proporciona conectividad web y administración a través del Administrador de Servicios de Información de Internet. El estado recomendado para esta configuración es: Deshabilitado o No instalado.
+
+Justificación:
+
+Hospedar un sitio web desde una estación de trabajo aumenta notablemente el riesgo de seguridad, ya que aumenta la superficie de ataque de esa estación de trabajo. Si no se siguen las mitigaciones de seguridad adecuadas, aumenta significativamente la probabilidad de un ataque exitoso.
+
+Nota:
+
+Esta preocupación de seguridad se aplica a cualquier aplicación de servidor web instalada en una estación de trabajo, no solo a IIS.
+
+Nota #2:
+
+Una organización puede optar por otorgar excepciones selectivas a los desarrolladores web para permitir IIS (u otro servidor web) en su estación de trabajo, con el fin de que puedan probar y desarrollar páginas web localmente. Sin embargo, la organización debe hacer un seguimiento de esas máquinas y garantizar que los controles de seguridad y las mitigaciones se mantengan actualizados para reducir el riesgo de compromiso.
+
+#SYSTEM\CurrentControlSet\Services\XboxGipSvc:Start
+Descripción:
+
+Este servicio gestiona los accesorios de Xbox conectados. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Xbox Live es un servicio de juegos y no tiene cabida en un entorno gestionado por la empresa (a menos que sea una empresa de juegos).
+
+Impacto:
+
+Es posible que los accesorios de Xbox conectados no funcionen.
+
+#SYSTEM\CurrentControlSet\Services\XblAuthManager:Start
+Descripción:
+
+Proporciona servicios de autenticación y autorización para interactuar con Xbox Live. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Xbox Live es un servicio de juegos y no tiene cabida en un entorno gestionado por la empresa (a menos que sea una empresa de juegos).
+
+Impacto:
+
+Las conexiones a Xbox Live pueden fallar y las aplicaciones que interactúan con ese servicio también pueden fallar.
+
+#SYSTEM\CurrentControlSet\Services\XblGameSave:Start
+Descripción:
+
+Este servicio sincroniza los datos de guardado para juegos habilitados para guardar en Xbox Live. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Xbox Live es un servicio de juegos y no tiene cabida en un entorno gestionado por la empresa (quizás a menos que sea una empresa de juegos).
+
+Impacto:
+
+Los datos de guardado del juego no se cargarán ni descargarán desde Xbox Live.
+
+#SYSTEM\CurrentControlSet\Services\XboxNetApiSvc:Start
+Descripción:
+
+Este servicio admite la interfaz de programación de aplicaciones Windows.Networking.XboxLive. El estado recomendado para esta configuración es: Deshabilitado.
+
+Justificación:
+
+Xbox Live es un servicio de juegos y no tiene cabida en un entorno gestionado por la empresa (quizás a menos que sea una empresa de juegos).
+
+Impacto:
+
+Las conexiones a Xbox Live pueden fallar y las aplicaciones que interactúan con ese servicio también pueden fallar.
+
+
+
+
+
+
+
+
+
 
 
 
