@@ -41,6 +41,7 @@ namespace PrototipoAuditoriaWin11
             this.btnAnalizar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
             this.btnHerramientas = new System.Windows.Forms.Button();
             this.panelHerramientasSub = new System.Windows.Forms.Panel();
             this.btnRegedit = new System.Windows.Forms.Button();
@@ -48,12 +49,15 @@ namespace PrototipoAuditoriaWin11
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.txtEspecs = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panelTop.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.panelHerramientasSub.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTop
@@ -138,12 +142,16 @@ namespace PrototipoAuditoriaWin11
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(15)))), ((int)(((byte)(25)))));
-            this.panel2.Controls.Add(this.btnHerramientas);
-            this.panel2.Controls.Add(this.panelHerramientasSub);
+            this.panel2.Controls.Add(this.tableLayoutPanel2);
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.btnAnalizar);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // pbLogo
+            // 
+            resources.ApplyResources(this.pbLogo, "pbLogo");
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.TabStop = false;
             // 
             // btnHerramientas
             // 
@@ -213,6 +221,15 @@ namespace PrototipoAuditoriaWin11
             this.txtEspecs.Name = "txtEspecs";
             this.txtEspecs.ReadOnly = true;
             // 
+            // tableLayoutPanel2
+            // 
+            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
+            this.tableLayoutPanel2.Controls.Add(this.pbLogo, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panelHerramientasSub, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.btnHerramientas, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.btnAnalizar, 0, 1);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            // 
             // FormVentanaPrincipal
             // 
             resources.ApplyResources(this, "$this");
@@ -232,11 +249,13 @@ namespace PrototipoAuditoriaWin11
             this.panelTop.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.panelHerramientasSub.ResumeLayout(false);
             this.panelHerramientasSub.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,6 +279,8 @@ namespace PrototipoAuditoriaWin11
         private Button btnGpedit;
         private PictureBox pictureBox2;
         private TextBox txtEspecs;
+        private PictureBox pbLogo;
+        private TableLayoutPanel tableLayoutPanel2;
     }
 }
 
