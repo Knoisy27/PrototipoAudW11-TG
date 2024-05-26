@@ -3565,7 +3565,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Administrador de mapas descargados";
             string clave = @"SYSTEM\CurrentControlSet\Services\MapsBroker:Start";
-            string recomendacion = @"Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
