@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using System.IO;
-using YamlDotNet.Serialization;
-using Newtonsoft.Json;
 using System.Text;
 
 namespace PrototipoAuditoriaWin11
@@ -17,9 +15,8 @@ namespace PrototipoAuditoriaWin11
         public List<bool> condicionMetodos = new List<bool>();
         private List<Configuracion> configuracionesPendientes = new List<Configuracion>();
 
-        public Logica(/*Panel panel, */DataGridView dataGridView)
+        public Logica(DataGridView dataGridView)
         {
-            //panelDinamicoResultados = panel;
             dgvRec = dataGridView;
             configuraciones = new Dictionary<string, string>();
             GuardarDatosCFG();
@@ -58,11 +55,9 @@ namespace PrototipoAuditoriaWin11
                     {
                         string clave = partes[0].Trim();
                         string valor = partes[1].Trim();
-                        //Console.WriteLine($"{clave} {valor}");
 
                         // Almacena la configuración en el diccionario
                         configuraciones[clave] = valor;
-                        //Console.WriteLine(configuraciones[clave]);
                     }
                 }
 
@@ -241,7 +236,6 @@ namespace PrototipoAuditoriaWin11
             string politica = "Exigir historial de contraseñas";
             string clave = "PasswordHistorySize";
             string recomendacion = "24 o más contraseñas";
-            //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);
@@ -270,7 +264,6 @@ namespace PrototipoAuditoriaWin11
             string clave = "MaximumPasswordAge";
             string politica = "Vigencia máxima de la contraseña";
             string recomendacion = "365 días o menos, pero no 0";
-            //GuardarDatosCFG();
             if (configuraciones.ContainsKey(clave))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);
@@ -298,7 +291,6 @@ namespace PrototipoAuditoriaWin11
             string politica = "Vigencia mínima de la contraseña";
             string clave = "MinimumPasswordAge";
             string recomendacion = "1 o más días";
-            //GuardarDatosCFG();
             if (configuraciones.ContainsKey("MinimumPasswordAge"))
             {
                 long valor = Convert.ToInt64(configuraciones[clave]);
@@ -1753,7 +1745,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: bloquear cuentas de Microsoft";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\NoConnectedUser";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Los usuarios no pueden añadir o iniciar sesión con cuentas de Microsoft";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1784,7 +1776,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: estado de la cuenta de invitado";
             string clave = "EnableGuestAccount";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1814,7 +1806,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: limitar el uso de cuentas locales con contraseña en blanco solo para iniciar sesión en la consola";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Habiltado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1844,7 +1836,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: cambiar el nombre de la cuenta de administrador";
             string clave = "NewAdministratorName";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Renombrar cuenta Administrador";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1874,7 +1866,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Cuentas: cambiar el nombre de cuenta de invitado";
             string clave = "NewGuestName";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Renombrar cuenta Invitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1904,7 +1896,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Auditoría: forzar que la configuración de subcategoría de directiva de auditoría (Windows Vista o posterior) invalide la configuración de categoría de directiva de auditoría.";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1934,7 +1926,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Auditoría: apagar el sistema de inmediato si no se pueden registrar las auditorías de seguridad";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\CrashOnAuditFail";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1964,7 +1956,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Dispositivos: impedir que los usuarios instalen controladores de impresora cuando se conecten a impresoras compartidas";
             string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Print\\Providers\\LanMan Print Services\\Servers\\AddPrinterDrivers";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -1994,7 +1986,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: no requerir Ctrl+Alt+Supr";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DisableCAD";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2024,7 +2016,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: No mostrar último inicio de sesión";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\DontDisplayLastUserName";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2054,7 +2046,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: umbral de la cuenta de la máquina.";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\MaxDevicePasswordFailedAttempts";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "10 o menos intentos de inicio de sesión no válidos, pero no 0.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2086,7 +2078,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: límite de inactividad de equipo.";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "900 segundos o menos, pero no 0.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2117,7 +2109,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: texto del mensaje para los usuarios que intentan iniciar una sesión";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeText";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Mostrar un mensaje de advertencia antes de iniciar sesión";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2147,7 +2139,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: título del mensaje para los usuarios que intentan iniciar una sesión";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\LegalNoticeCaption";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Mostrar un título de advertencia antes de iniciar sesión";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2177,7 +2169,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Inicio de sesión interactivo: pedir al usuario que cambie la contraseña antes de que expire";
             string clave = "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\PasswordExpiryWarning";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Entre 5 y 14 días.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2207,8 +2199,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Interactive_logon__Smart_card_removal__behavior()
         {
             string politica = "Inicio de sesión interactivo: comportamiento de extracción de tarjeta inteligente";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption";
+            string recomendacion = @"Bloquear estación de trabajo. Configurar este ajuste para Forzar cierre de sesión o Desconectar si una sesión de Servicios de Escritorio Remoto también se ajusta al punto de referencia. ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2237,8 +2229,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_client__Digitally_sign_communications__always()
         {
             string politica = "Cliente de red de Microsoft: firma digital de comunicaciones (siempre)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature";
+            string recomendacion = @"Habiltado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2267,8 +2259,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_client__Digitally_sign_communications__if_server_agrees__()
         {
             string politica = "Cliente de red de Microsoft: firma digital de comunicaciones (si el servidor está de acuerdo)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2297,8 +2289,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_client__Send_unencrypted_password_to_third__party_SMB_servers()
         {
             string politica = "Cliente de redes de Microsoft: enviar contraseña sin cifrar para conectar con servidores SMB de terceros\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2327,8 +2319,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_server__Amount_of_idle_time_required_before_suspending_session()
         {
             string politica = "Servidor de red Microsoft: tiempo de inactividad requerido antes de suspender la sesión";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\AutoDisconnect";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\AutoDisconnect";
+            string recomendacion = @"15 minutos o menos.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2358,8 +2350,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_server__Digitally_sign_communications__always()
         {
             string politica = "Servidor de red de Microsoft: firma digital de comunicaciones (siempre)\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RequireSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RequireSecuritySignature";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2388,8 +2380,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_server__Digitally_sign_communications__if_client_agrees__()
         {
             string politica = "Servidor de red de Microsoft: firma digital de comunicaciones (si el cliente está de acuerdo)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableSecuritySignature";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableSecuritySignature";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2418,8 +2410,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Microsoft_network_server__Disconnect_clients_when_logon_hours_expire()
         {
             string politica = "Servidor de red Microsoft: desconectar a los clientes cuando expiren las horas de inicio de sesión";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableForcedLogOff";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\EnableForcedLogOff";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2444,12 +2436,12 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 2.3.9.4 MICROSOFT NETWORK SERVER: DISCONNECT CLIENTS WHEN LOGON HOURS EXPIRE 
 
 
-        // 2.3.8.8 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL -------------------------
+        // 2.3.9.5 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL -------------------------
         public void Analizar_Microsoft_network_server__Server_SPN_target_name_validation_level()
         {
             string politica = "Servidor de red Microsoft: nivel de validación de nombres de destino SPN del servidor\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\SmbServerNameHardeningLevel";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\SmbServerNameHardeningLevel";
+            string recomendacion = @"Aceptar si lo proporciona el cliente. Configurar este parámetro como Requerido del cliente también se ajusta a la referencia";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2471,15 +2463,15 @@ namespace PrototipoAuditoriaWin11
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
-        // ------------------------- 2.3.8.8 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL 
+        // ------------------------- 2.3.9.5 MICROSOFT NETWORK SERVER: SERVER SPN TARGET NAME VALIDATION LEVEL 
 
 
         // 2.3.10.1 NETWORK ACCESS: ALLOW ANONYMOUS SID/NAME TRANSLATION -------------------------
         public void Analizar_Network_access__Allow_anonymous__SID__Name_translation()
         {
             string politica = "Acceso de red: permitir traducción SID-nombre anónima";
-            string clave = "LSAAnonymousNameLookup";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"LSAAnonymousNameLookup";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2508,8 +2500,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Do_not_allow_anonymous__enumeration_of_SAM_accounts()
         {
             string politica = "Acceso a redes: no permitir enumeraciones anónimas de cuentas SAM";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2538,8 +2530,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Do_not_allow_anonymous__enumeration_of_SAM_accounts_and_shares()
         {
             string politica = "Acceso a redes: no permitir enumeraciones anónimas de cuentas y recursos compartidos SAM";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2568,8 +2560,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Do_not_allow_storage_of_passwords_and_credentials_for_network_authentication()
         {
             string politica = "Acceso a redes: no permitir el almacenamiento de contraseñas y credenciales para la autenticación de la red";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\DisableDomainCreds";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\DisableDomainCreds";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2598,8 +2590,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Let_Everyone_permissions_apply_to_anonymous_users()
         {
             string politica = "Acceso a redes: permitir la aplicación de los permisos Todos a los usuarios anónimos";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2628,8 +2620,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Named_Pipes_that_can_be_accessed_anonymously()
         {
             string politica = "Acceso a redes: canalizaciones con nombre accesibles anónimamente";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionPipes";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionPipes";
+            string recomendacion = @"<en blanco> (es decir, Ninguno)";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2658,8 +2650,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Remotely_accessible_registry_paths()
         {
             string politica = "Acceso a redes: rutas del Registro accesibles remotamente";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedExactPaths\\Machine";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedExactPaths\\Machine";
+            string recomendacion = @"System\CurrentControlSet\Control\ProductOptions System\CurrentControlSet\Control\Server Applications Software\Microsoft\Windows NT\CurrentVersion ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2693,8 +2685,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Remotely_accessible_registry_paths_and_sub__paths()
         {
             string politica = "Acceso de red: rutas y subrutas de Registro accesibles remotamente\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedPaths\\Machine";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedPaths\\Machine";
+            string recomendacion = @"System\CurrentControlSet\Control\Print\Printers System\CurrentControlSet\Services\Eventlog Software\Microsoft\OLAP Server Software\Microsoft\Windows NT\CurrentVersion\Print Software\Microsoft\Windows NT\CurrentVersion\Windows System\CurrentControlSet\Control\ContentIndex System\CurrentControlSet\Control\Terminal Server System\CurrentControlSet\Control\Terminal Server\UserConfig System\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration Software\Microsoft\Windows NT\CurrentVersion\Perflib System\CurrentControlSet\Services\SysmonLog ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2728,8 +2720,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Restrict_anonymous__access_to_Named_Pipes_and_Shares()
         {
             string politica = "Acceso a redes: restringir acceso anónimo a canalizaciones con nombre y recursos compartidos";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2758,8 +2750,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Restrict_clients_allowed_to_make_remote_calls_to_SAM()
         {
             string politica = "Acceso de red: evitar que los clientes con permiso realicen llamadas remotas a SAM";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM";
+            string recomendacion = @"Administradores: Acceso Remoto: Permitir";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2788,8 +2780,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Shares_that_can_be_accessed_anonymously()
         {
             string politica = "Acceso a redes: recursos compartidos accesibles anónimamente";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionShares";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\NullSessionShares";
+            string recomendacion = @"<en blanco> (es decir, Ninguno).";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2818,8 +2810,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_access__Sharing_and_security_model_for_local_accounts()
         {
             string politica = "Acceso a redes: modelo de seguridad y uso compartido para cuentas locales";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\ForceGuest";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\ForceGuest";
+            string recomendacion = @"Clásico: los usuarios locales se autentican como ellos mismos.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2848,8 +2840,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Allow_Local_System_to_use_computer_identity_for_NTLM()
         {
             string politica = "Seguridad de red: permitir que LocalSystem use la identidad del PC para NTLM\r\n";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2878,8 +2870,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Allow_LocalSystem_NULL_session_fallback()
         {
             string politica = "Seguridad de red: permitir retroceso a sesión NULL de LocalSystem ";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2908,8 +2900,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_Security__Allow_PKU2U_authentication_requests_to_this_computer_to_use_online_identities()
         {
             string politica = "Seguridad de red: Permite las solicitudes de autenticación PKU2U a este equipo para usar identidades en línea.";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\pku2u\\AllowOnlineID";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\pku2u\\AllowOnlineID";
+            string recomendacion = @"Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2938,8 +2930,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Configure_encryption_types_allowed_for_Kerberos()
         {
             string politica = "Seguridad de red: configurar tipos de cifrado permitidos para Kerberos\r\n";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters\\SupportedEncryptionTypes";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters\\SupportedEncryptionTypes";
+            string recomendacion = @"AES128_HMAC_SHA1, AES256_HMAC_SHA1, Futuros tipos de cifrado.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2968,8 +2960,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Do_not_store_LAN_Manager_hash_value_on_next_password_change()
         {
             string politica = "Seguridad de red: no almacenar valor de hash de LAN Manager en el próximo cambio de contraseña";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -2998,8 +2990,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Force_logoff_when_logon_hours_expire()
         {
             string politica = "Seguridad de red: forzar el cierre de sesión cuando expire la hora de inicio de sesión";
-            string clave = "ForceLogoffWhenHourExpire";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"ForceLogoffWhenHourExpire";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3028,8 +3020,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__LAN_Manager__authentication_level()
         {
             string politica = "Seguridad de red: nivel de autenticación de LAN Manager";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel";
+            string recomendacion = @"MÁQUINA\NSistema\NActualControlSet\NControl\NLsa\NNNNNivel de compatibilidad con Lm";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3058,8 +3050,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__LDAP_client_signing_requirements()
         {
             string politica = "Seguridad de red: requisitos de firma de cliente LDAP";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity";
+            string recomendacion = @"Negociar firma. Configurar este parámetro en Requerir firma también se ajusta a la referencia.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3088,8 +3080,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Minimum_session_security_for_NTLM_SSP_based__including_secure_RPC__clients()
         {
             string politica = "Seguridad de red: seguridad de sesión mínima para clientes NTLM basados en SSP (incluida RPC segura)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec";
+            string recomendacion = @"Requiere seguridad de sesión NTLMv2, Requiere encriptación de 128 bits. ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3118,8 +3110,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_Network_security__Minimum_session__security_for_NTLM_SSP_based__including_secure_RPC__servers()
         {
             string politica = "Seguridad de red: seguridad de sesión mínima para servidores NTLM basados en SSP (incluida RPC segura)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec";
+            string recomendacion = @"Requerir seguridad de sesión NTLMv2, Requerir encriptación de 128 bits.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3148,8 +3140,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_System_cryptography__Force_strong_key_protection_for_user_keys_stored_on_the_computer()
         {
             string politica = "Criptografía de sistema: forzar la protección con claves seguras para las claves de usuario almacenadas en el equipo";
-            string clave = "MACHINE\\Software\\Policies\\Microsoft\\Cryptography\\ForceKeyProtection";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Policies\\Microsoft\\Cryptography\\ForceKeyProtection";
+            string recomendacion = @"Se pregunta al usuario cuando se utiliza la llave por primera vez. Configurar esta opción como El usuario debe introducir una contraseña cada vez que utiliza una llave también se ajusta a la norma.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3178,8 +3170,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_System_objects__Require_case_insensitivity_for_non__Windows_subsystems()
         {
             string politica = "Objetos de sistema: requerir no distinguir mayúsculas de minúsculas para subsistemas que no sean de Windows";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3208,8 +3200,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_System_objects__Strengthen_default_permissions_of_internal_system_objects__e__g___Symbolic_Links__()
         {
             string politica = "Objetos de sistema: reforzar los permisos predeterminados de los objetos internos del sistema (por ejemplo, vínculos simbólicos)";
-            string clave = "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3238,8 +3230,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Admin_Approval_Mode_for_the_Built__in_Administrator_account()
         {
             string politica = "Control de cuentas de usuario: usar Modo de aprobación de administrador para la cuenta predefinida Administrador";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3268,8 +3260,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Behavior_of_the_elevation_prompt_for_administrators_in_Admin_Approval_Mode()
         {
             string politica = "Control de cuentas de usuario: comportamiento de la petición de elevación para los administradores en Modo de aprobación de administrador\r\n";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin";
+            string recomendacion = @"Solicitar consentimiento en el escritorio seguro. Configurar este parámetro como Solicitar credenciales en el escritorio seguro también se ajusta a la referencia. ";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3298,8 +3290,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Behavior_of_the_elevation_prompt_for_standard_users()
         {
             string politica = "Control de cuentas de usuario: comportamiento de la petición de elevación para los usuarios estándar";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser";
+            string recomendacion = @" Denegar automáticamente las solicitudes de elevación.";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3328,8 +3320,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Detect_application_installations_and_prompt_for_elevation()
         {
             string politica = "Control de cuentas de usuario: detectar instalaciones de aplicaciones y pedir confirmación de elevación";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3358,8 +3350,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Only_elevate_UIAccess_applications_that_are_installed_in_secure_locations()
         {
             string politica = "Control de cuentas de usuario: elevar solo aplicaciones UIAccess instaladas en ubicaciones seguras";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3389,7 +3381,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Control de cuentas de usuario: activar el Modo de aprobación de administrador.\r\n";
             string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = "Deshabilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3418,8 +3410,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Switch_to_the_secure_desktop_when_prompting_for_elevation()
         {
             string politica = "Control de cuentas de usuario: cambiar al escritorio seguro cuando se pida confirmación de elevación";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\PromptOnSecureDesktop";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\PromptOnSecureDesktop";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3448,8 +3440,8 @@ namespace PrototipoAuditoriaWin11
         public void Analizar_User_Account_Control__Virtualize_file_and_registry_write_failures_to_per__user_locations()
         {
             string politica = "Control de cuentas de usuario: virtualizar los errores de escritura de archivo y del Registro a ubicaciones por usuario";
-            string clave = "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string clave = @"MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization";
+            string recomendacion = @"Habilitado";
 
             if (configuraciones.ContainsKey(clave))
             {
@@ -3479,7 +3471,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de puerta de enlace de audio de Bluetooth";
             string clave = @"SYSTEM\CurrentControlSet\Services\BTAGService:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3509,7 +3501,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de compatibilidad con Bluetooth";
             string clave = @"SYSTEM\CurrentControlSet\Services\bthserv:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3539,7 +3531,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Computer Browser";
             string clave = @"SYSTEM\CurrentControlSet\Services\Browser:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3569,7 +3561,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Administrador de mapas descargados";
             string clave = @"SYSTEM\CurrentControlSet\Services\MapsBroker:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Comentario_Recomendacion_Aqui";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3599,7 +3591,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de geolocalización";
             string clave = @"SYSTEM\CurrentControlSet\Services\lfsvc:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3629,7 +3621,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de Administración de IIS";
             string clave = @"SYSTEM\CurrentControlSet\Services\IISADMIN:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Desactivado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3659,7 +3651,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Servicio de Monitor de Infrarrojos";
             string clave = @"SYSTEM\CurrentControlSet\Services\irmon:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado o No instalado.";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3689,7 +3681,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Conexión compartida a Internet";
             string clave = @"SYSTEM\CurrentControlSet\Services\SharedAccess:Start";
-            string recomendacion = "Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
@@ -3714,12 +3706,1114 @@ namespace PrototipoAuditoriaWin11
         // ------------------------- 5.8 INTERNET CONNECTION SHARING (ICS) (SHAREDACCESS) 
 
 
+        // 5.9 LINK-LAYER TOPOLOGY DISCOVERY MAPPER (LLTDSVC) -------------------------
+        public void Analizar_Link_Layer_Topology_Discovery_Mapper__lltdsvc__()
+        {
+            string politica = "Asignador de detección de topologías de nivel de vínculo";
+            string clave = @"SYSTEM\CurrentControlSet\Services\lltdsvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.9 LINK-LAYER TOPOLOGY DISCOVERY MAPPER (LLTDSVC) 
 
 
+        // 5.10 LXSSMANAGER (LXSSMANAGER) -------------------------
+        public void Analizar_LxssManager__LxssManager__()
+        {
+            string politica = "LXSSMANAGER";
+            string clave = @"SYSTEM\CurrentControlSet\Services\LxssManager:Start";
+            string recomendacion = @"Desactivado o No instalado.";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.10 LXSSMANAGER (LXSSMANAGER) 
 
 
+        // 5.11 MICROSOFT FTP SERVICE (FTPSVC) -------------------------
+        public void Analizar_Microsoft_FTP_Service__FTPSVC__()
+        {
+            string politica = "Servicio FTP de Microsof";
+            string clave = @"SYSTEM\CurrentControlSet\Services\FTPSVC:Start";
+            string recomendacion = @"Desactivado o No instalado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.11 MICROSOFT FTP SERVICE (FTPSVC) 
 
 
+        // 5.12 MICROSOFT ISCSI INITIATOR SERVICE (MSISCSI) ------------------------- soidfghvisdjfnvijsdfnbvoifdnboifnboifdsgnbogfdinbodifognbfdigjnb
+        public void Analizar_Microsoft_iSCSI_Initiator_Service__MSiSCSI__()
+        {
+            string politica = "Servicio del iniciador iSCSI de Microsoft";
+            string clave = @"SYSTEM\CurrentControlSet\Services\MSiSCSI:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.12 MICROSOFT ISCSI INITIATOR SERVICE (MSISCSI) 
+
+
+        // 5.13 OPENSSH SSH SERVER (SSHD) -------------------------
+        public void Analizar_OpenSSH_SSH_Server__sshd__()
+        {
+            string politica = "OpenSSH Authentication Agent";
+            string clave = @"SYSTEM\CurrentControlSet\Services\sshd:Start";
+            string recomendacion = @"Desactivado o No instalado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.13 OPENSSH SSH SERVER (SSHD) 
+
+
+        // 5.14 PEER NAME RESOLUTION PROTOCOL (PNRPSVC) -------------------------
+        public void Analizar_Peer_Name_Resolution_Protocol__PNRPsvc__()
+        {
+            string politica = "Protocolo de resolución de nombres de mismo nivel";
+            string clave = @"SYSTEM\CurrentControlSet\Services\PNRPsvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.14 PEER NAME RESOLUTION PROTOCOL (PNRPSVC) 
+
+
+        // 5.15 PEER NETWORKING GROUPING (P2PSVC) -------------------------
+        public void Analizar_Peer_Networking_Grouping__p2psvc__()
+        {
+            string politica = "Agrupación de red del mismo nivel";
+            string clave = @"SYSTEM\CurrentControlSet\Services\p2psvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.15 PEER NETWORKING GROUPING (P2PSVC) 
+
+
+        // 5.16 PEER NETWORKING IDENTITY MANAGER (P2PIMSVC) -------------------------
+        public void Analizar_Peer_Networking_Identity_Manager__p2pimsvc__()
+        {
+            string politica = "Identity Manager de redes de mismo nivel";
+            string clave = @"SYSTEM\CurrentControlSet\Services\p2pimsvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.16 PEER NETWORKING IDENTITY MANAGER (P2PIMSVC) 
+
+
+        // 5.17 PNRP MACHINE NAME PUBLICATION SERVICE (PNRPAUTOREG) -------------------------
+        public void Analizar_PNRP_Machine_Name_Publication_Service__PNRPAutoReg__()
+        {
+            string politica = "Servicio de publicación de nombres de equipo PNRP";
+            string clave = @"SYSTEM\CurrentControlSet\Services\PNRPAutoReg:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.17 PNRP MACHINE NAME PUBLICATION SERVICE (PNRPAUTOREG) 
+
+
+        // 5.18 PRINT SPOOLER (SPOOLER) -------------------------
+        public void Analizar_Print_Spooler__Spooler__()
+        {
+            string politica = "Cola de impresión";
+            string clave = @"SYSTEM\CurrentControlSet\Services\Spooler:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.18 PRINT SPOOLER (SPOOLER) 
+
+
+        // 5.19 PROBLEM REPORTS AND SOLUTIONS CONTROL PANEL SUPPORT (WERCPLSUPPORT) -------------------------
+        public void Analizar_Problem_Reports_and_Solutions_Control_Panel_Support__wercplsupport__()
+        {
+            string politica = "Soporte técnico del panel de control Informes de problemas";
+            string clave = @"SYSTEM\CurrentControlSet\Services\wercplsupport:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.19 PROBLEM REPORTS AND SOLUTIONS CONTROL PANEL SUPPORT (WERCPLSUPPORT) 
+
+
+        // 5.20 REMOTE ACCESS AUTO CONNECTION MANAGER (RASAUTO) -------------------------
+        public void Analizar_Remote_Access_Auto_Connection_Manager__RasAuto__()
+        {
+            string politica = "Administrador de conexiones automáticas de acceso remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\RasAuto:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.20 REMOTE ACCESS AUTO CONNECTION MANAGER (RASAUTO) 
+
+
+        // 5.21 REMOTE DESKTOP CONFIGURATION (SESSIONENV) -------------------------
+        public void Analizar_Remote_Desktop_Configuration__SessionEnv__()
+        {
+            string politica = "Configuración de Escritorio remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\SessionEnv:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.21 REMOTE DESKTOP CONFIGURATION (SESSIONENV) 
+
+
+        // 5.22 REMOTE DESKTOP SERVICES (TERMSERVICE) -------------------------
+        public void Analizar_Remote_Desktop_Services__TermService__()
+        {
+            string politica = "Servicios de Escritorio remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\TermService:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.22 REMOTE DESKTOP SERVICES (TERMSERVICE) 
+
+
+        // 5.23 REMOTE DESKTOP SERVICES USERMODE PORT REDIRECTOR (UMRDPSERVICE) -------------------------
+        public void Analizar_Remote_Desktop_Services_UserMode_Port_Redirector__UmRdpService__()
+        {
+            string politica = "Redirector de puerto en modo usuario de Servicios de Escritorio remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\UmRdpService:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.23 REMOTE DESKTOP SERVICES USERMODE PORT REDIRECTOR (UMRDPSERVICE) 
+
+
+        // 5.24 REMOTE PROCEDURE CALL (RPC) LOCATOR (RPCLOCATOR) -------------------------
+        public void Analizar_Remote_Procedure_Call__RPC__Locator__RpcLocator__()
+        {
+            string politica = "Ubicador de llamada a procedimiento remoto (RPC)";
+            string clave = @"SYSTEM\CurrentControlSet\Services\RpcLocator:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.24 REMOTE PROCEDURE CALL (RPC) LOCATOR (RPCLOCATOR) 
+
+
+        // 5.25 REMOTE REGISTRY (REMOTEREGISTRY) -------------------------
+        public void Analizar_Remote_Registry__RemoteRegistry__()
+        {
+            string politica = "Registro remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\RemoteRegistry:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.25 REMOTE REGISTRY (REMOTEREGISTRY) 
+
+
+        // 5.26 ROUTING AND REMOTE ACCESS (REMOTEACCESS) -------------------------
+        public void Analizar_Routing_and_Remote_Access__RemoteAccess__()
+        {
+            string politica = "Enrutamiento y acceso remoto";
+            string clave = @"SYSTEM\CurrentControlSet\Services\RemoteAccess:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.26 ROUTING AND REMOTE ACCESS (REMOTEACCESS) 
+
+
+        // 5.27 SERVER (LANMANSERVER) -------------------------
+        public void Analizar_Server__LanmanServer__()
+        {
+            string politica = "Servidor";
+            string clave = @"SYSTEM\CurrentControlSet\Services\LanmanServer:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.27 SERVER (LANMANSERVER) 
+
+
+        // 5.28 SIMPLE TCP/IP SERVICES (SIMP_TCP) -------------------------
+        public void Analizar_Simple_TCP_IP_Services__simptcp__()
+        {
+            string politica = "Simple TCP/IP Services";
+            string clave = @"SYSTEM\CurrentControlSet\Services\simptcp:Start";
+            string recomendacion = @"Desactivado o no instalado.";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.28 SIMPLE TCP/IP SERVICES (SIMP_TCP) 
+
+
+        // 5.29 SNMP SERVICE (SNMP) -------------------------
+        public void Analizar_SNMP_Service__SNMP__()
+        {
+            string politica = "Captura de SNMP";
+            string clave = @"SYSTEM\CurrentControlSet\Services\SNMP:Start";
+            string recomendacion = @"Desactivado o No instalado.";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.29 SNMP SERVICE (SNMP) 
+
+
+        // 5.30 SNMP SERVICE (SNMP) SPECIAL ADMINISTRATION CONSOLE HELPER (SACSVR) -------------------------
+        public void Analizar_SNMP_Service__SNMP__Special_Administration_Console_Helper__sacsvr__()
+        {
+            string politica = "Asistente de consola de administración especial";
+            string clave = @"SYSTEM\CurrentControlSet\Services\sacsvr:Start";
+            string recomendacion = @"Desactivado o No instalado.";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.30 SNMP SERVICE (SNMP) SPECIAL ADMINISTRATION CONSOLE HELPER (SACSVR) 
+
+
+        // 5.31 SSDP DISCOVERY (SSDPSRV) -------------------------
+        public void Analizar_SSDP_Discovery__SSDPSRV__()
+        {
+            string politica = "Detección SSDP";
+            string clave = @"SYSTEM\CurrentControlSet\Services\SSDPSRV:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.31 SSDP DISCOVERY (SSDPSRV) 
+
+
+        // 5.32 UPNP DEVICE HOST (UPNPHOST) -------------------------
+        public void Analizar_UPnP_Device_Host__upnphost__()
+        {
+            string politica = "Dispositivo host de UPnP";
+            string clave = @"SYSTEM\CurrentControlSet\Services\upnphost:Start";
+            string recomendacion = @"Desahibilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.32 UPNP DEVICE HOST (UPNPHOST) 
+
+
+        // 5.33 WEB MANAGEMENT SERVICE (WMSVC) -------------------------
+        public void Analizar_Web_Management_Service__WMSvc__()
+        {
+            string politica = "Servicio de Administración Web";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WMSvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.33 WEB MANAGEMENT SERVICE (WMSVC) 
+
+
+        // 5.34 WINDOWS ERROR REPORTING SERVICE (WERSVC) -------------------------
+        public void Analizar_Windows_Error_Reporting_Service__WerSvc__()
+        {
+            string politica = "Servicio de informes de errores de Windows";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WerSvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.34 WINDOWS ERROR REPORTING SERVICE (WERSVC) 
+
+
+        // 5.35 WINDOWS EVENT COLLECTOR (WECSVC) -------------------------
+        public void Analizar_Windows_Event_Collector__Wecsvc__()
+        {
+            string politica = "Recopilador de eventos de Windows";
+            string clave = @"SYSTEM\CurrentControlSet\Services\Wecsvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.35 WINDOWS EVENT COLLECTOR (WECSVC) 
+
+
+        // 5.36 WINDOWS MEDIA PLAYER NETWORK SHARING SERVICE (WMPNETWORKSVC) -------------------------
+        public void Analizar_Windows_Media_Player_Network_Sharing_Service__WMPNetworkSvc__()
+        {
+            string politica = "Servicio de uso compartido de red del Reproductor de Windows Media";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WMPNetworkSvc:Start";
+            string recomendacion = @"Desactivado o No instalado.";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.36 WINDOWS MEDIA PLAYER NETWORK SHARING SERVICE (WMPNETWORKSVC) 
+
+
+        // 5.37 WINDOWS MOBILE HOTSPOT SERVICE (ICSSVC) -------------------------
+        public void Analizar_Windows_Mobile_Hotspot_Service__icssvc__()
+        {
+            string politica = "Servicio de zona con cobertura inalámbrica móvil de Windows";
+            string clave = @"SYSTEM\CurrentControlSet\Services\icssvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.37 WINDOWS MOBILE HOTSPOT SERVICE (ICSSVC) 
+
+
+        // 5.38 WINDOWS PUSH NOTIFICATIONS SYSTEM SERVICE (WPNSERVICE) -------------------------
+        public void Analizar_Windows_Push_Notifications_System_Service__WpnService__()
+        {
+            string politica = "Servicio del sistema de notificaciones de inserción de Windows";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WpnService:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.38 WINDOWS PUSH NOTIFICATIONS SYSTEM SERVICE (WPNSERVICE) 
+
+
+        // 5.39 WINDOWS PUSHTOINSTALL SERVICE (PUSHTOINSTALL) -------------------------
+        public void Analizar_Windows_PushToInstall_Service__PushToInstall__()
+        {
+            string politica = "Servicio de Windows PushToInstall";
+            string clave = @"SYSTEM\CurrentControlSet\Services\PushToInstall:Start";
+            string recomendacion = @"Desahibilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.39 WINDOWS PUSHTOINSTALL SERVICE (PUSHTOINSTALL) 
+
+
+        // 5.40 WINDOWS REMOTE MANAGEMENT (WSMANAGEMENT) (WINRM) -------------------------
+        public void Analizar_Windows_Remote_Management__WSManagement__WinRM__()
+        {
+            string politica = "Administración remota de Windows (WS-Management)";
+            string clave = @"SYSTEM\CurrentControlSet\Services\WinRM:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.40 WINDOWS REMOTE MANAGEMENT (WSMANAGEMENT) (WINRM)
+
+
+        // 5.41 WORLD WIDE WEB PUBLISHING SERVICE (W3SVC) -------------------------
+        public void Analizar_World_Wide_Web_Publishing_Service__W3SVC__()
+        {
+            string politica = "Servicio de publicación World Wide Web";
+            string clave = @"SYSTEM\CurrentControlSet\Services\W3SVC:Start";
+            string recomendacion = @"Descativado o No instalado.";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.41 WORLD WIDE WEB PUBLISHING SERVICE (W3SVC)
+
+
+        // 5.42 XBOX ACCESSORY MANAGEMENT SERVICE (XBOXGIPSVC) -------------------------
+        public void Analizar_Xbox_Accessory_Management_Service__XboxGipSvc__()
+        {
+            string politica = "Xbox Accessory Management Service";
+            string clave = @"SYSTEM\CurrentControlSet\Services\XboxGipSvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.42 XBOX ACCESSORY MANAGEMENT SERVICE (XBOXGIPSVC)
+
+
+        // 5.43 XBOX LIVE AUTH MANAGER (XBLAUTHMANAGER) -------------------------
+        public void Analizar_Xbox_Live_Auth_Manager__XblAuthManager__()
+        {
+            string politica = "Administración de autenticación de Xbox Live";
+            string clave = @"SYSTEM\CurrentControlSet\Services\XblAuthManager:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.43 XBOX LIVE AUTH MANAGER (XBLAUTHMANAGER)
+
+
+        // 5.44 XBOX LIVE GAME SAVE (XBLGAMESAVE) -------------------------
+        public void Analizar_Xbox_Live_Game_Save__XblGameSave__()
+        {
+            string politica = "Partida guardada en Xbox Live";
+            string clave = @"SYSTEM\CurrentControlSet\Services\XblGameSave:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "4")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.44 XBOX LIVE GAME SAVE (XBLGAMESAVE)
+
+
+        // 5.45 XBOX LIVE NETWORKING SERVICE (XBOXNETAPISVC) -------------------------
+        public void Analizar_Xbox_Live_Networking_Service__XboxNetApiSvc__()
+        {
+            string politica = "Servicio de red de Xbox Live";
+            string clave = @"SYSTEM\CurrentControlSet\Services\XboxNetApiSvc:Start";
+            string recomendacion = @"Deshabilitado";
+
+            if (RegistroWindows.ExisteClaveRegistro(clave))
+            {
+                string valor = RegistroWindows.ObtenerValorRegistro(clave);
+                if (valor == "0")
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(true);
+                }
+                else
+                {
+                    EstConfig(politica, clave, valor, recomendacion);
+                    condicionMetodos.Add(false);
+                }
+            }
+            else
+            {
+                condicionMetodos.Add(false);
+                EstConfig(politica, clave, "No está definido", recomendacion);
+            }
+        }
+        // ------------------------- 5.45 XBOX LIVE NETWORKING SERVICE (XBOXNETAPISVC)
 
 
 

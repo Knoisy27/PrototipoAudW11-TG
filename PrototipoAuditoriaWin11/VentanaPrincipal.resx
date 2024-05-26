@@ -430,7 +430,7 @@
   <data name="btnHerramientas.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        rgAAAK4B+ff3XQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAXrSURBVEhLdVYJ
+        rQAAAK0BVE7WMAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAXrSURBVEhLdVYJ
         U1NXGH1jO9OZ/oE6znRxtHaK0oJrARdUNMoioARi8vLeS14SVAQLRQRkc8ERtNaiQrU6ytQKRW3F4lIE
         XAAt4obIUhYBAwRZBIW2KOLpvTcEROyd+ea+e9/knO873/LC2dbkycvfGz/Ld8FUhaCe6W1qnLKY9/nQ
         aZXC8hvvOpCn3fEyX8x6WSAUMiPP9G5bhFqeucJ4csYKY9l0L0Olvbt+/xDc2GWvkK76r0944ugpd54r
@@ -8639,7 +8639,7 @@
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>y</value>
+    <value>GP WinAudit</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormVentanaPrincipal</value>

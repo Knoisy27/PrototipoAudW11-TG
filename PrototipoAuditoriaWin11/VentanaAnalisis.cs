@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PrototipoAuditoriaWin11
 {
@@ -28,9 +23,11 @@ namespace PrototipoAuditoriaWin11
             logica = new Logica(DgvResultados);
             controlRecomendaciones = new ControlRecomendaciones();
             controlGrafRec = new ControlGrafRec();
+
             controlRecomendaciones.Dock = DockStyle.Fill;
             controlGrafRec.Dock = DockStyle.Fill;
 
+            // Agregar controlRecomendaciones y controlGrafRec a VentanaAnalisis
             this.Controls.Add(controlRecomendaciones);
             this.Controls.Add(controlGrafRec); 
 
@@ -56,7 +53,6 @@ namespace PrototipoAuditoriaWin11
             if (formPrincipal != null)
             {
                 // Cerrar la ventana actual (VentanaAnalisis)
-                //formPrincipal.ventanaAnalisis.Visible = false;
                 formPrincipal.ventanaAnalisis.Hide();
             }
 
