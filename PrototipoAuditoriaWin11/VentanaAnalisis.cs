@@ -135,5 +135,6 @@ namespace PrototipoAuditoriaWin11
             return Tuple.Create(configuradasCorrectamente, configuradasIncorrectamente);
         }
 
+
     }
 }

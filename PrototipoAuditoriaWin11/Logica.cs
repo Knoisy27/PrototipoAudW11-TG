@@ -94,7 +94,11 @@ namespace PrototipoAuditoriaWin11
         }
 
 
-
+        // Método para ordenar el DataGridView por la columna "Nombre"
+        public void OrdenarDataGridViewPorNombre()
+        {
+            dgvRec.Sort(dgvRec.Columns["ColumnaPoliticas"], System.ComponentModel.ListSortDirection.Ascending);
+        }
 
 
         // Método para crear una fila en el DataGridView a partir de una configuración

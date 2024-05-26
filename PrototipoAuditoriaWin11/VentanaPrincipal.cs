@@ -204,6 +204,7 @@ namespace PrototipoAuditoriaWin11
                 // Agregar todas las configuraciones pendientes al DataGridView
                 logica.AgregarConfiguracionesPendientes();
                 logica.ColorFilas();
+                logica.OrdenarDataGridViewPorNombre();
             }               
             
         }
