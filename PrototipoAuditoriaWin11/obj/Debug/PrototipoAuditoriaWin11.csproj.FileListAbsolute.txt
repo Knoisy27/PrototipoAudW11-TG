@@ -1,7 +1,7 @@
-C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\PrototipoAuditoriaWin11.exe.config
-C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\PrototipoAuditoriaWin11.exe
-C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\PrototipoAuditoriaWin11.pdb
-C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\es-CO\PrototipoAuditoriaWin11.resources.dll
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\GP WinAudit.exe.config
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\GP WinAudit.exe
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\GP WinAudit.pdb
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\es-CO\GP WinAudit.resources.dll
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\LiveCharts.dll
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\LiveCharts.WinForms.dll
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\bin\Debug\LiveCharts.Wpf.dll
@@ -24,7 +24,7 @@ C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.FormVentanaPrincipal.es-CO.resources
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.csproj.GenerateResource.cache
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.csproj.CoreCompileInputs.cache
-C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\es-CO\PrototipoAuditoriaWin11.resources.dll
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\es-CO\GP WinAudit.resources.dll
 C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\Prototip.23E70FA9.Up2Date
-C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.exe
-C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\PrototipoAuditoriaWin11.pdb
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\GP WinAudit.exe
+C:\Users\josel\source\repos\PrototipoAuditoriaWin11\PrototipoAuditoriaWin11\obj\Debug\GP WinAudit.pdb
