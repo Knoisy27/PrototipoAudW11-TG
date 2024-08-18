@@ -204,6 +204,7 @@ namespace PrototipoAuditoriaWin11
                 // Agregar todas las configuraciones pendientes al DataGridView
                 logica.AgregarConfiguracionesPendientes();
                 logica.ColorFilas();
+                logica.OrdenarDataGridViewPorNombre();
             }               
             
         }
@@ -333,6 +334,11 @@ namespace PrototipoAuditoriaWin11
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 MessageBox.Show(msg, title, buttons, MessageBoxIcon.Error);
             }
+        }
+
+        private void pictureBox3_MouseClick(object sender, MouseEventArgs e)
+        {
+            Process.Start("https://github.com/Knoisy27/PrototipoAudW11-TG");
         }
     }
 }

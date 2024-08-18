@@ -1,5 +1,5 @@
-﻿using LiveCharts.Wpf;
-using LiveCharts;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Windows.Forms;
 
@@ -22,14 +22,18 @@ namespace PrototipoAuditoriaWin11
             {
                 Title = "Correctas",
                 Values = new ChartValues<int> { configuradasCorrectamente },
-                Fill = System.Windows.Media.Brushes.Green
+                Fill = System.Windows.Media.Brushes.Green,
+                DataLabels = true,
+                LabelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation)
             };
 
             PieSeries seriesIncorrectas = new PieSeries
             {
                 Title = "Incorrectas",
                 Values = new ChartValues<int> { configuradasIncorrectamente },
-                Fill = System.Windows.Media.Brushes.Red
+                Fill = System.Windows.Media.Brushes.Red,
+                DataLabels = true,
+                LabelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation)
             };
 
             pieChart.Series.Clear();

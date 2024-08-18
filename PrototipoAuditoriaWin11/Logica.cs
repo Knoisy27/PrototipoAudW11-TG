@@ -94,7 +94,11 @@ namespace PrototipoAuditoriaWin11
         }
 
 
-
+        // Método para ordenar el DataGridView por la columna "Nombre"
+        public void OrdenarDataGridViewPorNombre()
+        {
+            dgvRec.Sort(dgvRec.Columns["ColumnaPoliticas"], System.ComponentModel.ListSortDirection.Ascending);
+        }
 
 
         // Método para crear una fila en el DataGridView a partir de una configuración
@@ -183,7 +187,14 @@ namespace PrototipoAuditoriaWin11
 
         public string ObtenerInformacionMetodo(string clave)
         {
-            string rutaArchivoConfig = @"C:\\Users\\josel\\source\\repos\\PrototipoAuditoriaWin11\\PrototipoAuditoriaWin11\\recomendaciones.txt";
+            // Obtener el directorio donde se encuentra el archivo ejecutable
+            string directorioBase = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Construir la ruta completa al archivo recomendaciones.txt
+            string rutaArchivoConfig = Path.Combine(directorioBase, "recomendaciones.txt");
+
+
+            //string rutaArchivoConfig = @"C:\\Users\\josel\\source\\repos\\PrototipoAuditoriaWin11\\PrototipoAuditoriaWin11\\recomendaciones.txt";
 
             StringBuilder informacion = new StringBuilder();
             bool encontrado = false;
@@ -253,6 +264,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -280,6 +292,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -308,6 +321,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -336,6 +350,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -364,6 +379,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -394,6 +410,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
 
@@ -431,6 +448,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -467,6 +485,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -502,6 +521,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -537,6 +557,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -572,6 +593,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -3561,7 +3583,7 @@ namespace PrototipoAuditoriaWin11
         {
             string politica = "Administrador de mapas descargados";
             string clave = @"SYSTEM\CurrentControlSet\Services\MapsBroker:Start";
-            string recomendacion = @"Comentario_Recomendacion_Aqui";
+            string recomendacion = @"Deshabilitado";
 
             if (RegistroWindows.ExisteClaveRegistro(clave))
             {
