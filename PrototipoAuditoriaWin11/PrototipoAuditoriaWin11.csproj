@@ -59,7 +59,7 @@
     <ApplicationIcon>S.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>CEBDB591E7ACD8DA3C55F76E5328904598B0FD41</ManifestCertificateThumbprint>

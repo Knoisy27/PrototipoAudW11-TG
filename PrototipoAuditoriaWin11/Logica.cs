@@ -187,7 +187,14 @@ namespace PrototipoAuditoriaWin11
 
         public string ObtenerInformacionMetodo(string clave)
         {
-            string rutaArchivoConfig = @"C:\\Users\\josel\\source\\repos\\PrototipoAuditoriaWin11\\PrototipoAuditoriaWin11\\recomendaciones.txt";
+            // Obtener el directorio donde se encuentra el archivo ejecutable
+            string directorioBase = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Construir la ruta completa al archivo recomendaciones.txt
+            string rutaArchivoConfig = Path.Combine(directorioBase, "recomendaciones.txt");
+
+
+            //string rutaArchivoConfig = @"C:\\Users\\josel\\source\\repos\\PrototipoAuditoriaWin11\\PrototipoAuditoriaWin11\\recomendaciones.txt";
 
             StringBuilder informacion = new StringBuilder();
             bool encontrado = false;
@@ -257,6 +264,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -284,6 +292,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -312,6 +321,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -340,6 +350,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -368,6 +379,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -398,6 +410,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
 
@@ -435,6 +448,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -471,6 +485,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -506,6 +521,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -541,6 +557,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }
@@ -576,6 +593,7 @@ namespace PrototipoAuditoriaWin11
             }
             else
             {
+                condicionMetodos.Add(false);
                 EstConfig(politica, clave, "No definido", recomendacion);
             }
         }

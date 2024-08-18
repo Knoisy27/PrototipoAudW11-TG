@@ -335,5 +335,10 @@ namespace PrototipoAuditoriaWin11
                 MessageBox.Show(msg, title, buttons, MessageBoxIcon.Error);
             }
         }
+
+        private void pictureBox3_MouseClick(object sender, MouseEventArgs e)
+        {
+            Process.Start("https://github.com/Knoisy27/PrototipoAudW11-TG");
+        }
     }
 }
